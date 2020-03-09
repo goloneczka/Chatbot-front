@@ -4,5 +4,10 @@
        <p>{{ $t('home.content') }}</p>
   </div>
 </template>
-<script src="./home.js"></script>
-<style scoped src="./home.css"></style>
+<script>
+  export default {
+    name: 'Home',
+  }
+</script>
+<style>
+</style>
