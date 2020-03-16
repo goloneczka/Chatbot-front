@@ -6,6 +6,7 @@
   "login": {
     "title": "Panel Logowania Admina",
     "button": "Zaloguj się",
-    "forgetPassword": "Zapomniales hasla?"
+    "forgetPassword": "Zapomniales hasla?",
+    "incorrectData": "Nie poprawne dane logowania!"
   }
 }
