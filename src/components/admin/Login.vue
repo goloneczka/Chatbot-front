@@ -1,19 +1,18 @@
 <template>
     <div class="container login-container">
-        <Dialog/>
         <div class="row">
             <div class="col-md-6 login-form-1">
                 <h3>{{$t('login.title')}}</h3>
                 <form @submit.prevent="handleSubmit">
                     <div class="form-group">
-                        <input id="username" type="text" class="form-control" placeholder="Twój login" value=""/>
+                        <input v-model="login" type="text" class="form-control" :placeholder="$t('login.login')" value=""/>
                     </div>
                     <div class="form-group">
-                        <input id="password" type="password" class="form-control" placeholder="Twoje hasło"
+                        <input v-model="password" type="password" class="form-control" :placeholder="$t('login.password')"
                                value=""/>
                     </div>
                     <div class="form-group">
-                        <input type="submit" class="btnSubmit" value="Zaloguj się"/>
+                        <input type="submit" class="btnSubmit" :value="$t('login.button')"/>
                     </div>
                     <div class="form-group">
                         <a href="#" class="ForgetPwd">{{$t('login.forgetPassword')}}</a>
@@ -25,37 +24,39 @@
 </template>
 <script>
 
-    import Dialog from "../common/Dialog";
 
     export default {
         name: 'login',
-        components: {Dialog},
+        components: {
+
+        },
         data() {
-            return {}
+            return {
+                login: '',
+                password: ''
+            }
         },
         methods: {
             handleSubmit() {
-                const login = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                const authorization = `Basic ${btoa(`${login}:${password}`)}`;
-                fetch("http://jakas.pl"/*Todo endpoint from backend*/, {
+                const authorization = `Basic ${btoa(`${this.login}:${this.password}`)}`;
+                fetch(""/*Todo endpoint from backend*/, {
                     method: "GET",
                     headers: {
                         Authorization: authorization
                     }
                 }).then(() => {
-                    sessionStorage.setItem("Authorization", authorization);
-                    window.location.href = '/admin/home';
+
+                    this.$router.push("/admin/home")
                 })
                     .catch(() => {
                         //TODO add error to warning message
-                        this.$root.$emit('showDanger','Podano nie prawidłowe dane logowania')
+                        this.$root.$emit('showDanger', this.$i18n.t('login.incorrectData'))
                     });
             },
         }
     }
 </script>
-<style>
+<style scoped>
     .login-container {
         margin-top: 5%;
         margin-bottom: 5%;

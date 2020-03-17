@@ -1,7 +1,7 @@
 <template>
     <div class="home">
-        <h1>{{ $t('home.title') }}</h1>
-        <p>{{ $t('home.content') }}</p>
+        <h1>{{ $t('adminHome.title') }}</h1>
+        <p>{{ $t('adminHome.content') }}</p>
     </div>
 </template>
 <script>
