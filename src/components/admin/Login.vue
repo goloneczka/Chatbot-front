@@ -5,10 +5,12 @@
                 <h3>{{$t('login.title')}}</h3>
                 <form @submit.prevent="handleSubmit">
                     <div class="form-group">
-                        <input v-model="login" type="text" class="form-control" :placeholder="$t('login.login')" value=""/>
+                        <input v-model="login" type="text" class="form-control" :placeholder="$t('login.login')"
+                               value=""/>
                     </div>
                     <div class="form-group">
-                        <input v-model="password" type="password" class="form-control" :placeholder="$t('login.password')"
+                        <input v-model="password" type="password" class="form-control"
+                               :placeholder="$t('login.password')"
                                value=""/>
                     </div>
                     <div class="form-group">
@@ -24,12 +26,12 @@
 </template>
 <script>
 
+    import { httpRequest } from '../../App'
+    import authorizationStorage from '../../App';
 
     export default {
         name: 'login',
-        components: {
-
-        },
+        components: {},
         data() {
             return {
                 login: '',
@@ -38,20 +40,14 @@
         },
         methods: {
             handleSubmit() {
-                const authorization = `Basic ${btoa(`${this.login}:${this.password}`)}`;
-                fetch(""/*Todo endpoint from backend*/, {
-                    method: "GET",
-                    headers: {
-                        Authorization: authorization
+                httpRequest.getRequest('admin'/*TODO URL*/).then(response => {
+                    if (response.errors)
+                        this.$root.$emit('showDanger', response.errors.toString());
+                    else {
+                        authorizationStorage.setAuthorization(this.login, this.password);
+                        this.$router.push("/admin/home")
                     }
-                }).then(() => {
-
-                    this.$router.push("/admin/home")
                 })
-                    .catch(() => {
-                        //TODO add error to warning message
-                        this.$root.$emit('showDanger', this.$i18n.t('login.incorrectData'))
-                    });
             },
         }
     }
