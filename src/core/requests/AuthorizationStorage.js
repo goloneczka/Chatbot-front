@@ -1,5 +1,5 @@
 
-class AuthorizationStorage {
+export default class AuthorizationStorage {
     getAuthorization() {
         if(this.isEmpty())
             return sessionStorage.getItem('authorization')
@@ -24,4 +24,3 @@ class AuthorizationStorage {
     }
 
 }
-export default AuthorizationStorage;

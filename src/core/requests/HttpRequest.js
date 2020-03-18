@@ -1,6 +1,6 @@
 
 
-class HttpRequest{
+export default class HttpRequest{
 
     constructor(baseUrl, authorizationStorage) {
         this.baseUrl = baseUrl;
@@ -49,6 +49,5 @@ class HttpRequest{
         }).then(response => Promise.resolve(response.json()))
     }
 }
-export default HttpRequest;
 
 

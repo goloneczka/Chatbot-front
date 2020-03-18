@@ -14,7 +14,7 @@
 
     const baseUrl = ''; //TODO ustawić baseUrl
 
-    const authorizationStorage = new AuthorizationStorage();
+    export const authorizationStorage = new AuthorizationStorage();
     export const httpRequest = new HttpRequest(baseUrl, authorizationStorage);
 
     export default {

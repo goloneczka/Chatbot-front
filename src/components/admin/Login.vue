@@ -26,8 +26,7 @@
 </template>
 <script>
 
-    import { httpRequest } from '../../App'
-    import authorizationStorage from '../../App';
+    import { httpRequest, authorizationStorage }  from '../../App'
 
     export default {
         name: 'login',
