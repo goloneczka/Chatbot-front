@@ -27,6 +27,7 @@
 <script>
 
     import { httpRequest, authorizationStorage }  from '../../App'
+    import routesNames from "../../core/requests/RoutesNames";
 
     export default {
         name: 'login',
@@ -39,12 +40,12 @@
         },
         methods: {
             handleSubmit() {
-                httpRequest.getRequest('admin'/*TODO URL*/).then(response => {
+                httpRequest.get(''/*TODO URL*/).then(response => {
                     if (response.errors)
                         this.$root.$emit('showDanger', response.errors.toString());
                     else {
                         authorizationStorage.setAuthorization(this.login, this.password);
-                        this.$router.push("/admin/home")
+                        this.$router.push(routesNames.adminHome)
                     }
                 })
             },

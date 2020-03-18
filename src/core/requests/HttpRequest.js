@@ -1,13 +1,11 @@
-
-
-export default class HttpRequest{
+export default class HttpRequest {
 
     constructor(baseUrl, authorizationStorage) {
         this.baseUrl = baseUrl;
         this.authorizationStorage = authorizationStorage;
     }
 
-    getRequest(url){
+    get(url) {
         return fetch(`${this.baseUrl}/${url}`, {
             method: 'GET',
             authorization: this.authorizationStorage.getAuthorization(),
@@ -15,9 +13,13 @@ export default class HttpRequest{
             cache: 'no-cache',
             contentType: 'application/json',
         }).then(response => Promise.resolve(response))
+            .catch(e => {
+                return {errors: [e]}
+            })
     }
 
-    postRequest(url, data){
+
+    post(url, data) {
         fetch(`${this.baseUrl}/${url}`, {
             method: 'POST',
             authorization: this.authorizationStorage.getAuthorization(),
@@ -25,9 +27,13 @@ export default class HttpRequest{
             cache: 'no-cache',
             data: data,
             contentType: 'application/json',
-        }).then(response => Promise.resolve(response.json()))
+        }).then(response => response.json())
+            .catch(e => {
+                return {errors: [e]}
+            })
     }
-    putRequest(url,data){
+
+    put(url, data) {
         fetch(`${this.baseUrl}/${url}`, {
             method: 'PUT',
             authorization: this.authorizationStorage.getAuthorization(),
@@ -35,10 +41,13 @@ export default class HttpRequest{
             cache: 'no-cache',
             data: data,
             contentType: 'application/json',
-        }).then(response => Promise.resolve(response.json()))
+        }).then(response => response.json())
+            .catch(e => {
+                return {errors: [e]}
+            })
     }
 
-    deleteRequest(url, data){
+    delete(url, data) {
         fetch(`${this.baseUrl}/${url}`, {
             method: 'DELETE',
             authorization: this.authorizationStorage.getAuthorization(),
@@ -46,7 +55,10 @@ export default class HttpRequest{
             cache: 'no-cache',
             data: data,
             contentType: 'application/json',
-        }).then(response => Promise.resolve(response.json()))
+        }).then(response => response.json())
+            .catch(e => {
+                return {errors: [e]}
+            })
     }
 }
 

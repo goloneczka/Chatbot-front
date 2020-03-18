@@ -12,10 +12,11 @@
     import HttpRequest from './core/requests/HttpRequest';
     import Dialog from "./components/common/Dialog";
 
-    const baseUrl = ''; //TODO ustawić baseUrl
+    const baseUrl = 'http://localhost:8080';
 
     export const authorizationStorage = new AuthorizationStorage();
     export const httpRequest = new HttpRequest(baseUrl, authorizationStorage);
+
 
     export default {
         name: 'App',

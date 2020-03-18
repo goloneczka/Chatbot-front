@@ -3,9 +3,11 @@ import Home from './components/home/Home'
 import AdminHome from './components/admin/AdminHome';
 
 
-const routes = [
+export const routes = [
     { path: '/', component: Home },
-    { path: '/Admin', component: AdminLogin },
-    { path: '/Admin/home', component: AdminHome }
+    { path: '/admin', component: AdminLogin },
+    { path: '/admin/home', component: AdminHome }
 ];
+
 export default routes;
+

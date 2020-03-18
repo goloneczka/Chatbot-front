@@ -1,8 +1,10 @@
 
+
 export default class AuthorizationStorage {
+
     getAuthorization() {
-        if(this.isEmpty())
-            return sessionStorage.getItem('authorization')
+        if (!this.isEmpty())
+            return sessionStorage.getItem('authorization');
         else
             return '';
     }
@@ -20,7 +22,10 @@ export default class AuthorizationStorage {
     }
 
     isEmpty() {
-        return sessionStorage.getItem('authorization') === null;
+        if(sessionStorage.getItem('authorization') === null)
+            throw new Error('Unauthorized token');
+        else
+            return false;
     }
 
 }
