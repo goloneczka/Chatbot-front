@@ -38,7 +38,7 @@
                 this.themes[index].activeTheme = true;
             }
         },
-        mounted() {
+        created() {
             this.themes.push({
                 themeName: "light",
                 imageSource: "https://image.flaticon.com/icons/svg/1786/1786548.svg",
@@ -61,6 +61,7 @@
 
     #app {
         min-height: 100%;
+        font-family: "Source Sans Pro";
     }
 
     #app.light {
