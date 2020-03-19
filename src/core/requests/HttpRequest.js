@@ -55,8 +55,9 @@ export default class HttpRequest {
 
     execute(url, options) {
 
-        if (this.authorizationStorage.isEmpty() !== true)
-            Object.assign(options, {authorization: this.authorizationStorage.getAuthorization()});
+        if (!this.authorizationStorage.isEmpty()) {
+            options.authorization = this.authorizationStorage.getAuthorization();
+        }
 
         return fetch(`${this.baseUrl}/${url}`, options)
             .then(response => response.json())
