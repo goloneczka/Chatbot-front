@@ -1,17 +1,28 @@
 <template>
-  <div id="app">
-    <Home />
-  </div>
+    <div id="app">
+        <Dialog/>
+        <router-view/>
+    </div>
 </template>
 
 <script>
-import Home from './components/home/Home.vue'
 
-export default {
-  name: 'App',
-  components: {
-    Home
-  }
-}
+
+    import AuthorizationStorage from './core/requests/AuthorizationStorage';
+    import HttpRequest from './core/requests/HttpRequest';
+    import Dialog from "./components/common/Dialog";
+
+    const baseUrl = 'http://localhost:8080';
+
+    export const authorizationStorage = new AuthorizationStorage();
+    export const httpRequest = new HttpRequest(baseUrl, authorizationStorage);
+
+
+    export default {
+        name: 'App',
+        components: {
+            Dialog
+        }
+    }
 </script>
 
