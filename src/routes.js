@@ -9,5 +9,9 @@ export const routes = [
     { path: '/admin/home', component: AdminHome }
 ];
 
-export default routes;
+export const routesNames = {
+    home: '/home',
+    adminLogin: '/admin',
+    adminHome: '/admin/home'
+};
 

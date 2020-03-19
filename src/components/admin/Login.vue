@@ -27,7 +27,7 @@
 <script>
 
     import { httpRequest, authorizationStorage }  from '../../App'
-    import routesNames from "../../core/requests/RoutesNames";
+    import { routesNames } from '../../routes';
 
     export default {
         name: 'login',
@@ -40,7 +40,7 @@
         },
         methods: {
             handleSubmit() {
-                httpRequest.get(''/*TODO URL*/).then(response => {
+                httpRequest.get('admin/hello').then(response => {
                     if (response.errors)
                         this.$root.$emit('showDanger', response.errors.toString());
                     else {

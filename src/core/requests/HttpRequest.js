@@ -6,56 +6,60 @@ export default class HttpRequest {
     }
 
     get(url) {
-        return fetch(`${this.baseUrl}/${url}`, {
+        const options = {
             method: 'GET',
             authorization: this.authorizationStorage.getAuthorization(),
             credentials: 'same-origin',
             cache: 'no-cache',
-            contentType: 'application/json',
-        }).then(response => Promise.resolve(response))
-            .catch(e => {
-                return {errors: [e]}
-            })
+            contentType: 'application/json'
+        };
+
+        return this.execute(url, options)
     }
 
 
     post(url, data) {
-        fetch(`${this.baseUrl}/${url}`, {
+        const options = {
             method: 'POST',
             authorization: this.authorizationStorage.getAuthorization(),
             credentials: 'same-origin',
             cache: 'no-cache',
             data: data,
-            contentType: 'application/json',
-        }).then(response => response.json())
-            .catch(e => {
-                return {errors: [e]}
-            })
+            contentType: 'application/json'
+        };
+
+        return this.execute(url, options, data)
     }
 
     put(url, data) {
-        fetch(`${this.baseUrl}/${url}`, {
+        const options = {
             method: 'PUT',
             authorization: this.authorizationStorage.getAuthorization(),
             credentials: 'same-origin',
             cache: 'no-cache',
             data: data,
-            contentType: 'application/json',
-        }).then(response => response.json())
-            .catch(e => {
-                return {errors: [e]}
-            })
+            contentType: 'application/json'
+        };
+
+        return this.execute(url, options, data)
     }
 
     delete(url, data) {
-        fetch(`${this.baseUrl}/${url}`, {
+        const options = {
             method: 'DELETE',
             authorization: this.authorizationStorage.getAuthorization(),
             credentials: 'same-origin',
             cache: 'no-cache',
             data: data,
-            contentType: 'application/json',
-        }).then(response => response.json())
+            contentType: 'application/json'
+        };
+
+        return this.execute(url, options, data)
+    }
+
+    execute(url, options) {
+        fetch(`${this.baseUrl}/${url}`, options)
+            .then(response => response.json())
             .catch(e => {
                 return {errors: [e]}
             })
