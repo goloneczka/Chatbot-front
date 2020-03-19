@@ -8,7 +8,6 @@ export default class HttpRequest {
     get(url) {
         const options = {
             method: 'GET',
-            authorization: this.authorizationStorage.getAuthorization(),
             credentials: 'same-origin',
             cache: 'no-cache',
             contentType: 'application/json'
@@ -21,7 +20,6 @@ export default class HttpRequest {
     post(url, data) {
         const options = {
             method: 'POST',
-            authorization: this.authorizationStorage.getAuthorization(),
             credentials: 'same-origin',
             cache: 'no-cache',
             data: data,
@@ -34,7 +32,6 @@ export default class HttpRequest {
     put(url, data) {
         const options = {
             method: 'PUT',
-            authorization: this.authorizationStorage.getAuthorization(),
             credentials: 'same-origin',
             cache: 'no-cache',
             data: data,
@@ -47,7 +44,6 @@ export default class HttpRequest {
     delete(url, data) {
         const options = {
             method: 'DELETE',
-            authorization: this.authorizationStorage.getAuthorization(),
             credentials: 'same-origin',
             cache: 'no-cache',
             data: data,
@@ -58,7 +54,11 @@ export default class HttpRequest {
     }
 
     execute(url, options) {
-        fetch(`${this.baseUrl}/${url}`, options)
+
+        if (this.authorizationStorage.isEmpty() !== true)
+            Object.assign(options, {authorization: this.authorizationStorage.getAuthorization()});
+
+        return fetch(`${this.baseUrl}/${url}`, options)
             .then(response => response.json())
             .catch(e => {
                 return {errors: [e]}
