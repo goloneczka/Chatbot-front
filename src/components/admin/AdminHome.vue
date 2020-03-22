@@ -1,7 +1,7 @@
 <template>
     <div class="admin-home">
         <nav class="navbar">
-            <h1>{{ $t('adminHome.navbar')}}</h1>
+            <h1>{{ $t('adminHome.title')}}</h1>
             <div class="dropdown">
                 <button class="dropbtn">{{ $t('adminHome.menu')}}</button>
                 <div class="dropdown-content">
@@ -23,7 +23,6 @@
                     <b-col>
                         <b-card
                                 :title="$t('adminHome.categories.weather')"
-                                style="max-width: 20rem;"
                                 class="mb-2"
                         >
                             <b-button class="card-button" href="#">{{ $t('adminHome.categories.button')}}</b-button>
@@ -32,7 +31,6 @@
                     <b-col>
                         <b-card
                                 :title="$t('adminHome.categories.jokes')"
-                                style="max-width: 20rem;"
                                 class="mb-2"
                         >
 
@@ -42,7 +40,6 @@
                     <b-col>
                         <b-card
                                 :title="$t('adminHome.categories.restaurant')"
-                                style="max-width: 20rem;"
                                 class="mb-2"
                         >
                             <b-button class="card-button" href="#">{{ $t('adminHome.categories.button')}}</b-button>
@@ -53,7 +50,6 @@
                     <b-col>
                         <b-card
                                 :title="$t('adminHome.categories.maps')"
-                                style="max-width: 20rem;"
                                 class="mb-2"
                         >
                             <b-button class="card-button" href="#">{{ $t('adminHome.categories.button')}}</b-button>
@@ -69,7 +65,7 @@
 
     import AuthorizationStorage from "../../core/requests/AuthorizationStorage";
     import {routesNames} from "../../routes";
-    import '../common/css/styles.css'
+    import '../../../public/style.css'
 
     const authorizationStorage = new AuthorizationStorage();
 
@@ -79,7 +75,7 @@
         methods: {
             logOut() {
                 authorizationStorage.removeAuthorization();
-                this.$router.push(routesNames.adminLogin)
+                this.$router.replace(routesNames.adminLogin)
             }
         }
     }
@@ -96,7 +92,7 @@
         background-color: var(--main-bg-color);
         color: white;
         padding-right: 140px;
-        font-size: 36px;
+        font-size: var(--main-big-font-size);
         border: none;
         cursor: pointer;
     }
@@ -111,7 +107,7 @@
         position: fixed;
         background-color: #f9f9f9;
         min-width: 240px;
-        font-size: 20px;
+        font-size: var(--main-medium-font-size);
         box-shadow: var(--main-box-shadow);
         z-index: 1;
     }
@@ -124,7 +120,7 @@
     }
 
     .dropdown-content a:hover {
-        background-color: gray;
+        background-color: var(--main-secound-bg-color);
         color: var(--main-txt-color)
     }
 
@@ -143,16 +139,17 @@
     .mb-2 {
         box-shadow: var(--main-box-shadow);
         border: black;
+        max-width: var(--main-max-width-admin-home)
     }
 
     .title, .categories {
         background: var(--main-bg-color);
-        padding: 15px;
+        padding: var(--main-min-padding-margin);
     }
 
     .categories-title {
-        margin: 15px;
-        padding: 15px;
+        margin: var(--main-min-padding-margin);
+        padding: var(--main-min-padding-margin);
         color: var(--main-txt-color);
     }
 
