@@ -65,7 +65,6 @@
 
     import AuthorizationStorage from "../../core/requests/AuthorizationStorage";
     import {routesNames} from "../../routes";
-    import '../../../public/style.css'
 
     const authorizationStorage = new AuthorizationStorage();
 
