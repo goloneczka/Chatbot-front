@@ -1,0 +1,14 @@
+:root {
+    --main-bg-color: #9933ff;
+    --main-secound-bg-color: gray;
+    --main-txt-color: white;
+    --main-min-padding-margin: 15px;
+    --main-medium-padding-margin: 30px;
+    --main-max-padding-margin: 60px;
+    --main-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    --main-max-width-admin-home: 20em;
+
+    --main-big-font-size: 36px;
+    --main-medium-font-size: 20px;
+    --main-small-font-size: 12px;
+}

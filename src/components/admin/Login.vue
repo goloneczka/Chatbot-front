@@ -40,7 +40,7 @@
         },
         methods: {
             handleSubmit() {
-                httpRequest.get('admin/hello').then(response => {
+                httpRequest.get('admin/login').then(response => {
                     if (response.errors)
                         this.$root.$emit('showDanger', response.errors.toString());
                     else {

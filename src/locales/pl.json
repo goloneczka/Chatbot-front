@@ -4,8 +4,20 @@
     "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut dicta incidunt ea ut commodi quidem temporibus illo quia. Et itaque deleniti veniam tempore facere ipsum animi totam culpa minima vel voluptatem adipisci natus blanditiis similique sunt expedita, ex dicta doloremque repellat vitae temporibus. Quisquam quia, accusantium blanditiis architecto facilis saepe! Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad unde laborum ut suscipit iure aliquam sapiente doloribus exercitationem nam sint."
   },
   "adminHome": {
-    "title": "Strona tytułowa dla admina",
-    "content": "Jakis kontent dla admina"
+    "title": "Panel zarządzania admina",
+    "menu": "Menu",
+    "settings": "Ustawienia",
+    "information": "Informacje",
+    "users": "Użytkownicy",
+    "logOut": "Wyloguj się",
+    "categories": {
+      "title": "Kategorie",
+      "button": "Zarządzaj",
+      "weather": "Pogoda",
+      "restaurant": "Restauracje",
+      "jokes": "Żarty",
+      "maps": "Mapy"
+    }
   },
   "login": {
     "title": "Panel Logowania Admina",
