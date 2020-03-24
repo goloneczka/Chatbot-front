@@ -1,11 +1,13 @@
 pipeline {
     agent any
-
+    environment {
+        DEPLOY_BRANCH = 'deploy'
+    }
     stages {
         stage('Build') {
             steps {
                 sh '''#!/bin/bash
-                cd /home/app/www
+                pwd
                 ls
                 '''
             }
