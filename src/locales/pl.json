@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "bot": {
     "helloMessage": "Cześć!",
     "introductionMessage": "Jestem Twoim pomocnym chatbotem. Mogę wyręczyć Cię z wyszukiwania wielu rzeczy.",
@@ -31,3 +32,12 @@
   }
 }
 
+=======
+    "bot": {
+      "helloMessage": "Cześć!",
+      "introductionMessage": "Jestem Twoim pomocnym chatbotem. Mogę wyręczyć Cię z wyszukiwania wielu rzeczy.",
+      "chooseCategoryMessage": "Wystarczy tylko, że wybierzesz kategorię, która Cię interesuje.",
+      "categoryWeather": "Pogoda"
+    }
+  }
+>>>>>>> cec5674f8f727165fdeb9edd7cc42f2e882cea57
