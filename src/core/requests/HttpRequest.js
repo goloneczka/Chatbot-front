@@ -6,68 +6,33 @@ export default class HttpRequest {
     }
 
     get(url) {
-        const options = {
-            headers: new Headers({
-                Authorization: !this.authorizationStorage.isEmpty()?this.authorizationStorage.getAuthorization():"null",
-            }),
-            method: 'GET',
-            credentials: 'same-origin',
-            cache: 'no-cache',
-            contentType: 'application/json'
-        };
-
-        return this.execute(url, options)
+        return this.execute(url, 'GET')
     }
 
 
     post(url, data) {
-        const options = {
-            method: 'POST',
-            headers: new Headers({
-                Authorization: this.authorizationStorage.getAuthorization(),
-            }),
-            credentials: 'same-origin',
-            cache: 'no-cache',
-            data: data,
-            contentType: 'application/json'
-        };
-
-        return this.execute(url, options, data)
+        return this.execute(url, 'POST', data)
     }
 
     put(url, data) {
-        const options = {
-            method: 'PUT',
-            headers: new Headers({
-                Authorization: this.authorizationStorage.getAuthorization(),
-            }),
-            credentials: 'same-origin',
-            cache: 'no-cache',
-            data: data,
-            contentType: 'application/json'
-        };
-
-        return this.execute(url, options, data)
+        return this.execute(url, 'PUT', data)
     }
 
     delete(url, data) {
-        const options = {
-            method: 'DELETE',
-            headers: new Headers({
-                Authorization: this.authorizationStorage.getAuthorization(),
-            }),
+        return this.execute(url, 'DELETE', data)
+    }
+
+    execute(url, method, data) {
+
+        return fetch(`${this.baseUrl}/${url}`, {
+            method: method,
+            headers: !this.authorizationStorage.isEmpty() ?
+                new Headers({Authorization: this.authorizationStorage.getAuthorization()}) : '',
             credentials: 'same-origin',
             cache: 'no-cache',
             data: data,
             contentType: 'application/json'
-        };
-
-        return this.execute(url, options, data)
-    }
-
-    execute(url, options) {
-
-        return fetch(`${this.baseUrl}/${url}`, options)
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error("HTTP status " + response.status);
