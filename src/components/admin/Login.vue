@@ -40,11 +40,13 @@
         },
         methods: {
             handleSubmit() {
+                authorizationStorage.setAuthorization(this.login, this.password);
                 httpRequest.get('admin/login').then(response => {
-                    if (response.errors)
+                    if (response.errors) {
                         this.$root.$emit('showDanger', response.errors.toString());
+                        authorizationStorage.removeAuthorization()
+                    }
                     else {
-                        authorizationStorage.setAuthorization(this.login, this.password);
                         this.$router.push(routesNames.adminHome)
                     }
                 })

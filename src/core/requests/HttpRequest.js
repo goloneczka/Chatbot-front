@@ -7,6 +7,9 @@ export default class HttpRequest {
 
     get(url) {
         const options = {
+            headers: new Headers({
+                Authorization: !this.authorizationStorage.isEmpty()?this.authorizationStorage.getAuthorization():"null",
+            }),
             method: 'GET',
             credentials: 'same-origin',
             cache: 'no-cache',
@@ -20,6 +23,9 @@ export default class HttpRequest {
     post(url, data) {
         const options = {
             method: 'POST',
+            headers: new Headers({
+                Authorization: this.authorizationStorage.getAuthorization(),
+            }),
             credentials: 'same-origin',
             cache: 'no-cache',
             data: data,
@@ -32,6 +38,9 @@ export default class HttpRequest {
     put(url, data) {
         const options = {
             method: 'PUT',
+            headers: new Headers({
+                Authorization: this.authorizationStorage.getAuthorization(),
+            }),
             credentials: 'same-origin',
             cache: 'no-cache',
             data: data,
@@ -44,6 +53,9 @@ export default class HttpRequest {
     delete(url, data) {
         const options = {
             method: 'DELETE',
+            headers: new Headers({
+                Authorization: this.authorizationStorage.getAuthorization(),
+            }),
             credentials: 'same-origin',
             cache: 'no-cache',
             data: data,
@@ -55,12 +67,13 @@ export default class HttpRequest {
 
     execute(url, options) {
 
-        if (!this.authorizationStorage.isEmpty()) {
-            options.authorization = this.authorizationStorage.getAuthorization();
-        }
-
         return fetch(`${this.baseUrl}/${url}`, options)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP status " + response.status);
+                }
+                return Promise.resolve(response);
+            })
             .catch(e => {
                 return {errors: [e]}
             })
