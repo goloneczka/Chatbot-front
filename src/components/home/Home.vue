@@ -1,9 +1,5 @@
 <template>
-<<<<<<< HEAD
     <div class="home" v-bind:class="themes[themeIndex].themeName">
-=======
-    <div class="home">
->>>>>>> cec5674f8f727165fdeb9edd7cc42f2e882cea57
         <b-navbar sticky>
             <b-navbar-nav>
                 <b-nav-item v-for="(theme, index) in themes" :key="index" v-bind:activeTheme="theme.activeTheme"
@@ -32,10 +28,6 @@
     export default {
         name: 'Home',
         components: {ChatBox},
-<<<<<<< HEAD
-=======
-        props: ["theme"],
->>>>>>> cec5674f8f727165fdeb9edd7cc42f2e882cea57
         data: function () {
             return {
                 themeIndex: 0,
@@ -49,10 +41,6 @@
                     theme.activeTheme = false;
                 }
                 this.themes[index].activeTheme = true;
-<<<<<<< HEAD
-=======
-                this.$emit('selectedTheme', this.themes[index].themeName)
->>>>>>> cec5674f8f727165fdeb9edd7cc42f2e882cea57
             }
         },
         created() {
@@ -67,10 +55,6 @@
                 activeTheme: false
             });
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> cec5674f8f727165fdeb9edd7cc42f2e882cea57
     }
 </script>
 <style>
@@ -120,7 +104,6 @@
         height: 100% !important;
     }
 
-<<<<<<< HEAD
     .home.light {
         background: rgb(241, 241, 255);
     }
@@ -128,8 +111,5 @@
     .home.dark {
         background: rgb(26, 26, 53);
     }
-
-=======
->>>>>>> cec5674f8f727165fdeb9edd7cc42f2e882cea57
 
 </style>
