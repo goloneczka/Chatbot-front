@@ -1,10 +1,13 @@
 pipeline {
-    agent any
+    agent none
 
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                bash '''#!/bin/bash
+                cd /home/app/www
+                ls
+                '''
             }
         }
         stage('Test') {
