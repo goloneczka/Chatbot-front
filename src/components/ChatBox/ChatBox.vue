@@ -10,9 +10,12 @@
                 <p v-if="index === lastBotMessageIndex">
                     <b-img height="30" v-bind:src="botIconSource"></b-img>
                 </p>
+                <p v-else-if="index === lastUserMessageIndex">
+                    <b-img height="30" src="https://image.flaticon.com/icons/svg/2636/2636603.svg"></b-img>
+                </p>
             </li>
         </ul>
-        <b-button variant="outline-dark" v-on:click="onClick">Pogoda</b-button>
+        <b-button variant="outline-dark" v-on:click="onClick">{{$t('bot.categoryWeather')}}</b-button>
     </div>
 </template>
 
@@ -22,13 +25,11 @@
         props: ["botIconSource"],
         data: function () {
             return {
-                messages: [{author: "bot", text: "Witaj!"}, {author: "bot", text: "Co mogę dla Ciebie zrobić?"}]
+                messages: []
             }
         },
         methods: {
             onClick: function () {
-               /* this.messages.push({author: "user", text: "Witaj"});
-                this.messages.push({author: "bot", text: "Witaj"});*/
             }
         },
         updated() {
@@ -45,7 +46,21 @@
                     }
                 }
                 return index;
+            },
+            lastUserMessageIndex: function () {
+                let index = this.messages.length - 1;
+                for (; index >= 0; index--) {
+                    if (this.messages[index].author === "user") {
+                        return index;
+                    }
+                }
+                return null;
             }
+        },
+        created() {
+            this.messages.push({author: "bot", text: this.$t('bot.helloMessage')});
+            this.messages.push({author: "bot", text: this.$t('bot.introductionMessage')});
+            this.messages.push({author: "bot", text: this.$t('bot.chooseCategoryMessage')});
         }
     }
 </script>
