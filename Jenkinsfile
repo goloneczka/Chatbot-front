@@ -5,8 +5,6 @@ pipeline {
             steps {
                 sh '''#!/bin/bash
                 npm run build
-                cp dist/* /home/app/www/
-                ls
                 '''
             }
         }
