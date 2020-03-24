@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bash '''#!/bin/bash
+                sh '''#!/bin/bash
                 cd /home/app/www
                 ls
                 '''
