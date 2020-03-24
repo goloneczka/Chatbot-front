@@ -17,7 +17,6 @@ pipeline {
             steps {
                 sh '''#!/bin/bash
                 cp dist/* /home/app/www/
-                sudo systemctl restart nginx
                 '''
             }
         }
