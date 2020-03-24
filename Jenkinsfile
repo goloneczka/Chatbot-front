@@ -1,13 +1,11 @@
 pipeline {
     agent any
-    environment {
-        DEPLOY_BRANCH = 'deploy'
-    }
     stages {
         stage('Build') {
             steps {
                 sh '''#!/bin/bash
-                pwd
+                npm run build
+                cp dist/* /home/app/www/
                 ls
                 '''
             }
@@ -19,7 +17,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sh '''#!/bin/bash
+                cp dist/* /home/app/www/
+                sudo systemctl restart nginx
+                '''
             }
         }
     }
