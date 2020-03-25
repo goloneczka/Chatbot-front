@@ -27,7 +27,7 @@ export default class HttpRequest {
         return fetch(`${this.baseUrl}/${url}`, {
             method: method,
             headers: !this.authorizationStorage.isEmpty() ?
-                new Headers({Authorization: this.authorizationStorage.getAuthorization()}) : '',
+                new Headers({Authorization: this.authorizationStorage.getAuthorization()}) : new Headers(),
             credentials: 'same-origin',
             cache: 'no-cache',
             data: data,
@@ -37,7 +37,7 @@ export default class HttpRequest {
                 if (!response.ok) {
                     throw new Error("HTTP status " + response.status);
                 }
-                return Promise.resolve(response);
+                return response.json();
             })
             .catch(e => {
                 return {errors: [e]}
