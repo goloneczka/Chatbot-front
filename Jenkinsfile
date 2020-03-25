@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''#!/bin/bash
-                npx vue-cli-service build
+                npm run build
                 '''
             }
         }
