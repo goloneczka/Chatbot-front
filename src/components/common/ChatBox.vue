@@ -79,9 +79,9 @@
 
     li > div {
         margin-bottom: 20px;
-        background: var(--chatBox-mesaage-bg-color);
+        background: var(--chat-box-mesaage-bg-color);
         display: inline-flex;
-        border: var(--chatBox-meassage-border);
+        border: var(--chat-box-meassage-border);
     }
 
     .bot {;
@@ -103,19 +103,19 @@
     }
 
     .chat-box {
-        background: var(--chatBox-bg-color);
+        background: var(--chat-box-bg-color);
     }
 
     button {
         float: right;
-        background: var(--chatBox-category-button-bg-color);
-        color: var(--chatBox-category-button-text-color);
+        background: var(--chat-box-category-button-bg-color);
+        color: var(--chat-box-category-button-text-color);
     }
 
     button:hover {
-        text-shadow: var(--chatBox-category-button-hover-text-shadow);
-        background: var(--chatBox-category-button-hover-bg-color);
-        box-shadow: var(--chatBox-category-button-hover-box-shadow);
+        text-shadow: var(--chat-box-category-button-hover-text-shadow);
+        background: var(--chat-box-category-button-hover-bg-color);
+        box-shadow: var(--chat-box-category-button-hover-box-shadow);
     }
 
 </style>
