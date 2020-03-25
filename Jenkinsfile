@@ -4,6 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''#!/bin/bash
+                npm install
                 npm run build
                 '''
             }
