@@ -19,6 +19,11 @@
       "maps": "Mapy"
     }
   },
+  "adminJokes": {
+    "listTitle": "Lista żartów",
+    "btnPaginationPrevious": "Poprzedni",
+    "btnPaginationNext": "Następny"
+  },
   "login": {
     "title": "Panel Logowania Admina",
     "button": "Zaloguj się",
@@ -27,4 +32,5 @@
     "password": "Twoje hasło",
     "incorrectData": "Nie poprawne dane logowania!"
   }
+
 }
