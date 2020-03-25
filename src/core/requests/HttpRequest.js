@@ -6,61 +6,39 @@ export default class HttpRequest {
     }
 
     get(url) {
-        const options = {
-            method: 'GET',
-            credentials: 'same-origin',
-            cache: 'no-cache',
-            contentType: 'application/json'
-        };
-
-        return this.execute(url, options)
+        return this.execute(url, 'GET')
     }
 
 
     post(url, data) {
-        const options = {
-            method: 'POST',
-            credentials: 'same-origin',
-            cache: 'no-cache',
-            data: data,
-            contentType: 'application/json'
-        };
-
-        return this.execute(url, options, data)
+        return this.execute(url, 'POST', data)
     }
 
     put(url, data) {
-        const options = {
-            method: 'PUT',
-            credentials: 'same-origin',
-            cache: 'no-cache',
-            data: data,
-            contentType: 'application/json'
-        };
-
-        return this.execute(url, options, data)
+        return this.execute(url, 'PUT', data)
     }
 
     delete(url, data) {
-        const options = {
-            method: 'DELETE',
+        return this.execute(url, 'DELETE', data)
+    }
+
+    execute(url, method, data) {
+
+        return fetch(`${this.baseUrl}/${url}`, {
+            method: method,
+            headers: !this.authorizationStorage.isEmpty() ?
+                new Headers({Authorization: this.authorizationStorage.getAuthorization()}) : new Headers(),
             credentials: 'same-origin',
             cache: 'no-cache',
             data: data,
             contentType: 'application/json'
-        };
-
-        return this.execute(url, options, data)
-    }
-
-    execute(url, options) {
-
-        if (!this.authorizationStorage.isEmpty()) {
-            options.authorization = this.authorizationStorage.getAuthorization();
-        }
-
-        return fetch(`${this.baseUrl}/${url}`, options)
-            .then(response => response.json())
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP status " + response.status);
+                }
+                return response.json();
+            })
             .catch(e => {
                 return {errors: [e]}
             })
