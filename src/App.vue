@@ -24,17 +24,4 @@
 
     }
 </script>
-<style>
 
-    html, body {
-        height: 100%;
-    }
-
-    #app {
-        min-height: 100%;
-        height: 100%;
-        font-family: "Source Sans Pro",serif;
-    }
-
-
-</style>

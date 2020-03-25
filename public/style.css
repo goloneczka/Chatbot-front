@@ -11,4 +11,31 @@
     --main-big-font-size: 36px;
     --main-medium-font-size: 20px;
     --main-small-font-size: 12px;
+
+    --home-light-theme-bg-color: rgb(241, 241, 255);
+    --home-dark-theme-bg-color: rgb(26, 26, 53);
+    --home-nav-bg-color: rgb(104, 102, 99);
+    --home-nav-border: 1px solid black;
+    --home-nav-item-border: 2px solid;
+    --home-nav-item-active-border-color: #d3d9e0;
+    --home-nav-item-hover-bg-color: #ebf6ff;
+    --home-chatBox-border: 2px solid #000000;
+
+    --chatBox-mesaage-bg-color: rgb(162, 197, 255);
+    --chatBox-meassage-border: 1px solid #000000;
+    --chatBox-bg-color: rgba(255, 255, 255, 0.19);
+    --chatBox-category-button-bg-color: #f6f7ff;
+    --chatBox-category-button-hover-bg-color: rgb(26, 26, 53);
+    --chatBox-category-button-text-color: #00000;
+    --chatBox-category-button-hover-text-shadow: 0 0 6px rgba(255, 255, 255, 1);
+    --chatBox-category-button-hover-box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.60);
+}
+
+html, body {
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+    font-family: "Source Sans Pro",serif;
 }

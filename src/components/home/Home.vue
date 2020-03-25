@@ -23,7 +23,7 @@
     </div>
 </template>
 <script>
-    import ChatBox from "../ChatBox/ChatBox";
+    import ChatBox from "../common/ChatBox";
 
     export default {
         name: 'Home',
@@ -31,7 +31,16 @@
         data: function () {
             return {
                 themeIndex: 0,
-                themes: []
+                themes: [{
+                    themeName: "light",
+                    imageSource: require('../../assets/light_bot.png'),
+                    activeTheme: true
+                }, {
+                    themeName: "dark",
+                    imageSource: require('../../assets/dark_bot.png'),
+                    activeTheme: false
+                }
+                ]
             }
         },
         methods: {
@@ -42,26 +51,13 @@
                 }
                 this.themes[index].activeTheme = true;
             }
-        },
-        created() {
-            this.themes.push({
-                themeName: "light",
-                imageSource: "https://image.flaticon.com/icons/svg/1786/1786548.svg",
-                activeTheme: true
-            });
-            this.themes.push({
-                themeName: "dark",
-                imageSource: "https://image.flaticon.com/icons/svg/2115/2115916.svg",
-                activeTheme: false
-            });
         }
     }
 </script>
 <style>
     .chat-box {
-        padding: 40px;
-        padding-bottom: 60px;
-        border: 2px solid black;
+        padding: 40px 40px 60px;
+        border: var(--home-chatBox-border);
         border-radius: 15px;
     }
 
@@ -79,37 +75,37 @@
     }
 
     nav {
-        background: rgb(104, 102, 99);
-        border-bottom: 1px solid black;
+        background: var(--home-nav-bg-color);
+        border-bottom: var(--home-nav-border);
         margin-bottom: 30px;
     }
 
     .nav-item {
         border-radius: 50%;
         margin: 5px;
-        border: 2px solid rgb(104, 102, 99);
+        border: var(--home-nav-item-border) var(--home-nav-bg-color);
+
     }
 
     .nav-item[activeTheme=true] {
-        border: 2px solid #d6dde4;
+        border: var(--home-nav-item-border) var(--home-nav-item-active-border-color);
     }
 
     .nav-item:hover {
-        background: aliceblue;
+        background: var(--home-nav-item-hover-bg-color);
     }
 
     .home {
         padding-bottom: 30px;
         min-height: 100% !important;
-        height: 100% !important;
     }
 
     .home.light {
-        background: rgb(241, 241, 255);
+        background: var(--home-light-theme-bg-color);
     }
 
     .home.dark {
-        background: rgb(26, 26, 53);
+        background: var(--home-dark-theme-bg-color);
     }
 
 </style>

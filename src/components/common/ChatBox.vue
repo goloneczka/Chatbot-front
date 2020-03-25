@@ -11,7 +11,7 @@
                     <b-img height="30" v-bind:src="botIconSource"></b-img>
                 </p>
                 <p v-else-if="index === lastUserMessageIndex">
-                    <b-img height="30" src="https://image.flaticon.com/icons/svg/2636/2636603.svg"></b-img>
+                    <b-img height="30" :src="require('../../assets/user_icon.png')"></b-img>
                 </p>
             </li>
         </ul>
@@ -25,7 +25,10 @@
         props: ["botIconSource"],
         data: function () {
             return {
-                messages: []
+                messages: [{author: "bot", text: this.$t('bot.helloMessage')},
+                    {author: "bot", text: this.$t('bot.introductionMessage')},
+                    {author: "bot", text: this.$t('bot.chooseCategoryMessage')}
+                ]
             }
         },
         methods: {
@@ -56,11 +59,6 @@
                 }
                 return null;
             }
-        },
-        created() {
-            this.messages.push({author: "bot", text: this.$t('bot.helloMessage')});
-            this.messages.push({author: "bot", text: this.$t('bot.introductionMessage')});
-            this.messages.push({author: "bot", text: this.$t('bot.chooseCategoryMessage')});
         }
     }
 </script>
@@ -81,9 +79,9 @@
 
     li > div {
         margin-bottom: 20px;
-        background: rgb(162, 197, 255);
+        background: var(--chatBox-mesaage-bg-color);
         display: inline-flex;
-        border: 1px solid black;
+        border: var(--chatBox-meassage-border);
     }
 
     .bot {;
@@ -105,19 +103,19 @@
     }
 
     .chat-box {
-        background: rgba(255, 255, 255, 0.19);
+        background: var(--chatBox-bg-color);
     }
 
     button {
         float: right;
-        background: #f6f7ff;
-        color: black;
+        background: var(--chatBox-category-button-bg-color);
+        color: var(--chatBox-category-button-text-color);
     }
 
     button:hover {
-        text-shadow: 0 0 6px rgba(255, 255, 255, 1);
-        background: rgb(26, 26, 53);
-        box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.60);
+        text-shadow: var(--chatBox-category-button-hover-text-shadow);
+        background: var(--chatBox-category-button-hover-bg-color);
+        box-shadow: var(--chatBox-category-button-hover-box-shadow);
     }
 
 </style>
