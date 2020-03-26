@@ -1,5 +1,5 @@
 import AdminLogin from './components/admin/Login';
-import Home from './components/home/Home'
+import Home from './components/Home'
 import AdminHome from './components/admin/AdminHome';
 
 

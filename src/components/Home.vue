@@ -15,15 +15,15 @@
                     <chat-box v-bind:bot-icon-source="themes[themeIndex].imageSource"></chat-box>
                 </b-col>
                 <b-col cols="2">
-                    <b-img thumbnail center width="100%" class="logoImage"
-                           :src="require('../../assets/botLogo.png')"></b-img>
+                    <b-img thumbnail center width="100%" class="logo-image"
+                           :src="require('../assets/botLogo.png')"></b-img>
                 </b-col>
             </b-row>
         </b-container>
     </div>
 </template>
 <script>
-    import ChatBox from "../common/ChatBox";
+    import ChatBox from "./common/ChatBox";
 
     export default {
         name: 'Home',
@@ -33,11 +33,11 @@
                 themeIndex: 0,
                 themes: [{
                     themeName: "light",
-                    imageSource: require('../../assets/light_bot.png'),
+                    imageSource: require('../assets/light_bot.png'),
                     activeTheme: true
                 }, {
                     themeName: "dark",
-                    imageSource: require('../../assets/dark_bot.png'),
+                    imageSource: require('../assets/dark_bot.png'),
                     activeTheme: false
                 }
                 ]
@@ -61,7 +61,7 @@
         border-radius: 15px;
     }
 
-    .logoImage {
+    .logo-image {
         position: fixed;
         top: 30%;
         display: block !important;
