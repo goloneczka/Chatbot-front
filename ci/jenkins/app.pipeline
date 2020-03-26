@@ -18,6 +18,9 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when {
+                expression {params.MODIFICATION}
+            }
             steps {
                 sh '''#!/bin/bash
                 cp -r dist/* /home/app/www/
