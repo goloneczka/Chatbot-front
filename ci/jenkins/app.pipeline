@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh '''#!/bin/bash
+                npm install
+                npm run build
+                '''
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh '''#!/bin/bash
+                cp -r dist/* /home/app/www/
+                '''
+            }
+        }
+    }
+}
