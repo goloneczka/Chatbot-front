@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters {
+        booleanParam(name: 'MODIFICATION', defaultValue: false, description: 'Jezeli chcemy wprowadzić modyfikacje do projektu')
+    }
     stages {
         stage('Build') {
             steps {
@@ -15,6 +18,9 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when {
+                expression {params.MODIFICATION}
+            }
             steps {
                 sh '''#!/bin/bash
                 cp -r dist/* /home/app/www/
