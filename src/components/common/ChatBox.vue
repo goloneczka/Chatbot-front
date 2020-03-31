@@ -1,6 +1,6 @@
 <template>
     <div class="chat-box">
-        <ul>
+        <ul class="messages-list">
             <li class="message"
                 v-for="(message, index) in messages"
                 v-bind:key="index"
@@ -8,18 +8,24 @@
             >
                 <div><a>{{message.text}}</a></div>
                 <p v-if="index === lastBotMessageIndex">
-                    <b-img height="30" v-bind:src="botIconSource"></b-img>
+                    <b-img id="bot-image" height="30" v-bind:src="botIconSource"></b-img>
                 </p>
                 <p v-else-if="index === lastUserMessageIndex">
-                    <b-img height="30" :src="require('../../assets/user_icon.png')"></b-img>
+                    <b-img id="bot-image1" height="30" :src="require('../../assets/user_icon.png')"></b-img>
                 </p>
             </li>
         </ul>
-        <b-button variant="outline-dark" v-on:click="onClick">{{$t('bot.categoryWeather')}}</b-button>
+        <b-button id="chooseCategoryButton" variant="outline-dark" v-on:click="onClick">{{$t('bot.categoryWeather')}}
+        </b-button>
+        <div id="categoryComponent"></div>
     </div>
 </template>
 
 <script>
+
+    import Vue from 'vue'
+    import Weather from "../categories/Weather";
+
     export default {
         name: "ChatBox",
         props: ["botIconSource"],
@@ -33,6 +39,14 @@
         },
         methods: {
             onClick: function () {
+                document.getElementById("chooseCategoryButton").remove();
+                document.getElementById("bot-image").remove();
+                const ComponentClass = Vue.extend(Weather);
+                const instance = new ComponentClass({
+                    propsData: {type: this.props}
+                });
+                instance.$mount(); // pass nothing
+                document.getElementById("categoryComponent").appendChild(instance.$el);
             }
         },
         updated() {
@@ -63,7 +77,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     ul {
         list-style-type: none;
         padding: 0;

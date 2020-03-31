@@ -5,6 +5,11 @@
     "chooseCategoryMessage": "Wystarczy tylko, że wybierzesz kategorię, która Cię interesuje.",
     "categoryWeather": "Pogoda"
   },
+  "weather": {
+    "bot": {
+      "introduction": "Wybrałeś pogode! A w jakim chcesz mieście?"
+    }
+  },
   "adminHome": {
     "title": "Panel zarządzania admina",
     "menu": "Menu",
