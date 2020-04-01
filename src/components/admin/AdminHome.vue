@@ -33,8 +33,7 @@
                                 :title="$t('adminHome.categories.jokes')"
                                 class="mb-2"
                         >
-
-                            <b-button class="card-button" href="#">{{ $t('adminHome.categories.button')}}</b-button>
+                            <router-link :to="{ name: 'admin-jokes'}"><b-button class="card-button">{{ $t('adminHome.categories.button')}}</b-button></router-link>
                         </b-card>
                     </b-col>
                     <b-col>

@@ -1,5 +1,3 @@
-
-
 export default class AuthorizationStorage {
 
     getAuthorization() {

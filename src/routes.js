@@ -14,7 +14,7 @@ export const routes = [
     { path: '/', component: Home },
     { path: routesNames.adminLogin, component: AdminLogin },
     { path: routesNames.adminHome, component: AdminHome },
-    { path: routesNames.adminJokesList, component: AdminJokesList}
+    { name:'admin-jokes', path: routesNames.adminJokesList, component: AdminJokesList}
 ];
 
 

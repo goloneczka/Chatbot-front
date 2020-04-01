@@ -4,6 +4,7 @@
         <article class="media">
           <div class="media-content">
             <div class="content">
+                <p><small>{{joke.category}}</small>
                 <p>{{joke.content}}</p>
             </div>
           </div>
@@ -27,6 +28,8 @@
         padding: 30px;
         margin-top: 20px;
     }
-
-    
+    .joke-item small {
+      font-size: 14px;
+      color: #657786;
+    }
 </style>

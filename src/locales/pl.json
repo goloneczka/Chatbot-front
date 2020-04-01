@@ -22,7 +22,8 @@
   "adminJokes": {
     "listTitle": "Lista żartów",
     "btnPaginationPrevious": "Poprzedni",
-    "btnPaginationNext": "Następny"
+    "btnPaginationNext": "Następny",
+    "allCategories": "Wszystkie"
   },
   "login": {
     "title": "Panel Logowania Admina",
