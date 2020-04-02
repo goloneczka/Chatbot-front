@@ -17,7 +17,7 @@
     export const authorizationStorage = new AuthorizationStorage();
     export const httpRequest = new HttpRequest(baseUrl, authorizationStorage);
 
-    export const weatherService = new WeatherService();
+    export const weatherService = new WeatherService(httpRequest);
 
     export default {
         name: 'App',

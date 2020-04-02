@@ -24,7 +24,7 @@
 <script>
 
     import Vue from 'vue'
-    import Weather from "../categories/Weather";
+    import Weather from "../categories/weather/Weather";
 
     export default {
         name: "ChatBox",
@@ -42,9 +42,8 @@
                 document.getElementById("chooseCategoryButton").remove();
                 document.getElementById("bot-image").remove();
                 const ComponentClass = Vue.extend(Weather);
-                const instance = new ComponentClass({
-                    propsData: {type: this.props}
-                });
+                const instance = new ComponentClass();
+                instance.botIconSource = this.botIconSource;
                 instance.$mount(); // pass nothing
                 document.getElementById("categoryComponent").appendChild(instance.$el);
             }
@@ -53,6 +52,7 @@
             this.$nextTick(() => {
                 window.scrollTo(0, document.body.scrollHeight)
             })
+
         },
         computed: {
             lastBotMessageIndex: function () {
