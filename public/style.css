@@ -14,17 +14,17 @@
 
     --home-light-theme-bg-color: rgb(241, 241, 255);
     --home-dark-theme-bg-color: rgb(26, 26, 53);
-    --home-nav-bg-color: rgb(104, 102, 99);
+    --home-nav-bg-color: #9933ff;
     --home-nav-border: 1px solid black;
     --home-nav-item-border: 2px solid;
     --home-nav-item-active-border-color: #d3d9e0;
     --home-nav-item-hover-bg-color: #ebf6ff;
-    --home-chat-box-border: 2px solid #000000;
+    --home-chat-box-border: 2px solid gray;
 
-    --chat-box-mesaage-bg-color: rgb(162, 197, 255);
+    --chat-box-mesaage-bg-color: #9933ff;
     --chat-box-message-bot-border-radius: 20px 20px 20px 0;
     --chat-box-message-user-border-radius: 20px 20px 0 20px;
-    --chat-box-meassage-border: 1px solid #000000;
+    --chat-box-meassage-border: 1px solid white;
     --chat-box-bg-color: rgba(255, 255, 255, 0.19);
     --chat-box-category-button-bg-color: #f6f7ff;
     --chat-box-category-button-hover-bg-color: rgb(26, 26, 53);

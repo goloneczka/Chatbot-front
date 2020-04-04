@@ -1,17 +1,15 @@
 <template>
     <div>
         <div id="weather-component">
-            <UserMessage text="Chce poznać pogodę."/>
-            <BotMessage text="Świetnie ! A jakie chcesz miasto? "/>
+            <UserMessage :text="$t('weather.user.choiceWeather')" />
+            <BotMessage :text="$t('weather.bot.introduction')" />
             <BImage :botIconSource=this.botIconSource />
             <CityDropdown/>
         </div>
         <TimeDropdown v-if="timeDropdown"/>
         <div>
-            <b-button id="endWeatherTalkButton" v-if="thxButton" variant="outline-dark" v-on:click="this.endWeatherTalk">Dzięki!</b-button>
-            <b-button id="moreDetailsButton" v-if="thxButton" variant="outline-dark" v-on:click="this.moreDetails">Chcę
-                szczegóły
-            </b-button>
+            <b-button id="endWeatherTalkButton" v-if="thxButton" class="m-2" v-on:click="this.endWeatherTalk">{{$t('weather.user.thank')}}</b-button>
+            <b-button id="moreDetailsButton" v-if="thxButton" class="m-2" v-on:click="this.moreDetails">{{$t('weather.user.moreDetails')}}</b-button>
         </div>
 
         <EndWeatherButton v-if="endButton"/>
@@ -28,7 +26,7 @@
     import CityDropdown from "./models/CityDropdown";
     import BImage from "./models/BImage";
     import WeatherMessage from "./models/WeatherMessage";
-    import EndWeatherButton from "./models/EndWeatherButton";
+    import EndWeatherButton from "./models/EndWeatherButton"
     import WeatherDetailsMessage from "./models/WeatherDetailsMessage";
 
     export default {
@@ -59,16 +57,16 @@
         },
         methods: {
             cityDropdownOnClick(value) {
-                this.addUserMessage(`Wybieram miasto ${value}`);
+                this.addUserMessage(`${this.$t('weather.user.chooseCity')} ${value}`);
                 this.city = value;
                 document.getElementById("dropdown-button").remove();
-                this.addBotMessage("Swietnie ! Wybierz teraz czas! ");
+                this.addBotMessage(this.$t('weather.bot.choiceTime'));
                 this.addDropdownTime();
             },
             showWeather(value) {
-                this.addUserMessage(`Wybieram ${value}`);
+                this.addUserMessage(this.$t('weather.user.myChoice'));
                 this.time = value;
-                this.addBotMessage(`Swietnie! Oto moje przewidywania dla ${this.city} w ${value}....`);
+                this.addBotMessage(`${this.$t('weather.bot.myPredictions')} ${this.city} ${this.$t('weather.bot.in')} ${value}....`);
                 this.addWeatherMessage();
                 this.thxButton = true;
 
@@ -116,15 +114,16 @@
 
                 document.getElementById('endWeatherTalkButton').remove();
 
-                this.addUserMessage("Dzięki!");
-                this.addBotMessage("Cieszę się że mogłem pomóc :D");
-                this.addBotMessage("Jest coś co jeszcze mogę dla ciebie zrobić?");
+                this.addUserMessage(this.$t('weather.user.thank'));
+                this.addBotMessage(this.$t('weather.bot.couldHelp'));
+                this.addBotMessage(this.$t('weather.bot.anythingToDo'));
                 this.showOtherCategoryButton();
             },
             moreDetails() {
 
                 document.getElementById('moreDetailsButton').remove();
 
+                this.addUserMessage(this.$t('weather.user.moreDetails'));
                 let ComponentClass = Vue.extend(WeatherDetailsMessage);
                 let instance = new ComponentClass();
                 instance.data = this.weatherData;

@@ -5,11 +5,10 @@
                 <div class="d-flex" dir="ltr">
                     <b-button
                             size="sm"
-                            variant="outline-dark"
-                            class="ml-auto"
+                            class="m-2"
                             @click="setDay"
                     >
-                        Wybierz dzień
+                        {{$t('weather.user.choiceDay')}}
                     </b-button>
                 </div>
             </b-calendar>

@@ -23,7 +23,8 @@
 </script>
 <style scoped>
     .message-user > div {
-        margin-left: 80%;
-        border-radius: var(--chat-box-message-user-border-radius)
+        margin-left: 85%;
+        width: 15%;
+        border-radius: var(--chat-box-message-user-border-radius);
     }
 </style>

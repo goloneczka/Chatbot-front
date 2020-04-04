@@ -1,9 +1,7 @@
 <template>
     <div>
-        <b-button id="chooseCategoryButton" variant="outline-dark" v-on:click="onClick">Żarty
-        </b-button>
-        <b-button variant="outline-dark" v-on:click="onClick">Pogoda
-        </b-button>
+        <b-button id="chooseCategoryButton" class="m-2" v-on:click="onClick">{{ $t('bot.categoryJokes')}}</b-button>
+        <b-button class="m-2" v-on:click="onClick">{{ $t('bot.categoryWeather')}}</b-button>
     </div>
 </template>
 <script>

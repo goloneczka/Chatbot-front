@@ -8,44 +8,43 @@
             >
                 <div><a>{{message.text}}</a></div>
                 <p v-if="index === lastBotMessageIndex">
-                    <b-img id="bot-image" height="30" v-bind:src="botIconSource"></b-img>
+                    <b-img class="bot-image" height="30" v-bind:src="botIconSource"></b-img>
                 </p>
                 <p v-else-if="index === lastUserMessageIndex">
-                    <b-img id="bot-image1" height="30" :src="require('../../assets/user_icon.png')"></b-img>
+                    <b-img class="bot-image" height="30" :src="require('../../assets/user_icon.png')"></b-img>
                 </p>
             </li>
         </ul>
-        <b-button id="chooseCategoryButton" variant="outline-dark" v-on:click="onClick">{{$t('bot.categoryWeather')}}
+        <b-button id="chooseCategoryButton" class="m-2" v-on:click="onClick">{{$t('bot.categoryWeather')}}
         </b-button>
-        <div id="categoryComponent"></div>
+        <div id="categoryComponent">
+            <Weather :botIconSource="this.botIconSource" v-if="weather" />
+        </div>
     </div>
 </template>
 
 <script>
 
-    import Vue from 'vue'
     import Weather from "../categories/weather/Weather";
 
     export default {
         name: "ChatBox",
+        components: {Weather},
         props: ["botIconSource"],
         data: function () {
             return {
                 messages: [{author: "bot", text: this.$t('bot.helloMessage')},
                     {author: "bot", text: this.$t('bot.introductionMessage')},
                     {author: "bot", text: this.$t('bot.chooseCategoryMessage')}
-                ]
+                ],
+                weather: false,
             }
         },
         methods: {
             onClick: function () {
+                this.weather = true;
                 document.getElementById("chooseCategoryButton").remove();
-                document.getElementById("bot-image").remove();
-                const ComponentClass = Vue.extend(Weather);
-                const instance = new ComponentClass();
-                instance.botIconSource = this.botIconSource;
-                instance.$mount(); // pass nothing
-                document.getElementById("categoryComponent").appendChild(instance.$el);
+                document.getElementsByClassName('bot-image').item(0).remove();
             }
         },
         updated() {
@@ -94,23 +93,16 @@
     li > div {
         margin-bottom: 20px;
         background: var(--chat-box-mesaage-bg-color);
+        color: white;
         display: inline-flex;
         border: var(--chat-box-meassage-border);
     }
 
-    .bot {;
-        text-align: left;
-        margin-right: 30%;
-    }
 
     .bot > div {
         border-radius: 20px 20px 20px 0;
     }
 
-    .user {
-        text-align: right;
-        margin-left: 30%;
-    }
 
     .user > div {
         border-radius: 20px 20px 0 20px;
