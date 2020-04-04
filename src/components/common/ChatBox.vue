@@ -59,7 +59,7 @@
                 }
                 return null;
             }
-        }
+        },
     }
 </script>
 

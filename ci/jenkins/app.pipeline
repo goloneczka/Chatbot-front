@@ -8,7 +8,7 @@ pipeline {
             steps {
                 sh '''#!/bin/bash
                 npm install
-                npm run build
+                vue-cli-service build --mode prod
                 '''
             }
         }
