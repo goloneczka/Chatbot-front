@@ -11,7 +11,7 @@
     import HttpRequest from './core/requests/HttpRequest';
     import Dialog from "./components/common/Dialog";
 
-    const baseUrl = 'http://trainings:8080';
+    const baseUrl = process.env.VUE_APP_BASE_URL;
 
     export const authorizationStorage = new AuthorizationStorage();
     export const httpRequest = new HttpRequest(baseUrl, authorizationStorage);
