@@ -1,17 +1,6 @@
 <template>
     <div class="admin-home">
-        <nav class="navbar">
-            <h1>{{ $t('adminHome.title')}}</h1>
-            <div class="dropdown">
-                <button class="dropbtn">{{ $t('adminHome.menu')}}</button>
-                <div class="dropdown-content">
-                    <a href="#">{{ $t('adminHome.users')}}</a>
-                    <a href="#">{{ $t('adminHome.settings')}}</a>
-                    <a href="#">{{ $t('adminHome.information')}}</a>
-                    <a v-on:click="logOut">{{ $t('adminHome.logOut')}}</a>
-                </div>
-            </div>
-        </nav>
+         <AdminNavbar />
         <div>
             <b-container class="bv-example-row">
                 <b-row class="title">
@@ -61,21 +50,12 @@
     </div>
 </template>
 <script>
-
-    import AuthorizationStorage from "../../core/requests/AuthorizationStorage";
-    import {routesNames} from "../../routes";
-
-    const authorizationStorage = new AuthorizationStorage();
-
+    import AdminNavbar from "./AdminNavbar";
     export default {
         name: 'AdminHome',
-
-        methods: {
-            logOut() {
-                authorizationStorage.removeAuthorization();
-                this.$router.replace(routesNames.adminLogin)
-            }
-        }
+        components: {
+            AdminNavbar,
+        },
     }
 </script>
 <style scoped>

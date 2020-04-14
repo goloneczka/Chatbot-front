@@ -15,15 +15,10 @@
     </div>
 </template>
 <script>
-
-    import AuthorizationStorage from "../../core/requests/AuthorizationStorage";
+    import { authorizationStorage } from "../../App";
     import {routesNames} from "../../routes";
-
-    const authorizationStorage = new AuthorizationStorage();
-
     export default {
         name: 'AdminNavbar',
-
         methods: {
             logOut() {
                 authorizationStorage.removeAuthorization();

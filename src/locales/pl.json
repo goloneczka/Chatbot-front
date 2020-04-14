@@ -20,10 +20,25 @@
     }
   },
   "adminJokes": {
-    "listTitle": "Lista żartów",
-    "btnPaginationPrevious": "Poprzedni",
-    "btnPaginationNext": "Następny",
-    "allCategories": "Wszystkie"
+    "jokesTitle": "Lista żartów",
+    "categoriesTitle": "Lista kategorii żartów",
+    "emptyListOfJoke": "Oh no, nie mamy nic śmiesnego 😢",
+    "emptyListOfCategory": "Oh no, nie mamy żadnej kategorii! 😢",
+    "loadingTitle": "Trwa ładowanie 🔥🔥🔥",
+    "buttonGoToCategory": "Przejdź do żartów",
+    "errorListOfJokes": "Nie można pobrać żartów z tej kategorii. \n Błąd: ",
+    "errorListOfCategories": "Nie można pobrać kategorii. \n Błąd: ",
+    "errorDefault": "Ojoj coś poszło nie tak.... ",
+    "errorDelete": "Nie udało się usunać żartu ",
+    "modalAddJokeTitle": "Edycja żartu",
+    "buttonDeleteJoke": "Usuń żart",
+    "buttonEditJoke": "Edytuj żart",
+    "modalEditJokeTitle": "Modyfikacja żartu",
+    "modalEditJoke": "Żart",
+    "modalEditJokeInfo": "Nie możesz zostawić tego pola pustego.",
+    "modalEditJokeSubmit": "Aktualizuj żart",
+    "validateJokeContentEmpty": "Zawartość żartu nie może byc pusta",
+    "errorModifyResponseJoke": "Wystąpił błąd podczas aktualizacji żartu."
   },
   "login": {
     "title": "Panel Logowania Admina",

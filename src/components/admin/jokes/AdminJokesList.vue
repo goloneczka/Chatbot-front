@@ -2,164 +2,188 @@
     <div class="admin-jokes-list">
         <AdminNavbar />
         <div class="container mt-5">
-            <div class="row">
-                <div v-if="data.length > 0" class="col-12">
-                    <h3 class="text-left title">
-                        {{ $t('adminJokes.listTitle') }}
-                    </h3>
-                    <div class="text-right">
-                        <b-dropdown id="dropdown-text" :text="currentCategory" class="m-2">
-                            <b-dropdown-item-button v-on:click="changeCategory(category)" v-for="(category, index) in categories" :key="index">{{category}}</b-dropdown-item-button>
-                        </b-dropdown>
-                    </div>
-                    <joke-item v-for="(joke) in paginatedData" :joke="joke" :key="joke.id" />
-                    <div class="mx-auto mt-4" style="width: 200px;">
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <button class="page-link" type="button" @click="onClickPreviousPage" :disabled="isInFirstPage">
-                                         {{ $t('adminJokes.btnPaginationPrevious') }}
-                                    </button>
-                                </li>
-                                <li :class="[{ active: isPageActive(page.number) }, 'page-item']" v-for="(page, index) in pages" :key="index">
-                                    <button 
-                                        class="page-link"
-                                        type="button"
-                                        @click="onPageChange(page.number)" 
-                                        :disabled="page.isDisabled" 
-                                        >
-                                            {{ page.number }}
-                                    </button>
-                                </li>
-                                <li class="page-item" title="Следующая страница">
-                                    <button class="page-link" type="button" @click="onClickNextPage" :disabled="isInLastPage">
-                                        {{ $t('adminJokes.btnPaginationNext') }}
-                                    </button>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+            <div v-if="error" class="alert alert-danger" role="alert">
+                {{error}}
+            </div>
+            <h3 class="text-left title">
+                <div v-if="showCategories">
+                    {{ $t('adminJokes.categoriesTitle') }}
                 </div>
-                <div v-else  class="col-12">
-                    <h3 class="text-center">Oh no, nie mamy nic śmiesnego 😢</h3>
+                <div v-else-if="showJokes">
+                    {{ $t('adminJokes.jokesTitle') }}
+                </div>
+            </h3>
+            <div class="row">
+                <div v-if="showCategories && categories.length > 0" class="col-12">
+ 
+                    <category-item v-for="(category) in categories" :category="category" :key="category.name" v-on:changeCategory="changeCategory($event)" />
+                </div>
+                <div v-else-if="showCategories && categories.length == 0" class="col-12">
+                     <h3 class="text-center">{{ $t('adminJokes.emptyListOfCategory') }}</h3>
+                </div>
+                <div v-else-if="showJokes && jokes.length > 0" class="col-12">
+                     <joke-item v-for="(joke) in jokes" :joke="joke" :key="joke.id" v-on:removeJoke="removeJoke($event)"  v-on:editJoke="editJoke($event)" />
+                </div>
+                <div v-else-if="showJokes && jokes.length == 0" class="col-12">
+                     <h3 class="text-center">{{ $t('adminJokes.emptyListOfJoke') }}</h3>
+                </div>
+                <div v-else-if="showLoading" class="col-12">
+                     <h3 class="text-center">{{ $t('adminJokes.loadingTitle') }}</h3>
+                </div>
+                <div v-else class="col-12">
+                     <h3 class="text-center">{{ $t('adminJokes.errorDefault') }}</h3>
                 </div>
             </div>
         </div>
+        <b-modal id="edit-joke-modal" :title="$t('adminJokes.modalEditJokeTitle')" hide-footer>
+            <ul v-if="editJokeTmp.errors.length" class="alert alert-danger" role="alert">
+                <li v-for="(error) in editJokeTmp.errors" :key="error">{{error}}</li>
+            </ul>
+            
+            <form  @submit="modifyJoke">
+                <div class="form-group">
+                    <label for="inputJoke">{{ $t('adminJokes.modalEditJoke') }}</label>
+                    <input type="text" class="form-control" id="inputJoke" aria-describedby="contentHelp" v-model="editJokeTmp.modifiedJoke">
+                    <small id="contentHelp" class="form-text text-muted">{{ $t('adminJokes.modalEditJokeInfo') }}</small>
+                </div>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary" :disabled="checkEditJoke">{{ $t('adminJokes.modalEditJokeSubmit') }}</button>
+                </div>
+            </form>
+        </b-modal>
     </div>
 </template>
 <script>
-    import {mapActions, mapGetters} from 'vuex';
+import AdminNavbar from "../AdminNavbar"
+import CategoryItem from "./CategoryItem"
+import JokeItem from "./JokeItem"
+import JokeAdminRepoistory from "../../../repository/JokeAdminRepository"
+import AdminJokesService from "../../../service/AdminJokesService"
 
-    import AdminNavbar from "../AdminNavbar";
-    import JokeItem from "./JokeItem";
-    export default {
-        name: 'AdminJokesList',
-        components: {
-            AdminNavbar,
-            JokeItem
-        },
-        data() {
-            return {
-                currentCategory: this.$t('adminJokes.allCategories'),
-                data: [],
-                categories: [],
-                totalPages: 0,
-                total: 0,
-                perPage: 3,
-                currentPage: 1,
-                maxVisibleButtons: 3
-            }
-        },
-        mounted(){
-            this.loadJokesForAdmin()
-            this.data = this.jokeAdmin
-            this.total = this.jokeAdmin.length
-            this.totalPages = Math.ceil(this.total/this.perPage)
-            this.data.map((e) =>{
-                if(this.categories.indexOf(e.category) === -1) this.categories.push(e.category)
-            })
-            
-        },
-        methods: {
-            ...mapActions(['loadJokesForAdmin']),
-            onClickPreviousPage() {
-                this.onPageChange(this.currentPage - 1)
-            },
-            onClickNextPage() {
-                this.onPageChange(this.currentPage + 1)
-            },
-            isPageActive(page) {
-                return this.currentPage === page
-            },
-            onPageChange(page) {
-                this.currentPage = page;
-            },
-            getPagingRange(current, {min = 1, total = 20, length = 5} = {}) {
-                if (length > total) length = total
+const service = new AdminJokesService(JokeAdminRepoistory)
 
-                let start = current - Math.floor(length / 2)
-                start = Math.max(start, min)
-                start = Math.min(start, min + total - length)
-                
-                return Array.from({length: length}, (el, i) => start + i)
-            },
-            changeCategory(category){
-                this.currentCategory = category
-                if(category !== this.$t('adminJokes.allCategories')){
-                    if(this.categories.indexOf(this.$t('adminJokes.allCategories')) === -1)
-                        this.categories.push(this.$t('adminJokes.allCategories'))
-                    this.data = this.jokeAdmin.filter((e) => {
-                        if(e.category === category) return true
-                        else return false
-                    })
-                    this.total = this.data.length
-                    this.totalPages = Math.ceil(this.total/this.perPage)
-                    this.currentPage = 1
-                }
-                else{
-                    this.data = this.jokeAdmin
-                    this.total = this.jokeAdmin.length
-                    this.totalPages = Math.ceil(this.total/this.perPage)
-                }
-                
+export default {
+    name: 'AdminJokesList',
+    components: {
+        AdminNavbar,
+        CategoryItem,
+        JokeItem
+    },
+    data(){
+        return {
+            showCategories: false,
+            showJokes: false,
+            showLoading: true,
+            categories: [],
+            currentCategory: '',
+            jokes: [],
+            error: '',
+            editJokeTmp: {
+                orginalJoke: '',
+                modifiedJoke: '',
+                errors: []
             }
-        },
-        computed: {
-            ...mapGetters(['jokeAdmin']),
-            paginatedData(){
-                let start = (this.currentPage - 1) * this.perPage, end = start + this.perPage
-                return this.data.slice(start, end)
-            },
-            pages() {
-                let check = this.getPagingRange(this.currentPage, {min: 1, total: this.totalPages, length: this.maxVisibleButtons})
-                let range = []
-                for (let i = 0; i <check.length; i+= 1 ) {
-                    range.push({
-                    number: check[i],
-                    isDisabled: check[i] === this.currentPage 
-                    });
-                }
-                return range
-            },
-            isInFirstPage() { 
-                return this.currentPage === 1 
-            },
-            isInLastPage() { 
-                return this.currentPage === this.totalPages
-            },
         }
+    },
+    mounted(){
+        this.error = ''
+        service.getCategories()
+            .then(
+                response =>  {
+                    this.showLoading = false
 
+                    if(!response.errors){
+                        this.categories = response
+                        this.showCategories = true
+                        
+                    }
+                    else 
+                        this.error = this.$t('adminJokes.errorListOfCategories') + response.errors[0] 
+                },
+                error => {
+                    this.error = error
+            });
+        
+    },
+    methods: {
+        changeCategory(category){
+            this.error = ''
+            service.getJokesForCategory(category)
+                .then(
+                    response =>  {
+                        this.showLoading = false
+
+                        if(!response.errors){
+                            this.jokes = response
+                            this.currentCategory = category
+                            this.showCategories = false
+                            this.showJokes = true
+                        }
+                        else 
+                            this.error = this.$t('adminJokes.errorListOfJokes') + response.errors[0] 
+                });
+        },
+        removeJoke(jokeId){
+            this.error = ''
+            service.removeJoke(jokeId)
+                .then(
+                    response => {
+                        if(!response.errors){
+                            this.jokes = this.jokes.filter((value) => { value.id !== jokeId});
+                        }
+                        else 
+                            this.error = this.$t('adminJokes.errorDelete') + response.errors[0]
+                    }
+                )
+        },
+        editJoke(jokeId){
+            this.jokes.map(value => {
+                if(value.id === jokeId){
+                    this.editJokeTmp.orginalJoke = value
+                    this.editJokeTmp.modifiedJoke = value.content
+                }
+            })
+            this.$bvModal.show("edit-joke-modal");  
+        },
+        modifyJoke(e){
+            this.editJokeTmp.errors = []
+            let errors = service.validateEditJoke({content: this.editJokeTmp.modifiedJoke})
+            if(errors.length > 0)
+                this.editJokeTmp.errors = errors
+            else{
+                let joke = {
+                    id: this.editJokeTmp.orginalJoke.id,
+                    joke: this.editJokeTmp.modifiedJoke
+                }
+                service.modifyJoke(joke).then(response => {
+                    if(!response.errors){
+                       this.$bvModal.close("edit-joke-modal");  
+                    }
+                    else 
+                        this.editJokeTmp.errors.push(this.$t('adminJokes.errorModifyResponseJoke') )
+                })
+            }
+                
+            e.preventDefault();
+        }
+    },
+    computed: {
+        checkEditJoke() { 
+            return this.editJokeTmp.orginalJoke.content === this.editJokeTmp.modifiedJoke || this.editJokeTmp.modifiedJoke.length === 0
+        },
     }
+}
 </script>
-<style>
-    .title {
-        color: #9933ff;
+<style scoped>
+    .joke-item {
+        background-color: #fff;
+        color: #373737;
+        box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+        padding: 30px;
+        margin-top: 20px;
     }
-    .pagination .page-item .page-link {
-        color:#9933ff;
-    }
-    .pagination .page-item.active .page-link {
-        background-color: #9933ff;
-        color: #fff;
+    .joke-item small {
+      font-size: 14px;
+      color: #657786;
     }
 </style>

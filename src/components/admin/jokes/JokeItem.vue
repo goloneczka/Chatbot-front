@@ -1,15 +1,16 @@
 <template>
-    <div class="joke-item">
-      <div class="box">
-        <article class="media">
-          <div class="media-content">
-            <div class="content">
+  <div class="joke-item">
+        <div class="media">
+            <div class="media-body">
                 <p><small>{{joke.category}}</small>
                 <p>{{joke.content}}</p>
+                <div class="float-right">
+                    <button type="button" class="btn btn-primary btn-small mr-1" v-on:click="editJoke">{{ $t('adminJokes.buttonEditJoke') }}</button>
+                    <button type="button" class="btn btn-danger btn-small " v-on:click="removeJoke">{{ $t('adminJokes.buttonDeleteJoke') }}</button>
+                </div>
+               
             </div>
-          </div>
-        </article>
-      </div>
+        </div>
     </div>
 </template>
 <script>
@@ -17,6 +18,14 @@
         name: 'joke-item',
         props: {
             joke: Object
+        },
+        methods: {
+            editJoke() {
+                this.$emit('editJoke', this.joke.id);
+            },
+            removeJoke() {
+                this.$emit('removeJoke', this.joke.id);
+            }
         }
     }
 </script>
