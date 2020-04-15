@@ -12,4 +12,11 @@
     --main-medium-font-size: 20px;
     --main-small-font-size: 12px;
     
+    --admin-joke-item-bg-color: #fff;
+    --admin-joke-item-color: #373737;
+    --admin-joke-item-box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+    --admin-joke-item-padding: 30px;
+    --admin-joke-margin-top: 20px;
+    --admin-joke-item-small-color: #657786;
+    --admin-joke-item-small-font-size: 14px;
 }

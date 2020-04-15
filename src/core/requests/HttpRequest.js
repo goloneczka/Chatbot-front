@@ -18,8 +18,8 @@ export default class HttpRequest {
         return this.execute(url, 'PUT', data)
     }
 
-    delete(url, data) {
-        return this.execute(url, 'DELETE', data)
+    delete(url) {
+        return this.execute(url, 'DELETE')
     }
 
     execute(url, method, data) {

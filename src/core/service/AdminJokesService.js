@@ -15,11 +15,11 @@ export default class AdminJokeService {
         return this.jokeAdminRepository.removeJoke(id)
     }
 
-    validateEditJoke(joke) {
+    validateEditJoke(joke, errorContent) {
         let errors = []
 
         if(joke.content.length === 0) 
-            errors.push(this.$t('adminJokes.validateJokeContentEmpty'))
+            errors.push(errorContent.jokeContent)
             
         return errors
     }

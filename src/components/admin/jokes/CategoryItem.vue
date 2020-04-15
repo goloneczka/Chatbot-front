@@ -23,10 +23,10 @@
 </script>
 <style scoped>
     .category-item {
-        background-color: #fff;
-        color: #373737;
-        box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
-        padding: 30px;
-        margin-top: 20px;
+        background-color: var(--admin-joke-item-bg-color);
+        color: var(--admin-joke-item-color);
+        box-shadow: var(--admin-joke-item-box-shadow);
+        padding: var(--admin-joke-item-padding);
+        margin-top: var(--admin-joke-margin-top);
     }
 </style>

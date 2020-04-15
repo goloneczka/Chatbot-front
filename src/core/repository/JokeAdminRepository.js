@@ -1,4 +1,4 @@
-import {httpRequest} from '../App'
+import {httpRequest} from '../../App'
 export default {
     getCategories() {
         return httpRequest.get('admin/jokes/categories')
@@ -7,7 +7,7 @@ export default {
         return httpRequest.get('admin/jokes/categories/' + name)
     },
     removeJoke(id) {
-        return httpRequest.delete('admin/jokes/'+id, null)
+        return httpRequest.delete('admin/jokes/'+id)
     },
     editJoke(joke) {
         return httpRequest.put('admin/jokes', joke)
