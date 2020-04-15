@@ -12,7 +12,7 @@
     import Dialog from "./components/common/Dialog";
     import WeatherService from "./core/componentServices/WeatherService";
 
-    const baseUrl = 'http://localhost:9090';
+    const baseUrl = process.env.VUE_APP_BASE_URL;
 
     export const authorizationStorage = new AuthorizationStorage();
     export const httpRequest = new HttpRequest(baseUrl, authorizationStorage);
