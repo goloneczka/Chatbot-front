@@ -1,13 +1,14 @@
 <template>
     <div id="dropdown-button">
         <b-dropdown :text="$t('weather.user.city')" class="m-2">
-            <b-dropdown-item v-for="city in cities" :key="city" v-on:click="cityDropdownOnClick(city)">{{city}}</b-dropdown-item>
+            <b-dropdown-item v-for="city in cities" :key="city" v-on:click="cityDropdownOnClick(city)">{{city}}
+            </b-dropdown-item>
         </b-dropdown>
     </div>
 </template>
 <script>
 
-   // import { weatherService }  from './../../../../App'
+    import { weatherService } from './../../../../App'
 
     export default {
         name: 'CityDropdown',
@@ -18,10 +19,10 @@
             }
         },
         mounted() {
-            Promise.resolve(['Jastarnia','Warszawa','Kraków','Gdańsk','Poznań','Opoczno','Wrocław','Łódź']).then((data) => this.cities = data);
+            Promise.resolve(weatherService.getAllCities()).then((data) => this.cities = data);
         },
         methods: {
-            cityDropdownOnClick(city){
+            cityDropdownOnClick(city) {
                 this.$root.$emit('cityDropdownOnClick', city);
             }
         }

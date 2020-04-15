@@ -17,7 +17,7 @@
 </template>
 <script>
 
-    //import { weatherService} from "../../../App";
+    import { weatherService } from "../../../App";
 
     import Vue from "vue";
     import TimeDropdown from "./models/TimeDropdown";
@@ -64,8 +64,7 @@
                 this.addDropdownTime();
             },
             showWeather(value) {
-                this.addUserMessage(this.$t('weather.user.myChoice'));
-                this.time = value;
+                this.addUserMessage(`${this.$t('weather.user.myChoice')} ${value}`);
                 this.addBotMessage(`${this.$t('weather.bot.myPredictions')} ${this.city} ${this.$t('weather.bot.in')} ${value}....`);
                 this.addWeatherMessage();
                 this.thxButton = true;
@@ -92,18 +91,17 @@
                 this.timeDropdown = true;
             },
             addWeatherMessage() {
-
-                //get data from server
-                //this.weatherData= JSON.parse(weatherService.getWeatherData(this.city, this.time));
-
-                let ComponentClass = Vue.extend(WeatherMessage);
-                let instance = new ComponentClass();
-                instance.data = `${this.city}%${this.time}`;
-                instance.$mount();
-                document.getElementById("weather-component").appendChild(instance.$el);
-
-                this.addBotImage();
-
+                weatherService.getWeatherData(this.city, this.time).then((weatherData) => {
+                    weatherData.city = this.city;
+                    weatherData.time = this.time;
+                    this.weatherData = weatherData;
+                    let ComponentClass = Vue.extend(WeatherMessage);
+                    let instance = new ComponentClass();
+                    instance.data = weatherData;
+                    instance.$mount();
+                    document.getElementById("weather-component").appendChild(instance.$el);
+                    this.addBotImage();
+                });
             },
             endWeatherTalk() {
 
@@ -126,6 +124,7 @@
                 this.addUserMessage(this.$t('weather.user.moreDetails'));
                 let ComponentClass = Vue.extend(WeatherDetailsMessage);
                 let instance = new ComponentClass();
+                console.log(this.weatherData);
                 instance.data = this.weatherData;
                 instance.$mount();
                 document.getElementById("weather-component").appendChild(instance.$el);

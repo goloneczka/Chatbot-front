@@ -6,7 +6,7 @@
                     <a>
                         <img alt='Weather' height="70" src="../../../common/images/sun.png"/>
                         <h3>{{this.city}}</h3>
-                        <h5>Pogoda: {{this.weather}}</h5>
+                        <h5>{{this.weather}}</h5>
                         <h5>Temperatura: {{this.temperature}}</h5>
                         <h5>Zachmurzenie: {{this.cloudy}}</h5>
                     </a>
@@ -34,6 +34,11 @@
             }
         },
         mounted() {
+            this.city = this.data.city;
+            this.time = this.data.time
+            this.weather = this.data.summary;
+            this.temperature = this.data.temperature;
+            this.cloudy = this.data.precipType;
         },
         methods: {
         },

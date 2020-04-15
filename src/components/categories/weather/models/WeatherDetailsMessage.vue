@@ -30,16 +30,24 @@
             return {
                 city: '',
                 time: '',
-                weather: 'Słonecznie',
-                temperature: '30°C',
-                feelTemperature: '31°C',
-                cloudy: 'brak',
-                airPressure: '1000hPa',
-                humidity: '0.3',
-                windSpeed: '5.59 km/h',
+                weather: '',
+                temperature: '',
+                feelTemperature: '',
+                cloudy: '',
+                airPressure: '',
+                humidity: '',
+                windSpeed: '',
             }
         },
         mounted() {
+            console.log(this.data);
+            this.weather = this.data.summary;
+            this.temperature = this.data.temperature;
+            this.feelTemperature = this.data.perceivedTemperature;
+            this.cloudy = this.data.precipType;
+            this.airPressure = this.data.pressure;
+            this.humidity = this.data.humidity;
+            this.windSpeed = this.data.windSpeed;
         },
         methods: {
         },
