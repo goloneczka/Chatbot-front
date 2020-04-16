@@ -3,7 +3,7 @@
         <div class="media">
             <div class="media-body">
                 <p><small>{{joke.category}}</small>
-                <p>{{joke.content}}</p>
+                <p>{{joke.joke}}</p>
                 <div class="float-right">
                     <button type="button" class="btn btn-primary btn-small mr-1" v-on:click="editJoke">{{ $t('adminJokes.buttonEditJoke') }}</button>
                     <button type="button" class="btn btn-danger btn-small " v-on:click="removeJoke">{{ $t('adminJokes.buttonDeleteJoke') }}</button>

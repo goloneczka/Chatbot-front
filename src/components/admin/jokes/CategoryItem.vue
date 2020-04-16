@@ -2,7 +2,7 @@
     <div class="category-item">
         <div class="media">
             <div class="media-body">
-                <h5 class="mt-0">{{category.name}}</h5>
+                <h5 class="mt-0">{{category.category}}</h5>
                  <button type="button" v-on:click="changeCategory" class="btn btn-success btn-small float-right">{{ $t('adminJokes.buttonGoToCategory') }}</button>
             </div>
         </div>
@@ -16,7 +16,7 @@
         },
         methods: {
             changeCategory() {
-                this.$emit('changeCategory', this.category.name);
+                this.$emit('changeCategory', this.category.category);
             }
         }
     }
