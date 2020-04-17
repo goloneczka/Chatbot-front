@@ -5,8 +5,8 @@ export default class HttpRequest {
         this.authorizationStorage = authorizationStorage;
     }
 
-    get(url, data) {
-        return this.execute(url, 'GET', data)
+    get(url) {
+        return this.execute(url, 'GET')
     }
 
 

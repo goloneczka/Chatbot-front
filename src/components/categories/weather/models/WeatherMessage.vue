@@ -4,16 +4,15 @@
             <li class="message">
                 <div>
                     <a>
-                        <img alt='Weather' height="70" src="../../../common/images/sun.png"/>
+                        <b-img height="80" v-bind:src="require('../../../../assets/sun.png')"> </b-img>
                         <h3>{{this.city}}</h3>
                         <h5>{{this.weather}}</h5>
-                        <h5>Temperatura: {{this.temperature}}</h5>
-                        <h5>Zachmurzenie: {{this.cloudy}}</h5>
+                        <h5>{{$t('weather.bot.temperature')}} {{this.temperature}}</h5>
+                        <h5>{{$t('weather.bot.precipType')}} {{this.cloudy}}</h5>
                     </a>
                 </div>
             </li>
         </ul>
-        <UserButton/>
     </div>
 </template>
 <script>
@@ -31,11 +30,12 @@
                 weather: 'Słonecznie',
                 temperature: '30°C',
                 cloudy: 'brak',
+                src: '../../../../assets/sun.png',
             }
         },
         mounted() {
             this.city = this.data.city;
-            this.time = this.data.time
+            this.time = this.data.time;
             this.weather = this.data.summary;
             this.temperature = this.data.temperature;
             this.cloudy = this.data.precipType;

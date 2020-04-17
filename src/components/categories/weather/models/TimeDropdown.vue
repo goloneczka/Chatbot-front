@@ -27,7 +27,6 @@
         },
         methods: {
             setDay(){
-                document.getElementById('time-component').remove();
                 this.$root.$emit('showWeather', [this.context.selectedFormatted,this.context.activeYMD]);
             },
             onContext(ctx) {

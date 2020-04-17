@@ -5,17 +5,16 @@
                 <div>
                     <a>
                         <h3>{{this.city}}</h3>
-                        <h5>Temperatura: {{this.temperature}}</h5>
-                        <h5>Odczuwalna temperatura: {{this.feelTemperature}}</h5>
-                        <h5>Zachmurzenie: {{this.cloudy}}</h5>
-                        <h5>Ciśnienie powietrza: {{this.airPressure}}</h5>
-                        <h5>Wilgotnośc: {{this.humidity}}</h5>
-                        <h5>Prędkość wiatru: {{this.windSpeed}}</h5>
+                        <h5>{{$t('weather.bot.temperature')}} {{this.temperature}}</h5>
+                        <h5>{{$t('weather.bot.perceivedTemperature')}} {{this.feelTemperature}}</h5>
+                        <h5>{{$t('weather.bot.precipType')}} {{this.cloudy}}</h5>
+                        <h5>{{$t('weather.bot.airPressure')}} {{this.airPressure}}</h5>
+                        <h5>{{$t('weather.bot.humidity')}} {{this.humidity}}</h5>
+                        <h5>{{$t('weather.bot.airSpeed')}} {{this.windSpeed}}</h5>
                     </a>
                 </div>
             </li>
         </ul>
-        <UserButton/>
     </div>
 </template>
 <script>
@@ -40,7 +39,6 @@
             }
         },
         mounted() {
-            console.log(this.data);
             this.weather = this.data.summary;
             this.temperature = this.data.temperature;
             this.feelTemperature = this.data.perceivedTemperature;

@@ -2,7 +2,7 @@
     <div>
         <ul>
             <li class="message">
-                <div><a>{{this.text}}</a></div>
+                <div>{{this.text}}</div>
             </li>
         </ul>
     </div>

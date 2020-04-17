@@ -37,7 +37,7 @@
                     {author: "bot", text: this.$t('bot.introductionMessage')},
                     {author: "bot", text: this.$t('bot.chooseCategoryMessage')}
                 ],
-                weather: false,
+                weather: false
             }
         },
         methods: {

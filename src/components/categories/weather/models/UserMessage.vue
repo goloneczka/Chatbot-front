@@ -2,7 +2,7 @@
     <div>
         <ul>
             <li class="message-user">
-                <div><a>{{this.text}}</a></div>
+                <div>{{this.text}}</div>
             </li>
         </ul>
     </div>
