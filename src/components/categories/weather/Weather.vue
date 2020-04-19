@@ -17,9 +17,9 @@
                 <WeatherMessage :data="this.weatherData" />
                 <BImage :botIconSource=this.botIconSource />
             </div>
-            <div v-if="todoButtons">
+            <div v-if="endOrDetailsButtons">
                 <b-button id="endWeatherTalkButton" class="m-2" v-on:click="this.endWeatherTalk">{{$t('weather.user.thank')}}</b-button>
-                <b-button id="moreDetailsButton" class="m-2" v-on:click="this.moreDetails">{{$t('weather.user.moreDetails')}}</b-button>
+                <b-button id="moreDetailsButton" class="m-2" v-on:click="this.showMoreDetailsMessage">{{$t('weather.user.moreDetails')}}</b-button>
             </div>
             <div v-if="details">
                 <UserMessage :text="this.$t('weather.user.moreDetails')" />
@@ -38,10 +38,10 @@
 
     import { weatherService } from "../../../App";
 
-    import UserMessage from "./models/UserMessage";
-    import BotMessage from "./models/BotMessage";
+    import UserMessage from "../../common/UserMessage";
+    import BotMessage from "../../common/BotMessage";
     import CityDropdown from "./models/CityDropdown";
-    import BImage from "./models/BImage";
+    import BImage from "../../common/BImage";
     import WeatherMessage from "./models/WeatherMessage";
     import WeatherDetailsMessage from "./models/WeatherDetailsMessage";
     import TimeDropdown from "./models/TimeDropdown";
@@ -58,7 +58,7 @@
                 timeDropdown: false,
                 showCityDropdown: true,
                 showTimeDropdown: false,
-                todoButtons: false,
+                endOrDetailsButtons: false,
                 details: false,
                 endWeather: false,
                 botCityMessage: false,
@@ -71,10 +71,10 @@
             this.$root.$on('cityDropdownOnClick', (text) => {
                 this.cityDropdownOnClick(text);
             });
-            this.$root.$on('showWeather', (data) => {
-                this.time = data[1];
+            this.$root.$on('showWeatherMessage', (data) => {
                 this.userTime = data[0];
-                this.showWeather();
+                this.time = data[1];
+                this.showWeatherMessage();
             });
             this.$root.$on('event', () => {
                 this.endWeatherTalk();
@@ -88,24 +88,24 @@
                 this.showTimeDropdown = true;
                 this.removeBotImage()
             },
-            showWeather() {
+            showWeatherMessage() {
                 weatherService.getWeatherData(this.city, this.time).then((weatherData) => {
                     this.showTimeDropdown = false;
                     weatherData.city = this.city;
                     weatherData.time = this.time;
                     this.weatherData = weatherData;
                     this.botWeatherMessage = true;
-                    this.todoButtons = true;
+                    this.endOrDetailsButtons = true;
                     this.removeBotImage()
                 });
             },
             endWeatherTalk() {
                 this.removeBotImage();
-                this.todoButtons = false;
+                this.endOrDetailsButtons = false;
                 this.endTalk();
             },
-            moreDetails() {
-                this.todoButtons = false;
+            showMoreDetailsMessage() {
+                this.endOrDetailsButtons = false;
                 this.details = true;
                 this.removeBotImage();
                 this.endTalk();

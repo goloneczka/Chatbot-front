@@ -10,7 +10,7 @@
     import AuthorizationStorage from './core/requests/AuthorizationStorage';
     import HttpRequest from './core/requests/HttpRequest';
     import Dialog from "./components/common/Dialog";
-    import WeatherService from "./core/componentServices/WeatherService";
+    import WeatherService from "./core/service/WeatherService";
 
     const baseUrl = process.env.VUE_APP_BASE_URL;
 

@@ -27,7 +27,7 @@
         },
         methods: {
             setDay(){
-                this.$root.$emit('showWeather', [this.context.selectedFormatted,this.context.activeYMD]);
+                this.$root.$emit('showWeatherMessage', [this.context.selectedFormatted,this.context.activeYMD]);
             },
             onContext(ctx) {
                 this.context = ctx

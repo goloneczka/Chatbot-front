@@ -5,12 +5,12 @@
                 <div>
                     <a>
                         <h3>{{this.city}}</h3>
-                        <h5>{{$t('weather.bot.temperature')}} {{this.temperature}}</h5>
-                        <h5>{{$t('weather.bot.perceivedTemperature')}} {{this.feelTemperature}}</h5>
+                        <h5>{{$t('weather.bot.temperature')}} {{this.temperature}}°C</h5>
+                        <h5>{{$t('weather.bot.perceivedTemperature')}} {{this.feelTemperature}}°C</h5>
                         <h5>{{$t('weather.bot.precipType')}} {{this.cloudy}}</h5>
-                        <h5>{{$t('weather.bot.airPressure')}} {{this.airPressure}}</h5>
-                        <h5>{{$t('weather.bot.humidity')}} {{this.humidity}}</h5>
-                        <h5>{{$t('weather.bot.airSpeed')}} {{this.windSpeed}}</h5>
+                        <h5>{{$t('weather.bot.airPressure')}} {{this.airPressure}} hPa</h5>
+                        <h5>{{$t('weather.bot.humidity')}} {{this.humidity}}%</h5>
+                        <h5>{{$t('weather.bot.airSpeed')}} {{this.windSpeed}} km/h</h5>
                     </a>
                 </div>
             </li>
