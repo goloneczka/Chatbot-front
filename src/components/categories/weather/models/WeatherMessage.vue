@@ -27,10 +27,10 @@
             return {
                 city: '',
                 time: '',
-                weather: 'Słonecznie',
-                temperature: '30°C',
-                cloudy: 'brak',
-                src: '../../../../assets/sun.png',
+                weather: '',
+                temperature: '',
+                cloudy: '',
+                src: '',
             }
         },
         mounted() {

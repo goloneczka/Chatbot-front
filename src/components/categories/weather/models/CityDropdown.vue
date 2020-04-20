@@ -19,7 +19,7 @@
             }
         },
         mounted() {
-            Promise.resolve(weatherService.getAllCities()).then( data => this.cities = data);
+            weatherService.getAllCities().then( data => this.cities = data);
         },
         methods: {
             cityDropdownOnClick(city) {
