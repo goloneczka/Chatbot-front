@@ -19,9 +19,7 @@ Vue.use(IconsPlugin);
 const router = new VueRouter({routes});
 
 router.beforeEach((to, from, next) => {
-    if (to.path.includes("/admin") && !authorizationStorage.isEmpty()) {
-        next();
-    } else if (!to.path.includes("/admin")) {
+    if (!to.path.includes("/admin") || !authorizationStorage.isEmpty()) {
         next();
     } else {
         next(false);
