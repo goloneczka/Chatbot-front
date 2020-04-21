@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <b-alert
+    <div class="dialog-alert">
+        <b-alert sticky
                 id="dangerAlert"
                 :show="dismissDangerCountDown"
                 dismissible
@@ -62,3 +62,11 @@
     }
 
 </script>
+
+<style scoped>
+    .dialog-alert {
+        position: -webkit-sticky;
+        position: sticky;
+        top:0;
+    }
+</style>
