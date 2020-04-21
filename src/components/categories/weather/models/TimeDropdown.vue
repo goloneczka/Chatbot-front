@@ -25,12 +25,12 @@
         components: {},
         data() {
             const now = new Date();
-            const today = new Date(now.getFullYear(), now.getMonth(), now.getDay());
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
             const minDate = new Date(today);
-            minDate.setDate(minDate.getDay() + 17);
+            minDate.setDate(minDate.getDate());
             const maxDate = new Date(today);
-            maxDate.setDate(maxDate.getDay() + 23);
+            maxDate.setDate(maxDate.getDate() + 6);
 
 
             return {
