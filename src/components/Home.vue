@@ -1,6 +1,6 @@
 <template>
     <div class="home" v-bind:class="themes[themeIndex].themeName">
-        <b-navbar sticky>
+        <b-navbar>
             <b-navbar-nav>
                 <b-nav-item v-for="(theme, index) in themes" :key="index" v-bind:activeTheme="theme.activeTheme"
                             v-on:click="changeTheme(index)">

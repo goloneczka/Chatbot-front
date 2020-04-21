@@ -30,6 +30,10 @@
       "choiceDay": "Wybierz dzień",
       "city": "Wybór miasta"
 
+    },
+    "error": {
+      "wrongDate": "Nie wybrano daty!",
+      "backDate": "Podano nie poprawną datę! Data nie może być wcześniejsza niż dzisiejszy dzień."
     }
   },
   "adminHome": {
