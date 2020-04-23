@@ -15,6 +15,10 @@ export default class HttpRequest {
     }
 
     put(url, data) {
+        data.category = "test1"
+
+        console.log(data)
+
         return this.execute(url, 'PUT', data)
     }
 
@@ -23,15 +27,13 @@ export default class HttpRequest {
     }
 
     execute(url, method, data) {
-
         return fetch(`${this.baseUrl}/${url}`, {
             method: method,
             headers: !this.authorizationStorage.isEmpty() ?
-                new Headers({Authorization: this.authorizationStorage.getAuthorization()}) : new Headers(),
+                new Headers({'Content-Type': 'application/json', Authorization: this.authorizationStorage.getAuthorization()}) : new Headers(),
             credentials: 'same-origin',
             cache: 'no-cache',
-            data: data,
-            contentType: 'application/json'
+            body: JSON.stringify(data)
         })
             .then(response => {
                 if (!response.ok) {
