@@ -142,7 +142,7 @@ export default {
             this.jokes.map(value => {
                 if(value.id === jokeId){
                     this.editJoke.orginalJoke = value
-                    this.editJoke.modifiedJoke = value.content
+                    this.editJoke.modifiedJoke = value.joke
                 }
             })
             this.$bvModal.show("edit-joke-modal");  
