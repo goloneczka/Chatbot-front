@@ -9,7 +9,6 @@ export default class HttpRequest {
         return this.execute(url, 'GET')
     }
 
-
     post(url, data) {
         return this.execute(url, 'POST', data)
     }
@@ -18,8 +17,8 @@ export default class HttpRequest {
         return this.execute(url, 'PUT', data)
     }
 
-    delete(url, data) {
-        return this.execute(url, 'DELETE', data)
+    delete(url) {
+        return this.execute(url, 'DELETE')
     }
 
     execute(url, method, data) {
@@ -27,11 +26,10 @@ export default class HttpRequest {
         return fetch(`${this.baseUrl}/${url}`, {
             method: method,
             headers: !this.authorizationStorage.isEmpty() ?
-                new Headers({Authorization: this.authorizationStorage.getAuthorization()}) : new Headers(),
+                new Headers({'Content-Type': 'application/json', Authorization: this.authorizationStorage.getAuthorization()}) : new Headers({'Content-Type': 'application/json'}),
             credentials: 'same-origin',
             cache: 'no-cache',
-            data: data,
-            contentType: 'application/json'
+            body: JSON.stringify(data)
         })
             .then(response => {
                 if (!response.ok) {
