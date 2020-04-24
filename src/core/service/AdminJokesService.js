@@ -15,16 +15,7 @@ export default class AdminJokeService {
         return this.jokeAdminRepository.addCategory(data)
     }
 
-    validateAddCategory(category, errorContent) {
-        let errors = []
-
-        if(category.name.length === 0) 
-            errors.push(errorContent.nameContent)
-            
-        return errors
-    }
-
-    validateModifyCategory(category, errorContent) {
+    validateCategory(category, errorContent) {
         let errors = []
 
         if(category.name.length === 0) 
@@ -45,21 +36,11 @@ export default class AdminJokeService {
         return this.jokeAdminRepository.getJokesForCategory(name)
     }
 
-    validateAddJoke(joke, errorContent) {
-        let errors = []
-
-        if(joke.joke.length === 0) 
-            errors.push(errorContent.jokeContent)
-            
-        return errors
-    }
-
     addJoke(joke, category){
         return this.jokeAdminRepository.addJoke({category: category, joke: joke})
     }
 
-
-    validateModifyJoke(joke, errorContent) {
+    validateJoke(joke, errorContent) {
         let errors = []
         if(joke.joke.length === 0) 
             errors.push(errorContent.jokeContent)

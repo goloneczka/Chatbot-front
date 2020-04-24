@@ -179,22 +179,19 @@ export default {
                         this.showCategories = true
                     }
                         
-                },
-                error => {
-                    this.error = error
-            });
+                });
     },
     methods: {
         addCategoryShowModal(){
             this.$bvModal.show('add-category-modal')
         },
-        addNewCategorySubmit(e){
+        addNewCategorySubmit(){
             this.addCategory.errors = []
             let errorContent = {
                 nameContent: this.$t('adminJokes.validateCategoryNameEmpty')
             }
 
-            let errors = service.validateAddCategory({name: this.addCategory.name}, errorContent)
+            let errors = service.validateCategory({name: this.addCategory.name}, errorContent)
 
             if(errors.length > 0)
                 this.addCategory.errors = errors
@@ -209,7 +206,7 @@ export default {
                         
                 })
             }
-            e.preventDefault();
+           
         },
         changeCategory(category){
             this.showLoading = true
@@ -254,13 +251,13 @@ export default {
             this.editCategory.newCategory = category.category
             this.$bvModal.show('edit-category-modal')
         },
-        editCategorySubmit(e){
+        editCategorySubmit(){
             this.editCategory.errors = []
             let errorContent = {
                 nameContent: this.$t('adminJokes.validateCategoryNameEmpty')
             }
 
-            let errors = service.validateModifyCategory({name: this.editCategory.newCategory}, errorContent)
+            let errors = service.validateCategory({name: this.editCategory.newCategory}, errorContent)
             if(errors.length > 0)
                 this.editCategory.errors = errors
             else {
@@ -279,18 +276,18 @@ export default {
                 })
             }
 
-            e.preventDefault();
+            
         },
         addJokeShowModal(){
             this.$bvModal.show('add-joke-modal')
         },
-        addNewJokeSubmit(e) {
+        addNewJokeSubmit() {
             this.addJoke.errors = []
             let errorContent = {
                 jokeContent: this.$t('adminJokes.validateJokeNameEmpty')
             }
 
-            let errors = service.validateAddJoke({joke: this.addJoke.joke}, errorContent)
+            let errors = service.validateJoke({joke: this.addJoke.joke}, errorContent)
 
             if(errors.length > 0)
                 this.addJoke.errors = errors
@@ -305,7 +302,7 @@ export default {
                         
                 })
             }
-            e.preventDefault();
+            
         },
         editJokeModal(joke) {
             this.editJoke.id = joke.id
@@ -314,13 +311,13 @@ export default {
             this.$bvModal.show('edit-joke-modal')
         },
 
-        editJokeSubmit(e){
+        editJokeSubmit(){
             this.editJoke.errors = []
             let errorContent = {
                 jokeContent: this.$t('adminJokes.validateJokeContentEmpty')
             }
 
-            let errors = service.validateModifyJoke({joke: this.editJoke.newJoke}, errorContent)
+            let errors = service.validateJoke({joke: this.editJoke.newJoke}, errorContent)
             if(errors.length > 0)
                 this.editJoke.errors = errors
             else {
@@ -345,7 +342,7 @@ export default {
                         
                 })
             }
-            e.preventDefault();
+            
         },
         removeJoke(jokeId){
             this.error = ''
