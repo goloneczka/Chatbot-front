@@ -38,7 +38,7 @@
             this.weather = this.data.summary;
             this.temperature = this.data.temperature;
             this.cloudy = this.data.precipType;
-            this.src = this.icon;
+            this.src = this.data.icon;
         },
         methods: {
         },
