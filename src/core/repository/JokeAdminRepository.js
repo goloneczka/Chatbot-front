@@ -6,7 +6,7 @@ export default {
     addCategory(data) {
         return httpRequest.post('admin/jokes/categories', data)
     },
-    modifyCategory(data, oldCategoryName) {
+    editCategory(data, oldCategoryName) {
         return httpRequest.put('admin/jokes/categories/'+ oldCategoryName, data)
     },
     removeCategory(id) {

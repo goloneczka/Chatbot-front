@@ -5,7 +5,7 @@
                 <h5 class="mt-0">{{category.category}}</h5>
                 <div class="float-right">
                     <button type="button" class="btn btn-success btn-small" v-on:click="changeCategory">{{ $t('adminJokes.buttonGoToCategory') }}</button>
-                    <button type="button" class="btn btn-primary btn-small mr-1" v-on:click="modifyCategory">{{ $t('adminJokes.buttonEditCategory') }}</button>
+                    <button type="button" class="btn btn-primary btn-small mr-1" v-on:click="editCategory">{{ $t('adminJokes.buttonEditCategory') }}</button>
                     <button type="button" class="btn btn-danger btn-small mr-1" v-on:click="removeCategory">{{ $t('adminJokes.buttonDeleteCategory') }}</button>
                 </div>
             </div>
@@ -22,8 +22,8 @@
             removeCategory(){
                 this.$emit('removeCategory', this.category);
             },
-            modifyCategory() {
-                this.$emit('modifyCategory', this.category);
+            editCategory() {
+                this.$emit('editCategory', this.category);
             },
             changeCategory() {
                 this.$emit('changeCategory', this.category);

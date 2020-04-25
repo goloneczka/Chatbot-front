@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div v-else>
-                        <category-item v-for="(category) in categories" :category="category" :key="category.name" v-on:changeCategory="changeCategory($event)"  v-on:removeCategory="removeCategoryShowAlert($event)"  v-on:modifyCategory="modifyCategory($event)" />
+                        <category-item v-for="(category) in categories" :category="category" :key="category.name" v-on:changeCategory="changeCategory($event)"  v-on:removeCategory="removeCategoryShowAlert($event)"  v-on:editCategory="editCategoryModal($event)" />
                     </div>
                 </div>
                 <div v-else-if="showJokes" class="col-12">
@@ -246,7 +246,7 @@ export default {
                     }
             })
         },
-        modifyCategory(category){
+        editCategoryModal(category){
             this.editCategory.oldCategory = category.category
             this.editCategory.newCategory = category.category
             this.$bvModal.show('edit-category-modal')
@@ -261,7 +261,7 @@ export default {
             if(errors.length > 0)
                 this.editCategory.errors = errors
             else {
-                service.modifyCategory(
+                service.editCategory(
                     {category: this.editCategory.oldCategory},
                     {category: this.editCategory.newCategory} 
                     ).then(response => {

@@ -24,8 +24,8 @@ export default class AdminJokeService {
         return errors
     }
 
-    modifyCategory(oldCategory, newCategory) {
-        return this.jokeAdminRepository.modifyCategory(newCategory, oldCategory.category)
+    editCategory(oldCategory, newCategory) {
+        return this.jokeAdminRepository.editCategory(newCategory, oldCategory.category)
     }
 
     removeCategory(name){
