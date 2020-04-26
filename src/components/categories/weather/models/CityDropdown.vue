@@ -18,18 +18,18 @@
                 cities: [],
             }
         },
-        mounted() {
+        created() {
             weatherService.getAllCities().then( data => this.cities = data);
         },
         methods: {
             cityDropdownOnClick(city) {
-                this.$root.$emit('cityDropdownOnClick', city);
+                this.$emit('cityDropdownOnClick', city);
             }
         }
     }
 </script>
 <style scoped>
     #dropdown-button {
-        margin-left: 85%;
+        text-align: right;
     }
 </style>

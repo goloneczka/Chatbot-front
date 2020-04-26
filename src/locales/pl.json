@@ -1,7 +1,7 @@
 {
   "bot": {
     "helloMessage": "Cześć!",
-    "introductionMessage": "Jestem Twoim pomocnym chatbotem. Mogę wyręczyć Cię z wyszukiwania wielu rzeczy.",
+    "introductionMessage": "Hej, to ja! Twój przyjazny chatbot. Tak właśnie czekałem tutaj na Ciebie i zastanawiałem się w czym mogę Ci dzisiaj pomóc?",
     "chooseCategoryMessage": "Wystarczy tylko, że wybierzesz kategorię, która Cię interesuje.",
     "categoryWeather": "Pogoda",
     "categoryJokes": "Żarty"
@@ -10,7 +10,7 @@
     "bot": {
       "introduction": "Super! A w jakim chcesz mieście?",
       "choiceTime" : "Swietnie ! Wybierz teraz czas!",
-      "myPredictions": "Swietnie! Oto moje przewidywania dla",
+      "myPredictions": "Swietnie! Oto moje przewidywania dla ",
       "in": " w ",
       "couldHelp": "Cieszę się że mogłem pomóc :D ",
       "anythingToDo": "Jest coś co jeszcze mogę dla ciebie zrobić?",
@@ -22,7 +22,7 @@
       "airSpeed": "Prędkość wiatru"
     },
     "user": {
-      "choiceWeather": "Chce poznać pogodę.",
+      "choiceWeather": "Chciałbym poznać pogodę.",
       "chooseCity": "Wybieram miasto ",
       "myChoice" : "Wybieram ",
       "thank": "Dzięki!",

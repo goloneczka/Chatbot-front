@@ -44,13 +44,12 @@
         },
         methods: {
             setDay() {
-
                 if (this.context.selectedFormatted === this.$t('weather.error.wrongDate')) {
                     this.$root.$emit("showDanger", this.$t('weather.error.wrongDate'))
                 } else if (moment(this.context.activeYMD).isBefore(moment().format('l'))) {
                     this.$root.$emit("showDanger", this.$t('weather.error.backDate'))
                 } else {
-                    this.$root.$emit('showWeatherMessage', [this.context.selectedFormatted, this.context.activeYMD]);
+                    this.$emit('showWeatherMessage', [this.context.selectedFormatted, this.context.activeYMD]);
                 }
             },
             onContext(ctx) {
@@ -61,7 +60,7 @@
 </script>
 <style scoped>
     #calendar {
-        margin-left: 70%;
+        text-align: right;
     }
 
 </style>
