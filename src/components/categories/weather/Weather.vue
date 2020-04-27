@@ -3,7 +3,7 @@
         <div id="weather-component">
             <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown"/>
             <TimeDropdown v-on:showWeatherMessage="showWeatherMessage($event)" v-if="showTimeDropdown"/>
-            <div v-if="endOrDetailsButtons">
+            <div class="weather-buttons" v-if="endOrDetailsButtons">
                 <b-button id="endWeatherTalkButton" class="m-2" v-on:click="this.endWeatherTalk">
                     {{$t('weather.user.thank')}}
                 </b-button>
@@ -104,4 +104,7 @@
     }
 </script>
 <style scoped>
+    .weather-buttons {
+        text-align: right;
+    }
 </style>
