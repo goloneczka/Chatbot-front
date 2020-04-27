@@ -31,6 +31,14 @@
     --chat-box-category-button-text-color: #00000;
     --chat-box-category-button-hover-text-shadow: 0 0 6px rgba(255, 255, 255, 1);
     --chat-box-category-button-hover-box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.60);
+
+    --admin-joke-item-bg-color: #fff;
+    --admin-joke-item-color: #373737;
+    --admin-joke-item-box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+    --admin-joke-item-padding: 30px;
+    --admin-joke-margin-top: 20px;
+    --admin-joke-item-small-color: #657786;
+    --admin-joke-item-small-font-size: 14px;
 }
 
 html, body {
