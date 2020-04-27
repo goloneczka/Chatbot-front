@@ -25,8 +25,8 @@
             editCategory() {
                 this.$emit('editCategory', this.category);
             },
-            changeCategory() {
-                this.$emit('changeCategory', this.category);
+            showJokesForCategory() {
+                this.$emit('showJokesForCategory', this.category);
             },
         }
     }

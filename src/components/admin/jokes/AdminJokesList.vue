@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div v-else>
-                        <category-item v-for="(category) in categories" :category="category" :key="category.name" v-on:changeCategory="changeCategory($event)"  v-on:removeCategory="removeCategoryShowAlert($event)"  v-on:editCategory="editCategoryModal($event)" />
+                        <category-item v-for="(category) in categories" :category="category" :key="category.name" v-on:showJokesForCategory="showJokesForCategory($event)"  v-on:removeCategory="removeCategoryShowAlert($event)"  v-on:editCategory="editCategoryModal($event)" />
                     </div>
                 </div>
                 <div v-else-if="showJokes" class="col-12">
@@ -208,7 +208,7 @@ export default {
             }
            
         },
-        changeCategory(category){
+        showJokesForCategory(category){
             this.showLoading = true
             this.error = ''
             this.showCategories = false
