@@ -1,5 +1,5 @@
 <template>
-    <div class="chat-box">
+    <div  class="chat-box">
         <ul class="messages-list">
             <li class="message"
                 v-for="(message, index) in messages"
@@ -21,8 +21,9 @@
             </li>
         </ul>
         <div id="categoryComponent">
-            <Weather v-on:addMessage="addMessage($event)" v-bind:botIconSource="this.botIconSource"
-                     v-if="activeCategory === 'weather'" v-on:exitWeather="changeCategory(null)"/>
+            <Weather v-on:addMessage="addMessage($event)" v-if="activeCategory === 'weather'"
+                     v-on:exitWeather="changeCategory(null)"/>
+            <Jokes v-on:addMessage="addMessage($event)" v-if="activeCategory === 'jokes'"></Jokes>
         </div>
     </div>
 </template>
@@ -32,10 +33,11 @@
     import Weather from "../categories/weather/Weather";
     import WeatherMessage from "../categories/weather/models/WeatherMessage";
     import WeatherDetailsMessage from "../categories/weather/models/WeatherDetailsMessage";
+    import Jokes from "../categories/jokes/Jokes";
 
     export default {
         name: "ChatBox",
-        components: {WeatherDetailsMessage, WeatherMessage, Weather},
+        components: {Jokes, WeatherDetailsMessage, WeatherMessage, Weather},
         props: ["botIconSource"],
         data: function () {
             return {
@@ -43,20 +45,21 @@
                 activeCategory: null
             }
         },
-        updated() {
-            this.$nextTick(() => {
-                window.scrollBy({top: document.body.scrollHeight, behavior: 'smooth'});
-            })
-        },
         methods: {
             addMessage: function (message) {
                 this.messages.push(message);
+                this.scrollDown();
             },
             changeCategory: function (category) {
                 this.activeCategory = null;
                 this.$nextTick(() => {
                     this.activeCategory = category;
                 });
+            },
+            scrollDown: function () {
+                this.$nextTick(() => {
+                    window.scrollBy({top: document.body.scrollHeight, behavior: 'smooth'});
+                })
             }
         },
         computed: {
@@ -88,6 +91,7 @@
 </script>
 
 <style>
+
     ul {
         list-style-type: none;
         padding: 0;

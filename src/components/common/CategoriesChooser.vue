@@ -46,7 +46,9 @@
     .category-button {
         margin-left: 20px;
         margin-right: 20px;
+        margin-bottom: 10px;
         font-size: 25px;
+        width: 200px;
     }
 
 

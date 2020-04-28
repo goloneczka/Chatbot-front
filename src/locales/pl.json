@@ -36,6 +36,11 @@
       "backDate": "Podano nie poprawną datę! Data nie może być wcześniejsza niż dzisiejszy dzień."
     }
   },
+  "jokes": {
+    "user": {
+      "choiceJokes": "Opowiedz mi żart."
+    }
+  },
   "adminHome": {
     "title": "Panel zarządzania admina",
     "menu": "Menu",

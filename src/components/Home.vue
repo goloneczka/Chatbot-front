@@ -75,11 +75,12 @@
     }
 </script>
 <style>
+
+
     .chat-box {
         padding: 40px 40px 60px;
         border: var(--home-chat-box-border);
         border-radius: 15px;
-        margin-top: 20px;
     }
 
     .container {
