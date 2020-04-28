@@ -123,6 +123,7 @@
         position: sticky;
         top: 0;
         z-index: 1020;
+        max-height: 202px;
     }
 
     .category-panel.light {
