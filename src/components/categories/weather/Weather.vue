@@ -1,126 +1,110 @@
 <template>
     <div>
         <div id="weather-component">
-            <UserMessage :text="$t('weather.user.choiceWeather')" />
-            <BotMessage :text="$t('weather.bot.introduction')" />
-            <BImage :botIconSource=this.botIconSource />
-            <CityDropdown v-if="showCityDropdown"/>
-            <div v-if="botCityMessage">
-                <UserMessage :text="`${this.$t('weather.user.chooseCity')} ${this.city}`"  />
-                <BotMessage :text="$t('weather.bot.choiceTime')" />
-                <BImage :botIconSource=this.botIconSource  />
-            </div>
-            <TimeDropdown v-if="showTimeDropdown"/>
-            <div v-if="botWeatherMessage">
-                <UserMessage :text="`${this.$t('weather.user.myChoice')} ${this.userTime}`" />
-                <BotMessage :text="`${this.$t('weather.bot.myPredictions')} ${this.city} ${this.$t('weather.bot.in')} ${this.userTime}....`" />
-                <WeatherMessage :data="this.weatherData" />
-                <BImage :botIconSource=this.botIconSource />
-            </div>
-            <div v-if="endOrDetailsButtons">
-                <b-button id="endWeatherTalkButton" class="m-2" v-on:click="this.endWeatherTalk">{{$t('weather.user.thank')}}</b-button>
-                <b-button id="moreDetailsButton" class="m-2" v-on:click="this.showMoreDetailsMessage">{{$t('weather.user.moreDetails')}}</b-button>
-            </div>
-            <div v-if="details">
-                <UserMessage :text="this.$t('weather.user.moreDetails')" />
-                <WeatherDetailsMessage :data="this.weatherData" />
-            </div>
-            <div v-if="endWeather">
-                <UserMessage :text="this.$t('weather.user.thank')"/>
-                <BotMessage :text="this.$t('weather.bot.couldHelp')"/>
-                <BotMessage :text="this.$t('weather.bot.anythingToDo')"/>
-                <BImage :botIconSource=this.botIconSource />
+            <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown"/>
+            <TimeDropdown v-on:showWeatherMessage="showWeatherMessage($event)" v-if="showTimeDropdown"/>
+            <div class="weather-buttons" v-if="endOrDetailsButtons">
+                <b-button id="endWeatherTalkButton" class="m-2" v-on:click="this.endWeatherTalk">
+                    {{$t('weather.user.thank')}}
+                </b-button>
+                <b-button id="moreDetailsButton" class="m-2" v-on:click="this.showMoreDetailsMessage">
+                    {{$t('weather.user.moreDetails')}}
+                </b-button>
             </div>
         </div>
     </div>
 </template>
 <script>
 
-    import { weatherService } from "../../../App";
+    import {weatherService} from "../../../App";
 
-    import UserMessage from "../../common/UserMessage";
-    import BotMessage from "../../common/BotMessage";
     import CityDropdown from "./models/CityDropdown";
-    import BImage from "../../common/BImage";
-    import WeatherMessage from "./models/WeatherMessage";
-    import WeatherDetailsMessage from "./models/WeatherDetailsMessage";
     import TimeDropdown from "./models/TimeDropdown";
 
     export default {
         name: 'Weather',
-        components: {WeatherDetailsMessage, WeatherMessage, TimeDropdown, UserMessage, BotMessage, CityDropdown, BImage},
+        components: {TimeDropdown, CityDropdown},
         props: ['botIconSource'],
         data: function () {
             return {
                 city: '',
                 time: '',
                 userTime: '',
-                timeDropdown: false,
                 showCityDropdown: true,
                 showTimeDropdown: false,
                 endOrDetailsButtons: false,
-                details: false,
-                endWeather: false,
-                botCityMessage: false,
-                botWeatherMessage: false,
                 weatherData: '',
-
+                messages: {
+                    myChoice: this.$t('weather.user.myChoice'),
+                    myPredictions: this.$t('weather.bot.myPredictions'),
+                    inMessage: this.$t('weather.bot.in'),
+                    chooseCity: this.$t('weather.user.chooseCity'),
+                    choiceTime: this.$t('weather.bot.choiceTime')
+                }
             }
         },
-        mounted() {
-            this.$root.$on('cityDropdownOnClick', (text) => {
-                this.cityDropdownOnClick(text);
-            });
-            this.$root.$on('showWeatherMessage', (data) => {
-                this.userTime = data[0];
-                this.time = data[1];
-                this.showWeatherMessage();
-            });
-            this.$root.$on('event', () => {
-                this.endWeatherTalk();
-            });
+        created() {
+            this.$emit('addMessage', {author: "user", text: this.$t('weather.user.choiceWeather'), style: "default"});
+            this.$emit('addMessage', {author: "bot", text: this.$t('weather.bot.introduction'), style: "default"});
         },
         methods: {
             cityDropdownOnClick(value) {
                 this.showCityDropdown = false;
                 this.city = value;
-                this.botCityMessage = true;
                 this.showTimeDropdown = true;
-                this.removeBotImage()
+                this.$emit('addMessage', {
+                    author: "user",
+                    text: this.messages.chooseCity + value,
+                    style: "default"
+                });
+                this.$emit('addMessage', {author: "bot", text: this.messages.choiceTime , style: "default"});
             },
-            showWeatherMessage() {
+            showWeatherMessage(data) {
+                this.userTime = data[0];
+                this.time = data[1];
                 weatherService.getWeatherData(this.city, this.time).then((weatherData) => {
                     this.showTimeDropdown = false;
                     weatherData.city = this.city;
                     weatherData.time = this.time;
                     this.weatherData = weatherData;
-                    this.botWeatherMessage = true;
                     this.endOrDetailsButtons = true;
-                    this.removeBotImage()
+                    this.$emit('addMessage', {author: "user", text: this.messages.myChoice + this.userTime, style: "default"});
+                    this.$emit('addMessage', {
+                        author: "bot",
+                        text: this.messages.myPredictions + this.city + this.messages.inMessage + this.userTime + '....',
+                        style: "default"
+                    });
+                    this.$emit('addMessage', {
+                        author: "bot",
+                        data: this.weatherData,
+                        style: "weatherMessage"
+                    });
                 });
             },
             endWeatherTalk() {
-                this.removeBotImage();
                 this.endOrDetailsButtons = false;
                 this.endTalk();
             },
             showMoreDetailsMessage() {
                 this.endOrDetailsButtons = false;
-                this.details = true;
-                this.removeBotImage();
+                this.$emit('addMessage', {author: "user", text: this.$t('weather.user.moreDetails'), style: "default"});
+                this.$emit('addMessage', {author: "bot", data: this.weatherData, style: "weatherDetailsMessage"});
                 this.endTalk();
             },
-            endTalk(){
-                this.endWeather = true;
-                this.$root.$emit("showCategories");
-            },
-            removeBotImage() {
-                const array = document.getElementsByClassName('bot-image');
-                array.item(array.length - 1).remove();
+            endTalk() {
+                this.$emit('addMessage', {author: "user", text: this.$t('weather.user.thank'), style: "default"});
+                this.$emit('addMessage', {author: "bot", text: this.$t('weather.bot.couldHelp'), style: "default"});
+                this.$emit('addMessage', {author: "bot", text: this.$t('weather.bot.anythingToDo'), style: "default"});
+                this.showCityDropdown = true;
+                this.$emit('exitWeather');
+
             }
         },
 
     }
 </script>
 <style scoped>
+    .weather-buttons {
+        text-align: right;
+    }
 </style>

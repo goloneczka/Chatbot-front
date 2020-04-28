@@ -1,12 +1,18 @@
 <template>
-    <div class="chat-box">
+    <div  class="chat-box">
+        <div class="chat-box-top-border"></div>
         <ul class="messages-list">
             <li class="message"
                 v-for="(message, index) in messages"
                 v-bind:key="index"
                 v-bind:class="message.author"
             >
-                <div><a>{{message.text}}</a></div>
+                <div v-if="message.style === 'default'"><a>{{message.text}}</a></div>
+                <weather-message v-bind:data="message.data"
+                                 v-else-if="message.style === 'weatherMessage'"></weather-message>
+                <weather-details-message v-bind:data="message.data"
+                                         v-else-if="message.style === 'weatherDetailsMessage'"></weather-details-message>
+
                 <p v-if="index === lastBotMessageIndex">
                     <b-img class="bot-image" height="30" v-bind:src="botIconSource"></b-img>
                 </p>
@@ -15,10 +21,10 @@
                 </p>
             </li>
         </ul>
-        <b-button id="chooseCategoryButton" class="m-2" v-on:click="onClick">{{$t('bot.categoryWeather')}}
-        </b-button>
         <div id="categoryComponent">
-            <Weather :botIconSource="this.botIconSource" v-if="weather" />
+            <Weather v-on:addMessage="addMessage($event)" v-if="activeCategory === 'weather'"
+                     v-on:exitWeather="changeCategory(null)"/>
+            <Jokes v-on:addMessage="addMessage($event)" v-if="activeCategory === 'jokes'"></Jokes>
         </div>
     </div>
 </template>
@@ -26,32 +32,36 @@
 <script>
 
     import Weather from "../categories/weather/Weather";
+    import WeatherMessage from "../categories/weather/models/WeatherMessage";
+    import WeatherDetailsMessage from "../categories/weather/models/WeatherDetailsMessage";
+    import Jokes from "../categories/jokes/Jokes";
 
     export default {
         name: "ChatBox",
-        components: {Weather},
+        components: {Jokes, WeatherDetailsMessage, WeatherMessage, Weather},
         props: ["botIconSource"],
         data: function () {
             return {
-                messages: [{author: "bot", text: this.$t('bot.helloMessage')},
-                    {author: "bot", text: this.$t('bot.introductionMessage')},
-                    {author: "bot", text: this.$t('bot.chooseCategoryMessage')}
-                ],
-                weather: false
+                messages: [],
+                activeCategory: null
             }
         },
         methods: {
-            onClick: function () {
-                this.weather = true;
-                document.getElementById("chooseCategoryButton").remove();
-                document.getElementsByClassName('bot-image').item(0).remove();
+            addMessage: function (message) {
+                this.messages.push(message);
+                this.scrollDown();
+            },
+            changeCategory: function (category) {
+                this.activeCategory = null;
+                this.$nextTick(() => {
+                    this.activeCategory = category;
+                });
+            },
+            scrollDown: function () {
+                this.$nextTick(() => {
+                    window.scrollBy({top: document.body.scrollHeight, behavior: 'smooth'});
+                })
             }
-        },
-        updated() {
-            this.$nextTick(() => {
-                window.scrollTo(0, document.body.scrollHeight)
-            })
-
         },
         computed: {
             lastBotMessageIndex: function () {
@@ -73,10 +83,35 @@
                 return null;
             }
         },
+        mounted() {
+            this.$root.$on('activeCategory', (category) => {
+                this.changeCategory(category)
+            })
+        }
     }
 </script>
 
 <style>
+
+    .chat-box {
+        padding: 0 40px 60px;
+        border-bottom: var(--home-chat-box-border);
+        border-left: var(--home-chat-box-border);
+        border-right: var(--home-chat-box-border);
+    }
+    .chat-box-top-border {
+        position: sticky;
+        top: 202px;
+        border-top: var(--home-chat-box-border);
+        border-left: var(--home-chat-box-border);
+        border-right: var(--home-chat-box-border);
+        margin: 0 -42px;
+        height: 60px;
+    }
+
+    .messages-list {
+    }
+
     ul {
         list-style-type: none;
         padding: 0;
@@ -88,9 +123,6 @@
 
     li > div {
         padding: 10px;
-    }
-
-    li > div {
         margin-bottom: 20px;
         background: var(--chat-box-mesaage-bg-color);
         color: white;
@@ -99,13 +131,17 @@
     }
 
 
-    .bot > div {
+    .bot div {
         border-radius: 20px 20px 20px 0;
     }
 
 
-    .user > div {
+    .user div {
         border-radius: 20px 20px 0 20px;
+    }
+
+    .user {
+        text-align: right;
     }
 
     .chat-box {
@@ -113,7 +149,6 @@
     }
 
     button {
-        float: right;
         background: var(--chat-box-category-button-bg-color);
         color: var(--chat-box-category-button-text-color);
     }

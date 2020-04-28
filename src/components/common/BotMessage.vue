@@ -26,7 +26,6 @@
     .message > div {
         border-radius: var(--chat-box-message-bot-border-radius);
         margin: auto;
-
     }
 
 </style>

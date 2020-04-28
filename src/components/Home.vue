@@ -1,33 +1,49 @@
 <template>
     <div class="home" v-bind:class="themes[themeIndex].themeName">
+
         <b-navbar>
-            <b-navbar-nav>
+            <b-navbar-brand>
+                <b-img thumbnail center width="50" class="logo-image"
+                       :src="require('../assets/botLogo.png')"></b-img>
+            </b-navbar-brand>
+            <b-navbar-nav class="ml-auto">
                 <b-nav-item v-for="(theme, index) in themes" :key="index" v-bind:activeTheme="theme.activeTheme"
                             v-on:click="changeTheme(index)">
-                    <b-img height="50" v-bind:src="theme.imageSource"></b-img>
+                    <b-img height="40" v-bind:src="theme.imageSource"></b-img>
                 </b-nav-item>
             </b-navbar-nav>
         </b-navbar>
+
         <b-container>
-            <b-row>
+            <b-row v-bind:class="themes[themeIndex].themeName" class="category-panel">
+                <b-col cols="1"/>
+                <b-col>
+                    <hello-message v-bind:bot-icon-source="themes[themeIndex].imageSource"></hello-message>
+                    <categories-chooser v-on:activeChatBox="activeChatBox"/>
+                </b-col>
+                <b-col cols="1"/>
+            </b-row>
+
+            <b-row v-show="isChatBoxActive">
                 <b-col cols="2"></b-col>
                 <b-col cols="8">
                     <chat-box v-bind:bot-icon-source="themes[themeIndex].imageSource"></chat-box>
                 </b-col>
                 <b-col cols="2">
-                    <b-img thumbnail center width="100%" class="logo-image"
-                           :src="require('../assets/botLogo.png')"></b-img>
                 </b-col>
             </b-row>
         </b-container>
+
     </div>
 </template>
 <script>
     import ChatBox from "./common/ChatBox";
+    import CategoriesChooser from "./common/CategoriesChooser";
+    import HelloMessage from "./common/HelloMessage";
 
     export default {
         name: 'Home',
-        components: {ChatBox},
+        components: {HelloMessage, CategoriesChooser, ChatBox},
         data: function () {
             return {
                 themeIndex: 0,
@@ -40,7 +56,8 @@
                     imageSource: require('../assets/dark_bot.png'),
                     activeTheme: false
                 }
-                ]
+                ],
+                isChatBoxActive: false
             }
         },
         methods: {
@@ -50,24 +67,15 @@
                     theme.activeTheme = false;
                 }
                 this.themes[index].activeTheme = true;
+            },
+            activeChatBox: function () {
+                this.isChatBoxActive = true;
             }
         }
     }
 </script>
-<style scoped>
-    .chat-box {
-        padding: 40px 40px 60px;
-        border: var(--home-chat-box-border);
-        border-radius: 15px;
-    }
 
-    .logo-image {
-        position: fixed;
-        top: 30%;
-        display: block !important;
-        margin-left: auto;
-        margin-right: auto;
-    }
+<style>
 
     .container {
         max-width: 100% !important;
@@ -78,6 +86,7 @@
         background: var(--home-nav-bg-color);
         border-bottom: var(--home-nav-border);
         margin-bottom: 30px;
+
     }
 
     .nav-item {
@@ -108,4 +117,18 @@
         background: var(--home-dark-theme-bg-color);
     }
 
+    .category-panel {
+        position: sticky;
+        top: 0;
+        z-index: 1020;
+        max-height: 202px;
+    }
+
+    .category-panel.light {
+        background: var(--home-light-theme-bg-color);
+    }
+
+    .category-panel.dark {
+        background: var(--home-dark-theme-bg-color);
+    }
 </style>

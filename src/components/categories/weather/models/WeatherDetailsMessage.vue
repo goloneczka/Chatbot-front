@@ -1,23 +1,20 @@
 <template>
     <div>
-        <ul>
-            <li class="message">
-                <div>
-                    <a>
-                        <h3>{{this.city}}</h3>
-                        <h5>{{$t('weather.bot.temperature')}} {{this.temperature}}°C</h5>
-                        <h5>{{$t('weather.bot.perceivedTemperature')}} {{this.feelTemperature}}°C</h5>
-                        <h5>{{$t('weather.bot.airPressure')}} {{this.airPressure}} hPa</h5>
-                        <h5>{{$t('weather.bot.humidity')}} {{this.humidity}}%</h5>
-                        <h5>{{$t('weather.bot.airSpeed')}} {{this.windSpeed}} km/h</h5>
-                    </a>
-                </div>
-            </li>
-        </ul>
+
+        <div>
+            <a>
+                <h3>{{this.city}}</h3>
+                <h5>{{$t('weather.bot.temperature')}} {{this.temperature}}°C</h5>
+                <h5>{{$t('weather.bot.perceivedTemperature')}} {{this.feelTemperature}}°C</h5>
+                <h5>{{$t('weather.bot.airPressure')}} {{this.airPressure}} hPa</h5>
+                <h5>{{$t('weather.bot.humidity')}} {{this.humidity}}%</h5>
+                <h5>{{$t('weather.bot.airSpeed')}} {{this.windSpeed}} km/h</h5>
+            </a>
+        </div>
+
     </div>
 </template>
 <script>
-
 
 
     export default {
@@ -44,9 +41,7 @@
             this.airPressure = this.data.pressure;
             this.humidity = this.data.humidity;
             this.windSpeed = this.data.windSpeed;
-        },
-        methods: {
-        },
+        }
 
     }
 </script>
