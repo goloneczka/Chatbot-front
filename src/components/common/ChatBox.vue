@@ -1,5 +1,6 @@
 <template>
     <div  class="chat-box">
+        <div class="chat-box-top-border"></div>
         <ul class="messages-list">
             <li class="message"
                 v-for="(message, index) in messages"
@@ -91,6 +92,23 @@
 </script>
 
 <style>
+
+    .chat-box {
+        padding: 40px 40px 60px;
+        border-bottom: var(--home-chat-box-border);
+        border-left: var(--home-chat-box-border);
+        border-right: var(--home-chat-box-border);
+    }
+
+    .chat-box-top-border {
+        position: sticky;
+        top: 202px;
+        border-top: var(--home-chat-box-border);
+        border-left: var(--home-chat-box-border);
+        border-right: var(--home-chat-box-border);
+        margin: -40px -42px 0 -42px;
+        height: 50px;
+    }
 
     ul {
         list-style-type: none;

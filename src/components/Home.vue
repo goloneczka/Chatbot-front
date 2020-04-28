@@ -77,11 +77,7 @@
 <style>
 
 
-    .chat-box {
-        padding: 40px 40px 60px;
-        border: var(--home-chat-box-border);
-        border-radius: 15px;
-    }
+
 
     .container {
         max-width: 100% !important;
