@@ -15,10 +15,13 @@
                 </p>
             </li>
         </ul>
-        <b-button id="chooseCategoryButton" class="m-2" v-on:click="onClick">{{$t('bot.categoryWeather')}}
-        </b-button>
+        <div id="chooseCategoryButton">
+        <b-button id="weather" class="m-2" v-on:click="onClick($event)">{{$t('bot.categoryWeather')}}</b-button>
+        <b-button id="restaurants" class="m-2" v-on:click="onClick">{{$t('bot.categoryRestaurants')}}</b-button>
+        </div>
         <div id="categoryComponent">
             <Weather :botIconSource="this.botIconSource" v-if="weather" />
+            <Restaurant :botIconSource="this.botIconSource" v-if="restaurants" />
         </div>
     </div>
 </template>
@@ -26,10 +29,11 @@
 <script>
 
     import Weather from "../categories/weather/Weather";
+    import Restaurant from "../categories/restaurant/Restaurant";
 
     export default {
         name: "ChatBox",
-        components: {Weather},
+        components: {Restaurant, Weather},
         props: ["botIconSource"],
         data: function () {
             return {
@@ -37,12 +41,22 @@
                     {author: "bot", text: this.$t('bot.introductionMessage')},
                     {author: "bot", text: this.$t('bot.chooseCategoryMessage')}
                 ],
-                weather: false
+                weather: false,
+                restaurants: false
             }
         },
         methods: {
-            onClick: function () {
-                this.weather = true;
+            onClick: function (event) {
+                const targetId = event.currentTarget.id;
+                switch (targetId) {
+                    case 'weather':
+                        this.weather = true;
+                        break;
+                    case 'restaurants':
+                        this.restaurants = true;
+                        break;
+                }
+
                 document.getElementById("chooseCategoryButton").remove();
                 document.getElementsByClassName('bot-image').item(0).remove();
             }

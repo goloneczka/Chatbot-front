@@ -4,7 +4,9 @@
     "introductionMessage": "Jestem Twoim pomocnym chatbotem. Mogę wyręczyć Cię z wyszukiwania wielu rzeczy.",
     "chooseCategoryMessage": "Wystarczy tylko, że wybierzesz kategorię, która Cię interesuje.",
     "categoryWeather": "Pogoda",
-    "categoryJokes": "Żarty"
+    "categoryJokes": "Żarty",
+    "categoryRestaurants": "Restauracje"
+
   },
   "weather": {
     "bot": {
@@ -29,7 +31,6 @@
       "moreDetails": "Chcę więcej szczegółów",
       "choiceDay": "Wybierz dzień",
       "city": "Wybór miasta"
-
     },
     "error": {
       "wrongDate": "Nie wybrano daty!",

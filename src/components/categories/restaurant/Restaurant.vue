@@ -10,16 +10,21 @@
                 <BotMessage :text="$t('weather.bot.choiceTime')" />
                 <BImage :botIconSource=this.botIconSource  />
             </div>
-            <TimeDropdown v-if="showTimeDropdown"/>
-            <div v-if="botWeatherMessage">
-                <UserMessage :text="`${this.$t('weather.user.myChoice')} ${this.userTime}`" />
-                <BotMessage :text="`${this.$t('weather.bot.myPredictions')} ${this.city} ${this.$t('weather.bot.in')} ${this.userTime}....`" />
-                <WeatherMessage :data="this.weatherData" />
+            <CategoryDropdown v-if="showCategoryDropdown"/>
+            <div v-if="botRestaurantMessage">
+                <UserMessage :text="`${this.$t('weather.user.myChoice')} ${this.category}`" />
+                <BotMessage :text="`${this.$t('weather.bot.myPredictions')} ${this.city} ${this.$t('weather.bot.in')} ${this.category}....`" />
+                <RestaurantMessage :data="this.restaurantData" />
                 <BImage :botIconSource=this.botIconSource />
             </div>
             <div v-if="endOrDetailsButtons">
-                <b-button id="endWeatherTalkButton" class="m-2" v-on:click="this.endWeatherTalk">{{$t('weather.user.thank')}}</b-button>
-                <b-button id="moreDetailsButton" class="m-2" v-on:click="this.showMoreDetailsMessage">{{$t('weather.user.moreDetails')}}</b-button>
+                <b-button id="showNewCategoryMessageButton" class="m-2" v-on:click="this.showNewCategoryMessage">{{$t('weather.user.thank')}}</b-button>
+                <b-button id="moreDetailsButton" class="m-2" v-on:click="this.showAnotherRestaurantMessage">{{$t('weather.user.moreDetails')}}</b-button>
+                <b-button id="changeRestauration" class="m-2" v-on:click="this.showMenuMessage">{{$t('weather.user.moreDetails')}}</b-button>
+            </div>
+            <div v-if="menu">
+                <UserMessage :text="this.$t('weather.user.moreDetails')" />
+                <MenuMessage :data="this.menuData" />
             </div>
             <div v-if="details">
                 <UserMessage :text="this.$t('weather.user.moreDetails')" />
@@ -36,34 +41,42 @@
 </template>
 <script>
 
-    import { weatherService } from "../../../App";
+    import { restaurantService } from "../../../App";
 
     import UserMessage from "../../common/UserMessage";
     import BotMessage from "../../common/BotMessage";
     import CityDropdown from "../shared/models/CityDropdown";
     import BImage from "../../common/BImage";
-    import WeatherMessage from "./models/WeatherMessage";
-    import WeatherDetailsMessage from "./models/WeatherDetailsMessage";
-    import TimeDropdown from "./models/TimeDropdown";
+    import RestaurantMessage from "./models/RestaurantMessage";
+    import WeatherDetailsMessage from "../weather/models/WeatherDetailsMessage";
+    import CategoryDropdown from "./models/CategoryDropdown";
+    import MenuMessage from "./models/MenuMessage";
 
     export default {
-        name: 'Weather',
-        components: {WeatherDetailsMessage, WeatherMessage, TimeDropdown, UserMessage, BotMessage, CityDropdown, BImage},
+        name: 'Restaurant',
+        components: {
+            MenuMessage,
+            WeatherDetailsMessage, RestaurantMessage, CategoryDropdown, UserMessage, BotMessage, CityDropdown, BImage},
         props: ['botIconSource'],
         data: function () {
             return {
+                restaurantId: '',
                 city: '',
+                category: '',
                 time: '',
                 userTime: '',
                 timeDropdown: false,
                 showCityDropdown: true,
-                showTimeDropdown: false,
+                showCategoryDropdown: false,
                 endOrDetailsButtons: false,
                 details: false,
                 endWeather: false,
                 botCityMessage: false,
-                botWeatherMessage: false,
+                botRestaurantMessage: false,
+                menu: false,
                 weatherData: '',
+                restaurantData: '',
+                menuData: '',
 
             }
         },
@@ -71,13 +84,8 @@
             this.$root.$on('cityDropdownOnClick', (text) => {
                 this.cityDropdownOnClick(text);
             });
-            this.$root.$on('showWeatherMessage', (data) => {
-                this.userTime = data[0];
-                this.time = data[1];
-                this.showWeatherMessage();
-            });
-            this.$root.$on('event', () => {
-                this.endWeatherTalk();
+            this.$root.$on('categoryDropdownOnClick', (text) => {
+                this.categoryDropdownOnClick(text);
             });
         },
         methods: {
@@ -85,32 +93,43 @@
                 this.showCityDropdown = false;
                 this.city = value;
                 this.botCityMessage = true;
-                this.showTimeDropdown = true;
+                this.showCategoryDropdown = true;
                 this.removeBotImage()
             },
-            showWeatherMessage() {
-                weatherService.getWeatherData(this.city, this.time).then((weatherData) => {
-                    this.showTimeDropdown = false;
-                    weatherData.city = this.city;
-                    weatherData.time = this.time;
-                    this.weatherData = weatherData;
-                    this.botWeatherMessage = true;
-                    this.endOrDetailsButtons = true;
+            categoryDropdownOnClick(value) {
+                this.showCategoryDropdown = false;
+                this.category = value;
+                restaurantService.getRestaurantData(this.city, this.category).then((restaurantData) => {
+                    this.restaurantData = restaurantData;
+
+                    this.botCityMessage = true;
+                    this.botRestaurantMessage = true;
                     this.removeBotImage()
+                    this.endOrDetailsButtons = true;
                 });
             },
-            endWeatherTalk() {
+            showNewCategoryMessage() {
                 this.removeBotImage();
                 this.endOrDetailsButtons = false;
                 this.endTalk();
             },
-            showMoreDetailsMessage() {
+            showAnotherRestaurantMessage() {
+                restaurantService.getRestaurantData(this.city, this.category).then((restaurantData) => {
+                    this.restaurantData = restaurantData;
+                });
+            },
+            showMenuMessage() {
                 this.endOrDetailsButtons = false;
-                this.details = true;
+                restaurantService.getMenuData(this.restaurantId).then(menuData =>{
+                    this.menuData = menuData;
+                    this.menu = true;
+                })
                 this.removeBotImage();
                 this.endTalk();
             },
             endTalk(){
+                this.details = false;
+                this.menu = false;
                 this.endWeather = true;
                 this.$root.$emit("showCategories");
             },
