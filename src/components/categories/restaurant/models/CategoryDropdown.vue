@@ -15,7 +15,7 @@
         components: {},
         data() {
             return {
-                categories: [],
+                categories: []
             }
         },
         mounted() {
@@ -23,7 +23,7 @@
         },
         methods: {
             categoryDropdownOnClick(category) {
-                this.$root.$emit('categoryDropdownOnClick', category);
+                this.$emit('categoryDropdownOnClick', category);
             }
         }
     }

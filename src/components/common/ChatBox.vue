@@ -16,7 +16,7 @@
             </li>
         </ul>
         <div id="chooseCategoryButton">
-        <b-button id="weather" class="m-2" v-on:click="onClick($event)">{{$t('bot.categoryWeather')}}</b-button>
+        <b-button id="weather" class="m-2" v-on:click="onClick">{{$t('bot.categoryWeather')}}</b-button>
         <b-button id="restaurants" class="m-2" v-on:click="onClick">{{$t('bot.categoryRestaurants')}}</b-button>
         </div>
         <div id="categoryComponent">
