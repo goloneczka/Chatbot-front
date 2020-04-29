@@ -9,7 +9,7 @@
                 <RestaurantMessage :data="this.restaurantData"/>
                 <BImage :botIconSource=this.botIconSource />
             </div>
-            <div v-if="more">
+            <div v-if="more1">
                 <b-button id="showNewCategoryMessageButton" class="m-2"
                           v-on:click="this.showNewCategoryMessage">
                     {{$t('weather.user.thank')}}
@@ -59,7 +59,7 @@
             WeatherDetailsMessage,
             MenuMessage, RestaurantMessage, CategoryDropdown, UserMessage, BotMessage, BImage
         },
-        props: ['botIconSource', 'showCategoryDropdown', 'city', 'number', 'more'],
+        props: ['botIconSource', 'showCategoryDropdown', 'city', 'number'],
         data: function () {
             return {
                 restaurantId: '',
@@ -76,6 +76,7 @@
                 weatherData: '',
                 restaurantData: '',
                 menuData: '',
+                more1: false,
             }
         },
         methods: {
@@ -84,19 +85,19 @@
             },
             categoryDropdownOnClick(value) {
                 this.category = value;
-                this.$root.$emit('closeCategoryDropdown', this.number);
+                this.$emit('closeCategoryDropdown');
 
                 restaurantService.getRestaurantData(this.city, this.category).then((restaurantData) => {
                     this.restaurantData = restaurantData;
                     this.botRestaurantMessage = true;
-                    this.$root.$emit('addMore');
+                    this.more1 = true;
                     this.removeBotImage()
                 });
             },
             showNewCategoryMessage() {
                 this.details = true;
-                this.$root.$emit('closeMore', this.number);
-                this.$root.$emit('addChoseDropdown');
+                this.more1 = false;
+                this.$emit('addChoseDropdown');
                 this.removeBotImage();
                 this.endTalk();
             },
@@ -107,7 +108,7 @@
                 });
             },
             showMenuMessage() {
-                this.$root.$emit('closeMore', this.number);
+                this.more1 = false;
                 restaurantService.getMenuData(this.restaurantId).then(menuData => {
                     this.menuData = menuData;
                     this.menu = true;

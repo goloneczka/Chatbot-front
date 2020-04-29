@@ -11,8 +11,11 @@
                 <BImage :botIconSource=this.botIconSource />
             </div>
             <div v-for="(isShow, index) in showCategoryDropdown1" v-bind:key=index>
-                <RestaurantCategory :bot-icon-source=botIconSource :more=showMore1[index]
-                                    :show-category-dropdown=isShow :number=index :city=city />
+                <RestaurantCategory @addChoseDropdown="addCategoryDropdownOnClick"
+                                    @closeCategoryDropdown="closeCategoryDropdownOnClick"
+                                    :bot-icon-source="botIconSource"
+                                    :number=index :city="city"
+                                    :show-category-dropdown="isShow" />
             </div>
         </div>
     </div>
@@ -58,20 +61,15 @@
             this.$root.$on('cityDropdownOnClick', (text) => {
                 this.cityDropdownOnClick(text);
             });
-            this.$root.$on('closeCategoryDropdown', (number) => {
-                this.showCategoryDropdown1[number] = false;
-            });
-            this.$root.$on('addChoseDropdown', () => {
-                this.showCategoryDropdown1.push(true);
-            });
-            this.$root.$on('closeMore', (number) => {
-                this.showMore1[number] = false;
-            });
-            this.$root.$on('addMore', () => {
-                this.showMore1.push(true);
-            });
         },
         methods: {
+            addCategoryDropdownOnClick() {
+                this.showCategoryDropdown1.push(true);
+            },
+            closeCategoryDropdownOnClick() {
+                this.showCategoryDropdown1.pop();
+                this.showCategoryDropdown1.push(false);
+            },
             cityDropdownOnClick(value) {
                 this.showCityDropdown = false;
                 this.city = value;
