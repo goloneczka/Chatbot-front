@@ -39,6 +39,9 @@
     --admin-joke-margin-top: 20px;
     --admin-joke-item-small-color: #657786;
     --admin-joke-item-small-font-size: 14px;
+
+    --jokes-button-right-margin: 3px;
+    --jokes-button-left-margin: 3px;
 }
 
 html, body {

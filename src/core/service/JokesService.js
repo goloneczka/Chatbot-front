@@ -5,14 +5,20 @@ export default class JokesService {
 
     getAllCategories() {
         return this.httpRequest.get("jokes/categories").then((data) => {
-            const categories = [];
-            data.forEach(category => categories.push(category.category));
-            return categories;
+            return data.map(category => category.category);
         });
     }
 
     getRandomJoke() {
         return this.httpRequest.get("jokes/random").then(data => data);
+    }
+
+    validateJoke(joke, errorContent) {
+        let errors = [];
+        if(joke.length === 0)
+            errors.push(errorContent.nameContent);
+
+        return errors
     }
 
     rateJoke(mark, jokeId) {

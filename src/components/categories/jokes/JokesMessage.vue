@@ -1,5 +1,8 @@
 <template>
     <div>
+        <div v-if="error" class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
         <a>
             {{$t('jokes.bot.avgRate')}}
             <star-rating :glow="10" :rounded-corners="true"
@@ -21,11 +24,19 @@
         props: ['data'],
         data: function () {
             return {
-                jokeRate: null
+                jokeRate: null,
+                error: ''
             }
         },
         created() {
-            jokesService.getAvgRate(this.data).then(data => this.jokeRate = data.mark)
+            jokesService.getAvgRate(this.data).then((data) => {
+                if(data.errors){
+                    this.error = this.$t('jokes.errors.errorAvgRate') + data.errors[0]
+                }
+                else{
+                    this.jokeRate = data.mark
+                }
+            })
         }
     }
 </script>
@@ -36,7 +47,6 @@
         width: auto;
         text-align: center;
     }
-
     .stars {
         display: block;
     }

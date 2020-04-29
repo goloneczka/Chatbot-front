@@ -37,6 +37,14 @@
     }
   },
   "jokes": {
+    "errors": {
+      "errorListOfCategories": "Nie można pobrać kategorii. \n Błąd: ",
+      "errorGetJokeCategory": "Nie można pobrać żartu z tej kategorii. \n Błąd: ",
+      "errorGetJoke": "Nie można pobrać żartu. \n Błąd: ",
+      "errorAvgRate": "Nie można pobrać średniej oceny żarty. \n Błąd: ",
+      "errorEmptyJoke": "Żart nie może być pusty",
+      "errorCreatingJoke": "Nie można utworzyć żarty. \n Błąd: "
+    },
     "user": {
       "choiceJokes": "Opowiedz mi żart.",
       "randomCategoryChosen": "Zaskocz mnie!",
@@ -48,15 +56,15 @@
       "tellJoke": "A może teraz ja Ci coś opowiem :D?",
       "anotherJokeBtn": "Kolejny żart",
       "rateJokeBtn": "Oceń żart",
-      "tellJokeBtn": "Dodaj nowy żart",
+      "tellJokeBtn": "Opowiem Ci żart",
       "tellJokePlaceholder": "Podaj treść żartu..."
     },
     "bot": {
-      "chooseCategory1": "Chętnie poprawie Ci humor!",
-      "chooseCategory2": "Znam mnóstwo świetnych żartów!",
-      "chooseCategory3": "O czym będziemy dziś żartować?",
+      "cheeringUp": "Chętnie poprawie Ci humor!",
+      "greatJokes": "Znam mnóstwo świetnych żartów!",
+      "kindOfJokes": "O czym będziemy dziś żartować?",
       "nextStep": "Co chciałbyś porobić teraz?",
-      "rateJokeResponse1": "Świetnie!",
+      "great": "Świetnie!",
       "rateJokeResponse2": "Jaką ocenę chciałbyś dać?",
       "lowRate": "Następnym razem postaram się lepiej trafić w twój gust",
       "highRate": "Świetnie! Ciesze się, że Ci się podobał",
