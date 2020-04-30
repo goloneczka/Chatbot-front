@@ -40,7 +40,7 @@
 
     import UserMessage from "../../common/UserMessage";
     import BotMessage from "../../common/BotMessage";
-    import CityDropdown from "../shared/models/CityDropdown";
+    import CityDropdown from "./models/CityDropdown";
     import BImage from "../../common/BImage";
     import WeatherMessage from "./models/WeatherMessage";
     import WeatherDetailsMessage from "./models/WeatherDetailsMessage";

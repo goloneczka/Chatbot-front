@@ -5,21 +5,21 @@
             <div v-if="botRestaurantMessage">
                 <UserMessage :text="`${this.$t('weather.user.myChoice')} ${this.category}`"/>
                 <BotMessage
-                        :text="`${this.$t('weather.bot.myPredictions')} ${this.city} ${this.$t('weather.bot.in')} ${this.category}....`"/>
+                        :text="`${this.$t('food.bot.foodPredictions')} ${this.city} ${this.$t('food.bot.for')} ${this.category}....`"/>
                 <RestaurantMessage :data="this.restaurantData"/>
                 <BImage :botIconSource=this.botIconSource />
             </div>
             <div v-if="more1">
                 <b-button id="showNewCategoryMessageButton" class="m-2"
                           v-on:click="this.showNewCategoryMessage">
-                    {{$t('weather.user.thank')}}
+                    {{$t('food.user.choiceNewCategory')}}
                 </b-button>
                 <b-button id="moreDetailsButton" class="m-2"
                           v-on:click="this.showAnotherRestaurantMessage">
-                    {{$t('weather.user.moreDetails')}}
+                    {{$t('food.user.choiceAnotherRestaurant')}}
                 </b-button>
                 <b-button id="changeRestauration" class="m-2" v-on:click="this.showMenuMessage">
-                    {{$t('weather.user.moreDetails')}}
+                    {{$t('food.user.choiceMenu')}}
                 </b-button>
             </div>
             <div v-if="menu">
@@ -32,10 +32,9 @@
                 <WeatherDetailsMessage :data="this.weatherData"/>
                 <BImage :botIconSource=this.botIconSource />
             </div>
-            <div v-if="endWeather">
-                <UserMessage :text="this.$t('weather.user.thank')"/>
-                <BotMessage :text="this.$t('weather.bot.couldHelp')"/>
-                <BotMessage :text="this.$t('weather.bot.anythingToDo')"/>
+            <div v-if="endRestaurant">
+                <UserMessage :text="this.$t('food.user.choiceNewCategory')"/>
+                <BotMessage :text="this.$t('food.bot.foodCategory')"/>
                 <BImage :botIconSource=this.botIconSource />
             </div>
         </div>
@@ -64,13 +63,8 @@
             return {
                 restaurantId: '',
                 category: '',
-                time: '',
-                userTime: '',
-                timeDropdown: false,
-                showCityDropdown: true,
-                endOrDetailsButtons: false,
                 details: false,
-                endWeather: false,
+                endRestaurant: false,
                 botRestaurantMessage: false,
                 menu: false,
                 weatherData: '',
@@ -114,12 +108,12 @@
                     this.menu = true;
                 })
                 this.removeBotImage();
-                this.endTalk();
+             //   this.endTalk();
             },
             endTalk() {
                 this.details = false;
                 this.menu = false;
-                this.endWeather = true;
+                this.endRestaurant = true;
                 this.$root.$emit("showCategories");
             },
             removeBotImage() {

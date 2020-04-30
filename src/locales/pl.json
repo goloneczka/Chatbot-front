@@ -11,7 +11,7 @@
   "weather": {
     "bot": {
       "introduction": "Super! A w jakim chcesz mieście?",
-      "choiceTime" : "Swietnie ! Wybierz teraz czas!",
+      "choiceTime": "Swietnie ! Wybierz teraz czas!",
       "myPredictions": "Swietnie! Oto moje przewidywania dla",
       "in": " w ",
       "couldHelp": "Cieszę się że mogłem pomóc :D ",
@@ -26,15 +26,29 @@
     "user": {
       "choiceWeather": "Chce poznać pogodę.",
       "chooseCity": "Wybieram miasto ",
-      "myChoice" : "Wybieram ",
+      "myChoice": "Wybieram ",
       "thank": "Dzięki!",
       "moreDetails": "Chcę więcej szczegółów",
       "choiceDay": "Wybierz dzień",
-      "city": "Wybór miasta"
+      "city": "Wybór miasta",
+      "restaurant": "kategorie"
     },
     "error": {
       "wrongDate": "Nie wybrano daty!",
       "backDate": "Podano nie poprawną datę! Data nie może być wcześniejsza niż dzisiejszy dzień."
+    }
+  },
+  "food": {
+    "bot": {
+      "foodCategory" : "Swietnie ! Wybierz teraz kategorię!",
+      "foodPredictions": "Swietnie! Oto co znalazłem w",
+      "for": "dla"
+    },
+    "user": {
+      "choiceRestaurant": "Chce poznac resturacje w okolicy",
+      "choiceAnotherRestaurant" : "Pokaz podobne",
+      "choiceNewCategory": "Pokaz inne kategorie",
+      "choiceMenu": "Swietnie! Pokaz menu"
     }
   },
   "adminHome": {

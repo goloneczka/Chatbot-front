@@ -1,13 +1,13 @@
 <template>
     <div>
         <div id="restaurant-component">
-            <UserMessage :text="$t('weather.user.choiceWeather')"/>
+            <UserMessage :text="$t('food.user.choiceRestaurant')"/>
             <BotMessage :text="$t('weather.bot.introduction')"/>
             <BImage :botIconSource=this.botIconSource />
             <CityDropdown v-if="showCityDropdown"/>
             <div v-if="botCityMessage">
                 <UserMessage :text="`${this.$t('weather.user.chooseCity')} ${this.city}`"/>
-                <BotMessage :text="$t('weather.bot.choiceTime')"/>
+                <BotMessage :text="$t('food.bot.foodCategory')"/>
                 <BImage :botIconSource=this.botIconSource />
             </div>
             <div v-for="(isShow, index) in showCategoryDropdown1" v-bind:key=index>
@@ -24,7 +24,7 @@
 
     import UserMessage from "../../common/UserMessage";
     import BotMessage from "../../common/BotMessage";
-    import CityDropdown from "../shared/models/CityDropdown";
+    import CityDropdown from "./models/CityDropdown";
     import BImage from "../../common/BImage";
     import RestaurantCategory from "./models/RestaurantCategory";
 
@@ -34,26 +34,11 @@
         props: ['botIconSource'],
         data: function () {
             return {
-                restaurantId: '',
                 city: '',
-                category: '',
-                time: '',
-                userTime: '',
-                timeDropdown: false,
                 showCityDropdown: true,
-                showCategoryDropdown: false,
-                endOrDetailsButtons: false,
-                details: false,
-                endWeather: false,
                 botCityMessage: false,
                 botRestaurantMessage: false,
-                menu: false,
-                weatherData: '',
-                restaurantData: '',
-                menuData: '',
-
                 showCategoryDropdown1: [],
-                showMore1: []
 
             }
         },

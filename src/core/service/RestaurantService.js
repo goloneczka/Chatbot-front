@@ -37,7 +37,7 @@ export default class RestaurantService {
         // TODO POBIERAC Z SERWERA
     }
 
-    getAllCities()
+    getAllCategories()
     {
         // TODO POBIERAC Z SERWERA
         // return this.httpRequest.get("cities").then((data) => {
