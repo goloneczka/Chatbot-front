@@ -1,7 +1,7 @@
 {
   "bot": {
     "helloMessage": "Cześć!",
-    "introductionMessage": "Jestem Twoim pomocnym chatbotem. Mogę wyręczyć Cię z wyszukiwania wielu rzeczy.",
+    "introductionMessage": "Hej, to ja! Twój przyjazny chatbot. Tak właśnie czekałem tutaj na Ciebie i zastanawiałem się w czym mogę Ci dzisiaj pomóc?",
     "chooseCategoryMessage": "Wystarczy tylko, że wybierzesz kategorię, która Cię interesuje.",
     "categoryWeather": "Pogoda",
     "categoryJokes": "Żarty",
@@ -12,19 +12,19 @@
     "bot": {
       "introduction": "Super! A w jakim chcesz mieście?",
       "choiceTime": "Swietnie ! Wybierz teraz czas!",
-      "myPredictions": "Swietnie! Oto moje przewidywania dla",
+      "myPredictions": "Swietnie! Oto moje przewidywania dla ",
       "in": " w ",
       "couldHelp": "Cieszę się że mogłem pomóc :D ",
       "anythingToDo": "Jest coś co jeszcze mogę dla ciebie zrobić?",
       "temperature": "Temperatura",
-      "perceivedTemperature": "Odczutwalna temperatura: ",
+      "perceivedTemperature": "Odczuwalna temperatura: ",
       "precipType": "Zachmurzenie",
       "airPressure": "Ciśnienie powietrza",
       "humidity": "Wilgotność",
       "airSpeed": "Prędkość wiatru"
     },
     "user": {
-      "choiceWeather": "Chce poznać pogodę.",
+      "choiceWeather": "Chciałbym poznać pogodę.",
       "chooseCity": "Wybieram miasto ",
       "myChoice": "Wybieram ",
       "thank": "Dzięki!",
@@ -36,6 +36,45 @@
     "error": {
       "wrongDate": "Nie wybrano daty!",
       "backDate": "Podano nie poprawną datę! Data nie może być wcześniejsza niż dzisiejszy dzień."
+    }
+  },
+  "jokes": {
+    "errors": {
+      "errorListOfCategories": "Nie można pobrać kategorii. \n Błąd: ",
+      "errorGetJokeCategory": "Nie można pobrać żartu z tej kategorii. \n Błąd: ",
+      "errorGetJoke": "Nie można pobrać żartu. \n Błąd: ",
+      "errorAvgRate": "Nie można pobrać średniej oceny żarty. \n Błąd: ",
+      "errorEmptyJoke": "Żart nie może być pusty",
+      "errorCreatingJoke": "Nie można utworzyć żarty. \n Błąd: ",
+      "errorRateJoke": "Nie można ocenić żartu. \n Błąd: "
+    },
+    "user": {
+      "choiceJokes": "Opowiedz mi żart.",
+      "randomCategoryChosen": "Zaskocz mnie!",
+      "categoryChosen": "Opowiedz mi żart z kategorii ",
+      "categories": "Wybierz kategorię",
+      "anotherJoke": "Opowiedz mi jeszcze jeden!",
+      "rateJoke": "Chiałbym ocenić ten żart.",
+      "outOf": " na ",
+      "tellJoke": "A może teraz ja Ci coś opowiem :D?",
+      "anotherJokeBtn": "Kolejny żart",
+      "rateJokeBtn": "Oceń żart",
+      "tellJokeBtn": "Opowiem Ci żart",
+      "tellJokePlaceholder": "Podaj treść żartu..."
+    },
+    "bot": {
+      "cheeringUp": "Chętnie poprawie Ci humor!",
+      "greatJokes": "Znam mnóstwo świetnych żartów!",
+      "kindOfJokes": "O czym będziemy dziś żartować?",
+      "nextStep": "Co chciałbyś porobić teraz?",
+      "great": "Świetnie!",
+      "rateJokeResponse2": "Jaką ocenę chciałbyś dać?",
+      "lowRate": "Następnym razem postaram się lepiej trafić w twój gust",
+      "highRate": "Świetnie! Ciesze się, że Ci się podobał",
+      "avgRate": "Użytkownicy zazwyczaj oceniali ten żart tak: ",
+      "tellJokeRespond": "Zamieniam się w słuch!",
+      "savingJoke": "Hahaha, dobre, zapamięta go sobie!",
+      "anotherJokeResponse": "Jasne! O czym miałby on być?"
     }
   },
   "food": {
@@ -66,6 +105,47 @@
       "jokes": "Żarty",
       "maps": "Mapy"
     }
+  },
+  "adminJokes": {
+    "categoriesTitle" :"Lista kategorii",
+    "emptyListOfCategoryTitle": "Brak kategorii żartów, stwórz nową",
+    "emptyListOfCategoryButton": "klikając tutaj",
+    "errorListOfCategories": "Nie można pobrać kategorii. \n Błąd: ",
+    "modalAddCategoryTitle": "Dodawanie nowej kategorii",
+    "modalNewCategory": "Nazwa nowej kategorii",
+    "modalAddCategorySubmit": "Dodaj kategorię",
+    "validateCategoryNameEmpty": "Zawartość nazwy kategorii nie może byc pusta",
+    "errorAddResponseCategory": "Wystąpił błąd podczas dodawania kategorii.",
+    "addCategoryHeaderName": "Dodaj nową kategorię",
+    "buttonGoToCategory": "Przejdź do żartów",
+    "buttonDeleteCategory": "Usuń kategorię",
+    "buttonEditCategory": "Edytuj kategorię",
+    "modalEditCategoryTitle": "Modyfikacja kategorii",
+    "modalEditCategory": "Zmień nazwę kategorii",
+    "modalEditCategorySubmit": "Modyfikuj kategorię",
+    "errorEditResponseCategory": "Wystąpił błąd podczas modyfikowania kategorii.",
+    "modalRemoveCategoryTitle": "Usuwanie kategorii",
+    "modalRemoveCategoryTextAlert": "Czy na pewno chcesz usunać tą kategorię?",
+    "modalRemoveCategoryButton": "Tak, jestem tego pewien.",
+    "errorRemoveResponseCategory":"Wystąpił błąd podczas usuwania kategorii.",
+    "loadingTitle": "Trwa ładowanie 🔥🔥🔥",
+    "emptyListOfJokeTitle": "Oh no, nie mamy nic śmiesnego 😢, zmień to",
+    "emptyListOfJokeButton": "klikając tutaj",
+    "errorListOfJokes": "Nie można pobrać żartów z tej kategorii. \n Błąd: ",
+    "jokesTitle": "Lista żartów",
+    "addJokeHeaderName": "- Dodaj coś śmiesznego",
+    "modalAddJokeTitle": "Dodawanie żartu",
+    "modalAddJokeSubmit": "Dodaj żart",
+    "modalNewJoke": "Wprowadź treść żartu",
+    "validateJokeNameEmpty": "Zawartość żartu nie może byc pusta",
+    "modalEditJokeTitle": "Modyfikacja żartu",
+    "modalEditJoke":"Wprowadź treść żartu",
+    "modalEditJokeButton": "Edytuj żart",
+    "editJokeButton": "Edytuj żart",
+    "validateJokeContentEmpty": "Zawartość żartu nie może byc pusta",
+    "buttonDeleteJoke": "Usuń żart",
+    "errorEditResponseJoke": "Nie udało się zmienić żartu",
+    "errorDelete": "Nie udało się usunać żartu"
   },
   "login": {
     "title": "Panel Logowania Admina",

@@ -12,6 +12,7 @@
     import Dialog from "./components/common/Dialog";
     import WeatherService from "./core/service/WeatherService";
     import RestaurantService from "./core/service/RestaurantService";
+    import JokesService from "./core/service/JokesService";
 
     const baseUrl = process.env.VUE_APP_BASE_URL;
 
@@ -20,6 +21,7 @@
 
     export const weatherService = new WeatherService(httpRequest);
     export const restaurantService = new RestaurantService(httpRequest);
+    export const jokesService = new JokesService(httpRequest);
 
     export default {
         name: 'App',

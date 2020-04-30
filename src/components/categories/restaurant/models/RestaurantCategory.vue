@@ -9,7 +9,7 @@
                 <RestaurantMessage :data="this.restaurantData"/>
                 <BImage :botIconSource=this.botIconSource />
             </div>
-            <div v-if="more1">
+            <div id="more-details" v-if="more1">
                 <b-button id="showNewCategoryMessageButton" class="m-2"
                           v-on:click="this.showNewCategoryMessage">
                     {{$t('food.user.choiceNewCategory')}}
@@ -108,7 +108,6 @@
                     this.menu = true;
                 })
                 this.removeBotImage();
-             //   this.endTalk();
             },
             endTalk() {
                 this.details = false;
@@ -126,4 +125,8 @@
     }
 </script>
 <style scoped>
+    #more-details{
+        margin-left: 41%;
+        display: inline;
+    }
 </style>
