@@ -8,9 +8,6 @@
                           :placeholder="$t('jokes.user.tellJokePlaceholder')">
             </b-form-input>
         </b-form>
-        <ul v-if="errors.length" class="alert alert-danger" role="alert">
-            <li v-for="(error, index) in errors" :key="index">{{error}}</li>
-        </ul>
     </div>
 </template>
 
@@ -36,17 +33,16 @@
             },
 
             saveJoke() {
-                this.errors = [];
                 let errorContent = {
                     nameContent: this.$t('jokes.errors.errorEmptyJoke')
                 };
-                let errorsTemp = jokesService.validateJoke(this.joke, errorContent);
-                if (errorsTemp.length > 0) {
-                    this.errors = errorsTemp;
+                let errors = jokesService.validateJoke(this.joke, errorContent);
+                if (errors.length > 0) {
+                    this.$root.$emit("showDanger", errors);
                 }
                 jokesService.createJoke(this.joke, this.category).then((data) => {
                     if (data.errors) {
-                        this.errors.push(this.$t('jokes.errors.errorCreatingJoke') + data.errors[0]);
+                        this.$root.$emit("showDanger",this.$t('jokes.errors.errorCreatingJoke') + data.errors[0]);
                     }
                 });
                 this.$emit('tellJoke', this.joke);

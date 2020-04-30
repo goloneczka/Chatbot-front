@@ -6,9 +6,6 @@
             </b-button>
             <JokesCategoryChooser v-on:chooseCategory="showJoke($event)"></JokesCategoryChooser>
         </div>
-        <div v-if="error" class="alert alert-danger" role="alert">
-            {{error}}
-        </div>
         <div v-if="showNextSteps">
             <b-button v-if="showRatingJokesBtn" v-on:click="showRatingComponent()">{{$t('jokes.user.rateJokeBtn')}}
             </b-button>
@@ -68,13 +65,12 @@
                 this.sendMessage("user", text)
             },
             showJoke(category) {
-                this.error = '';
                 if (category == null) {
                     this.sendMessageFromUser(this.$t('jokes.user.randomCategoryChosen'));
                     jokesService.getRandomJoke().then(
                         (data) => {
                             if (data.errors) {
-                                this.error = this.$t('jokes.errors.errorGetJoke') + data.errors[0]
+                                this.$root.$emit("showDanger",this.$t('jokes.errors.errorGetJoke') + data.errors[0])
                             } else {
                                 this.shownJoke = data;
                                 this.sendMessageFromBot(this.shownJoke.joke,);

@@ -1,8 +1,5 @@
 <template>
     <div class="category-chooser">
-        <div v-if="error" class="alert alert-danger" role="alert">
-            {{error}}
-        </div>
         <b-dropdown v-bind:text="$t('jokes.user.categories')">
             <b-dropdown-item v-for="category in categories" v-bind:key="category" v-on:click="chosenCategory(category)">
                 {{category}}
@@ -17,14 +14,13 @@
         name: "JokesCategoryChooser",
         data: function(){
             return{
-                categories: [],
-                error: ''
+                categories: []
             }
         },
         mounted() {
             jokesService.getAllCategories().then((data) => {
                 if(data.errors){
-                    this.error = this.$t('jokes.errors.errorListOfCategories') + data.errors[0];
+                    this.$root.$emit("showDanger",this.$t('jokes.errors.errorListOfCategories') + data.errors[0]);
                 }
                 else {
                     this.categories = data

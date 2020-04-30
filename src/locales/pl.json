@@ -43,7 +43,8 @@
       "errorGetJoke": "Nie można pobrać żartu. \n Błąd: ",
       "errorAvgRate": "Nie można pobrać średniej oceny żarty. \n Błąd: ",
       "errorEmptyJoke": "Żart nie może być pusty",
-      "errorCreatingJoke": "Nie można utworzyć żarty. \n Błąd: "
+      "errorCreatingJoke": "Nie można utworzyć żarty. \n Błąd: ",
+      "errorRateJoke": "Nie można ocenić żartu. \n Błąd: "
     },
     "user": {
       "choiceJokes": "Opowiedz mi żart.",

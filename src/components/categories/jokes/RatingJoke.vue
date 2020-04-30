@@ -18,7 +18,14 @@
         props: ['jokeId'],
         methods: {
             setRating(rating) {
-                jokesService.rateJoke(rating, this.jokeId).then(this.$emit('showRating', rating));
+                jokesService.rateJoke(rating, this.jokeId).then((data) => {
+                    if(data.errors){
+                        this.$root.$emit("showDanger",this.$t('jokes.errors.errorRateJoke') + data.errors[0]);
+                    }
+                    else {
+                        this.$emit('showRating', rating)
+                    }
+                });
             }
         }
     }

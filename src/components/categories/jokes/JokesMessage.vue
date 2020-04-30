@@ -31,7 +31,7 @@
         created() {
             jokesService.getAvgRate(this.data).then((data) => {
                 if(data.errors){
-                    this.error = this.$t('jokes.errors.errorAvgRate') + data.errors[0]
+                    this.$root.$emit("showDanger",this.$t('jokes.errors.errorAvgRate') + data.errors[0]);
                 }
                 else{
                     this.jokeRate = data.mark
