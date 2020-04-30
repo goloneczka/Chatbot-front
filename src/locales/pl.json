@@ -15,7 +15,7 @@
       "couldHelp": "Cieszę się że mogłem pomóc :D ",
       "anythingToDo": "Jest coś co jeszcze mogę dla ciebie zrobić?",
       "temperature": "Temperatura",
-      "perceivedTemperature": "Odczutwalna temperatura: ",
+      "perceivedTemperature": "Odczuwalna temperatura: ",
       "precipType": "Zachmurzenie",
       "airPressure": "Ciśnienie powietrza",
       "humidity": "Wilgotność",
@@ -37,8 +37,42 @@
     }
   },
   "jokes": {
+    "errors": {
+      "errorListOfCategories": "Nie można pobrać kategorii. \n Błąd: ",
+      "errorGetJokeCategory": "Nie można pobrać żartu z tej kategorii. \n Błąd: ",
+      "errorGetJoke": "Nie można pobrać żartu. \n Błąd: ",
+      "errorAvgRate": "Nie można pobrać średniej oceny żarty. \n Błąd: ",
+      "errorEmptyJoke": "Żart nie może być pusty",
+      "errorCreatingJoke": "Nie można utworzyć żarty. \n Błąd: ",
+      "errorRateJoke": "Nie można ocenić żartu. \n Błąd: "
+    },
     "user": {
-      "choiceJokes": "Opowiedz mi żart."
+      "choiceJokes": "Opowiedz mi żart.",
+      "randomCategoryChosen": "Zaskocz mnie!",
+      "categoryChosen": "Opowiedz mi żart z kategorii ",
+      "categories": "Wybierz kategorię",
+      "anotherJoke": "Opowiedz mi jeszcze jeden!",
+      "rateJoke": "Chiałbym ocenić ten żart.",
+      "outOf": " na ",
+      "tellJoke": "A może teraz ja Ci coś opowiem :D?",
+      "anotherJokeBtn": "Kolejny żart",
+      "rateJokeBtn": "Oceń żart",
+      "tellJokeBtn": "Opowiem Ci żart",
+      "tellJokePlaceholder": "Podaj treść żartu..."
+    },
+    "bot": {
+      "cheeringUp": "Chętnie poprawie Ci humor!",
+      "greatJokes": "Znam mnóstwo świetnych żartów!",
+      "kindOfJokes": "O czym będziemy dziś żartować?",
+      "nextStep": "Co chciałbyś porobić teraz?",
+      "great": "Świetnie!",
+      "rateJokeResponse2": "Jaką ocenę chciałbyś dać?",
+      "lowRate": "Następnym razem postaram się lepiej trafić w twój gust",
+      "highRate": "Świetnie! Ciesze się, że Ci się podobał",
+      "avgRate": "Użytkownicy zazwyczaj oceniali ten żart tak: ",
+      "tellJokeRespond": "Zamieniam się w słuch!",
+      "savingJoke": "Hahaha, dobre, zapamięta go sobie!",
+      "anotherJokeResponse": "Jasne! O czym miałby on być?"
     }
   },
   "adminHome": {

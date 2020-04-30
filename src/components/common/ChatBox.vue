@@ -1,5 +1,5 @@
 <template>
-    <div  class="chat-box">
+    <div class="chat-box">
         <div class="chat-box-top-border"></div>
         <ul class="messages-list">
             <li class="message"
@@ -12,7 +12,7 @@
                                  v-else-if="message.style === 'weatherMessage'"></weather-message>
                 <weather-details-message v-bind:data="message.data"
                                          v-else-if="message.style === 'weatherDetailsMessage'"></weather-details-message>
-
+                <JokesMessage v-bind:data="message.data" v-else-if="message.style === 'jokesMessage'"></JokesMessage>
                 <p v-if="index === lastBotMessageIndex">
                     <b-img class="bot-image" height="30" v-bind:src="botIconSource"></b-img>
                 </p>
@@ -35,10 +35,11 @@
     import WeatherMessage from "../categories/weather/models/WeatherMessage";
     import WeatherDetailsMessage from "../categories/weather/models/WeatherDetailsMessage";
     import Jokes from "../categories/jokes/Jokes";
+    import JokesMessage from "../categories/jokes/JokesMessage";
 
     export default {
         name: "ChatBox",
-        components: {Jokes, WeatherDetailsMessage, WeatherMessage, Weather},
+        components: {JokesMessage, Jokes, WeatherDetailsMessage, WeatherMessage, Weather},
         props: ["botIconSource"],
         data: function () {
             return {
@@ -99,6 +100,7 @@
         border-left: var(--home-chat-box-border);
         border-right: var(--home-chat-box-border);
     }
+
     .chat-box-top-border {
         position: sticky;
         top: 202px;
