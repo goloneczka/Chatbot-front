@@ -17,6 +17,7 @@ export default class RestaurantService {
         console.log(city);
         console.log(category);
         return Promise.resolve({name: 'Test 1',
+                id: 2,
                 address: 'Ul. testowa 1A',
                 averageUsersRating: 3.5,
                 phoneNumbers: '312343123'
@@ -35,6 +36,16 @@ export default class RestaurantService {
             {dish: 'schabowy', price: 22},
         ])
         // TODO POBIERAC Z SERWERA
+    }
+    getAvgRate(id){
+        console.log(id)
+        return Promise.resolve({mark: 2.7})
+    }
+
+    rateJoke(mark, jokeId) {
+        return Promise.resolve({jokeId: jokeId,
+            mark: mark})
+       // return this.httpRequest.post("jokes/rate", {jokeId: jokeId, mark: mark}).then(data => data);
     }
 
     getAllCategories()

@@ -5,8 +5,9 @@
             <div v-if="botRestaurantMessage">
                 <UserMessage :text="`${this.$t('weather.user.myChoice')} ${this.category}`"/>
                 <BotMessage
-                        :text="`${this.$t('food.bot.foodPredictions')} ${this.city} ${this.$t('food.bot.for')} ${this.category}....`"/>
-                <RestaurantMessage :data="this.restaurantData"/>
+                        :text="`${this.$t('food.bot.foodPredictions')} ${this.city} ${this.$t('food.bot.for')} ${this.category} ...`"/>
+                <BotMessage :text="this.addRateJoke"/>
+                <RestaurantMessage :data="this.restaurantData" :no-active="canNoRateRest" @rated="onRated" :key="canNoRateRest" />
                 <BImage :botIconSource=this.botIconSource />
             </div>
             <div id="more-details" v-if="more1">
@@ -61,7 +62,6 @@
         props: ['botIconSource', 'showCategoryDropdown', 'city', 'number'],
         data: function () {
             return {
-                restaurantId: '',
                 category: '',
                 details: false,
                 endRestaurant: false,
@@ -71,11 +71,17 @@
                 restaurantData: '',
                 menuData: '',
                 more1: false,
+                canNoRateRest: false,
+                addRateJoke: this.$t('food.bot.addRate')
             }
         },
         methods: {
             onDropdown(value) {
                 this.categoryDropdownOnClick(value);
+            },
+            onRated() {
+                this.canNoRateRest = true;
+                this.addRateJoke = this.$t('food.bot.ratedRestaurant')
             },
             categoryDropdownOnClick(value) {
                 this.category = value;
@@ -97,13 +103,15 @@
             },
             showAnotherRestaurantMessage() {
                 this.details = false;
+                this.canNoRateRest = false;
                 restaurantService.getRestaurantData(this.city, this.category).then((restaurantData) => {
                     this.restaurantData = restaurantData;
                 });
+                this.addRateJoke = this.$t('food.bot.addRate');
             },
             showMenuMessage() {
                 this.more1 = false;
-                restaurantService.getMenuData(this.restaurantId).then(menuData => {
+                restaurantService.getMenuData(this.restaurantData.id).then(menuData => {
                     this.menuData = menuData;
                     this.menu = true;
                 })
