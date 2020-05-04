@@ -14,7 +14,6 @@
                 <JokesMessage v-bind:data="message.data" v-else-if="message.style === 'jokesMessage'"></JokesMessage>
                 <RestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'restaurantMessage'" />
                 <MenuMessage v-bind:data="message.data" v-else-if="message.style === 'menuMessage'" />
-                <RatedRestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'ratedRestaurantMessage'" />
                 <p v-if="index === lastBotMessageIndex">
                     <b-img class="bot-image" height="30" v-bind:src="botIconSource"></b-img>
                 </p>
@@ -43,12 +42,10 @@
     import Restaurant from "../categories/restaurant/Restaurant";
     import RestaurantMessage from "../categories/restaurant/models/RestaurantMessage";
     import MenuMessage from "../categories/restaurant/models/MenuMessage";
-    import RatedRestaurantMessage from "../categories/restaurant/models/RatedRestaurantMessage";
 
     export default {
         name: "ChatBox",
         components: {
-            RatedRestaurantMessage,
             MenuMessage,
             RestaurantMessage,
             Restaurant,
@@ -71,7 +68,6 @@
                 this.scrollDown();
             },
             changeCategory: function (category) {
-                console.log("Hii")
                 this.activeCategory = null;
                 this.$nextTick(() => {
                     this.activeCategory = category;

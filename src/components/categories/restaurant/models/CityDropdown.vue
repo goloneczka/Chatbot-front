@@ -1,7 +1,7 @@
 <template>
     <div id="dropdown-button">
         <b-dropdown :text="$t('weather.user.city')" class="m-2">
-            <b-dropdown-item v-for="city in cities" :key="city" v-on:click="cityDropdownOnClick(city)">{{city}}
+            <b-dropdown-item v-for="city in cities" :key="city.id" v-on:click="cityDropdownOnClick(city)">{{city.city}}
             </b-dropdown-item>
         </b-dropdown>
     </div>
@@ -9,7 +9,7 @@
 <script>
 
     // TODO zmienic na RestaurantService !!!
-    import { weatherService } from '../../../../App'
+    import { restaurantService } from '../../../../App'
 
     export default {
         name: 'CityDropdown',
@@ -20,7 +20,9 @@
             }
         },
         mounted() {
-            weatherService.getAllCities().then( data => this.cities = data);
+            restaurantService.getAllCities().then( data => {
+                this.cities = data
+            });
         },
         methods: {
             cityDropdownOnClick(city) {

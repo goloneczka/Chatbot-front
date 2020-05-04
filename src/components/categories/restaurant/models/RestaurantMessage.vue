@@ -16,7 +16,6 @@
 <script>
 
     import StarRating from 'vue-star-rating'
-    import {restaurantService} from "../../../../App";
 
     export default {
         name: 'RestaurantMessage',
@@ -34,12 +33,7 @@
         created() {
             this.name = this.data.name;
             this.address = this.data.address;
-            restaurantService.getAvgRate(this.data.id).then((data) => {
-                if (data.errors)
-                    this.$root.$emit("showDanger", this.$t('jokes.errors.errorAvgRate') + data.errors[0]);
-                else
-                    this.restaurantRate = data.mark;
-            })
+            this.restaurantRate = this.data.averageUsersRating;
         },
     }
 </script>

@@ -19,7 +19,7 @@ export default class RestaurantService {
         return Promise.resolve({name: 'Test 1',
                 id: 2,
                 address: 'Ul. testowa 1A',
-                averageUsersRating: 4.1,
+                averageUsersRating: 2.0,
                 phoneNumbers: '312343123'
         })
         // TODO POBIERAC Z SERWERA
@@ -37,25 +37,14 @@ export default class RestaurantService {
         ])
         // TODO POBIERAC Z SERWERA
     }
-    getAvgRate(id){
-        console.log(id)
-        return Promise.resolve({mark: 2.0})
-    }
-
-    rateRestaurant(mark, jokeId) {
-        return Promise.resolve({jokeId: jokeId,
-            mark: mark})
-       // return this.httpRequest.post("jokes/rate", {jokeId: jokeId, mark: mark}).then(data => data);
-    }
-
-    getAllCategories()
+    getAllCities()
     {
         // TODO POBIERAC Z SERWERA
-        // return this.httpRequest.get("cities").then((data) => {
-        //     const citites = [];
-        //     data.forEach(city => citites.push(city.city));
-        //     return citites;
+        // return this.httpRequest.get("food/city").then((data) => {
+        //     console.log(data);
+        //     return data;
         // });
+        return Promise.resolve([{id: 1, city:'jarocin'}, {id: 2, city:'Plock'}])
     }
 
 

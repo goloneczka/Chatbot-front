@@ -2,7 +2,6 @@
     <div>
         <div id="restaurant-component">
             <CityDropdown v-if="showCityDropdown"/>
-            <div v-if="botCityMessage"/>
             <div v-for="(isShow, index) in showCategoryDropdown1" v-bind:key=index>
                 <RestaurantCategory @addChoseDropdown="addCategoryDropdownOnClick"
                                     @closeCategoryDropdown="closeCategoryDropdownOnClick"
@@ -23,9 +22,8 @@
         props: [],
         data: function () {
             return {
-                city: '',
+                city: {},
                 showCityDropdown: true,
-                botCityMessage: false,
                 botRestaurantMessage: false,
                 showCategoryDropdown1: [],
 
@@ -36,11 +34,15 @@
             this.sendMessage("bot", this.$t('weather.bot.introduction'));
         },
         mounted() {
-            this.$root.$on('cityDropdownOnClick', (text) => {
-                this.cityDropdownOnClick(text);
+            this.$root.$on('cityDropdownOnClick', (value) => {
+                this.showCityDropdown = false;
+                this.city = value;
+                this.sendMessage("user", `${this.$t('weather.user.chooseCity')} ${this.city.city}`);
+                this.sendMessage("bot", this.$t('food.bot.foodCategory'));
+                this.showCategoryDropdown1[0] = true;
             });
             this.$root.$on('sendNestedMessage', (auth, text) => {
-                    this.sendMessage(auth, text);
+                this.sendMessage(auth, text);
             });
             this.$root.$on('sendNestedData', (auth, text, style) => {
                 this.sendData(auth, text, style);
@@ -67,14 +69,6 @@
             closeCategoryDropdownOnClick() {
                 this.showCategoryDropdown1.pop();
                 this.showCategoryDropdown1.push(false);
-            },
-            cityDropdownOnClick(value) {
-                this.showCityDropdown = false;
-                this.city = value;
-                this.botCityMessage = true;
-                this.sendMessage("user", `${this.$t('weather.user.chooseCity')} ${this.city}`);
-                this.sendMessage("bot", this.$t('food.bot.foodCategory'));
-                this.showCategoryDropdown1[0] = true;
             },
         },
 

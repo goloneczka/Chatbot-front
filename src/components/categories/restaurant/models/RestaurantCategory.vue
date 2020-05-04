@@ -3,7 +3,7 @@
         <div>
             <CategoryDropdown v-if="showCategoryDropdown" @categoryDropdownOnClick="this.categoryDropdownOnClick"/>
             <div v-if="botRestaurantMessage" />
-            <div id="more-details" v-if="more1">
+            <div id="more-details" v-if="moreDetails">
                 <b-button id="showNewCategoryMessageButton" class="m-2"
                           v-on:click="this.showNewCategoryMessage">
                     {{$t('food.user.choiceNewCategory')}}
@@ -16,12 +16,6 @@
                     {{$t('food.user.choiceMenu')}}
                 </b-button>
             </div>
-            <div id="more-nested-details" v-if="more2">
-                <b-button id="rateRest" class="m-2" v-on:click="this.showRateRestaurant">
-                    {{$t('food.user.rateRestauration')}}
-                </b-button>
-            </div>
-            <RatingRestaurant v-if="rate" :restaurant-id="restaurantData.id" @onRatedRestaurant="this.sendRatedMessage"/>
         </div>
     </div>
 </template>
@@ -29,13 +23,11 @@
 
     import {restaurantService} from "../../../../App";
     import CategoryDropdown from "./CategoryDropdown";
-    import RatingRestaurant from "./RatingRestaurant";
 
 
     export default {
         name: 'Restaurant',
         components: {
-            RatingRestaurant,
              CategoryDropdown
         },
         props: ['showCategoryDropdown', 'city', 'number'],
@@ -46,9 +38,7 @@
                 menu: false,
                 restaurantData: {},
                 menuData: '',
-                more1: false,
-                more2: false,
-                rate: false,
+                moreDetails: false,
             }
         },
         methods: {
@@ -56,46 +46,37 @@
                 this.category = value;
                 this.$emit('closeCategoryDropdown');
 
-                restaurantService.getRestaurantData(this.city, this.category).then((restaurantData) => {
+                restaurantService.getRestaurantData(this.city.id, this.category).then((restaurantData) => {
                     this.restaurantData = restaurantData;
                     this.$root.$emit('sendNestedMessage', 'user', `${this.$t('weather.user.myChoice')} ${this.category}`);
                     this.$root.$emit('sendNestedMessage', 'bot', `${this.$t('food.bot.foodPredictions')}
-                                                ${this.category} ${this.$t('food.bot.for')} ${this.city}`);
+                                                ${this.category} ${this.$t('food.bot.for')} ${this.city.city}`);
                     this.$root.$emit('sendNestedData', 'bot', this.restaurantData, 'restaurantMessage');
-                    this.more1 = true;
+                    this.moreDetails = true;
                 });
             },
             showNewCategoryMessage() {
-                this.more1 = false;
+                this.moreDetails = false;
                 this.$root.$emit('sendNestedMessage', 'user', this.$t('food.user.choiceNewCategory'));
                 this.$root.$emit('sendNestedMessage', 'bot', this.$t('food.bot.foodCategory'));
                 this.$emit('addChoseDropdown');
             },
             showAnotherRestaurantMessage() {
-                restaurantService.getRestaurantData(this.city, this.category).then((restaurantData) => {
+                restaurantService.getRestaurantData(this.city.id, this.category).then((restaurantData) => {
                     this.restaurantData = restaurantData;
                     this.$root.$emit('sendNestedData', 'bot', this.restaurantData, 'restaurantMessage');
                 });
             },
             showMenuMessage() {
-                this.more1 = false;
+                this.moreDetails = false;
                 restaurantService.getMenuData(this.restaurantData.id).then(menuData => {
                     this.menuData = menuData;
                     this.$root.$emit('sendNestedMessage', 'user', this.$t('food.user.choiceMenu'));
                     this.$root.$emit('sendNestedData', 'bot', this.menuData, 'menuMessage');
                 })
-                this.more2 = true;
+
             },
-            sendRatedMessage(){
-                this.rate = false;
-                this.$root.$emit('sendNestedData', 'bot', this.restaurantData.id, 'ratedRestaurantMessage');
-                this.more2 = false;
-                this.endTalk();
-            },
-            showRateRestaurant() {
-                this.rate = true;
-                this.more1 = false;
-            },
+
             endTalk() {
                 this.$root.$emit('sendNestedMessage', "user", this.$t('weather.user.thank'));
                 this.$root.$emit('sendNestedMessage', "bot", this.$t('weather.bot.couldHelp'));
