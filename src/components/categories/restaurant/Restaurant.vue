@@ -1,37 +1,26 @@
 <template>
     <div>
         <div id="restaurant-component">
-            <UserMessage :text="$t('food.user.choiceRestaurant')"/>
-            <BotMessage :text="$t('weather.bot.introduction')"/>
-            <BImage :botIconSource=this.botIconSource />
             <CityDropdown v-if="showCityDropdown"/>
-            <div v-if="botCityMessage">
-                <UserMessage :text="`${this.$t('weather.user.chooseCity')} ${this.city}`"/>
-                <BotMessage :text="$t('food.bot.foodCategory')"/>
-                <BImage :botIconSource=this.botIconSource />
-            </div>
+            <div v-if="botCityMessage"/>
             <div v-for="(isShow, index) in showCategoryDropdown1" v-bind:key=index>
                 <RestaurantCategory @addChoseDropdown="addCategoryDropdownOnClick"
                                     @closeCategoryDropdown="closeCategoryDropdownOnClick"
-                                    :bot-icon-source="botIconSource"
                                     :number=index :city="city"
-                                    :show-category-dropdown="isShow" />
+                                    :show-category-dropdown="isShow"/>
             </div>
         </div>
     </div>
 </template>
 <script>
 
-    import UserMessage from "../../common/UserMessage";
-    import BotMessage from "../../common/BotMessage";
     import CityDropdown from "./models/CityDropdown";
-    import BImage from "../../common/BImage";
     import RestaurantCategory from "./models/RestaurantCategory";
 
     export default {
         name: 'Restaurant',
-        components: {RestaurantCategory, UserMessage, BotMessage, CityDropdown, BImage},
-        props: ['botIconSource'],
+        components: {RestaurantCategory, CityDropdown},
+        props: [],
         data: function () {
             return {
                 city: '',
@@ -42,12 +31,36 @@
 
             }
         },
+        created() {
+            this.sendMessage("user", this.$t('food.user.choiceRestaurant'));
+            this.sendMessage("bot", this.$t('weather.bot.introduction'));
+        },
         mounted() {
             this.$root.$on('cityDropdownOnClick', (text) => {
                 this.cityDropdownOnClick(text);
             });
+            this.$root.$on('sendNestedMessage', (auth, text) => {
+                    this.sendMessage(auth, text);
+            });
+            this.$root.$on('sendNestedData', (auth, text, style) => {
+                this.sendData(auth, text, style);
+            });
         },
         methods: {
+            sendMessage(author, text) {
+                this.$emit('addMessage', {
+                    author: author,
+                    text: text,
+                    style: 'default'
+                })
+            },
+            sendData(author, text,style) {
+                this.$emit('addMessage', {
+                    author: author,
+                    data: text,
+                    style: style
+                })
+            },
             addCategoryDropdownOnClick() {
                 this.showCategoryDropdown1.push(true);
             },
@@ -59,13 +72,10 @@
                 this.showCityDropdown = false;
                 this.city = value;
                 this.botCityMessage = true;
+                this.sendMessage("user", `${this.$t('weather.user.chooseCity')} ${this.city}`);
+                this.sendMessage("bot", this.$t('food.bot.foodCategory'));
                 this.showCategoryDropdown1[0] = true;
-                this.removeBotImage()
             },
-            removeBotImage() {
-                const array = document.getElementsByClassName('bot-image');
-                array.item(array.length - 1).remove();
-            }
         },
 
     }

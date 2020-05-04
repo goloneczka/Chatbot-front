@@ -19,7 +19,7 @@ export default class RestaurantService {
         return Promise.resolve({name: 'Test 1',
                 id: 2,
                 address: 'Ul. testowa 1A',
-                averageUsersRating: 3.5,
+                averageUsersRating: 4.1,
                 phoneNumbers: '312343123'
         })
         // TODO POBIERAC Z SERWERA
@@ -39,10 +39,10 @@ export default class RestaurantService {
     }
     getAvgRate(id){
         console.log(id)
-        return Promise.resolve({mark: 2.7})
+        return Promise.resolve({mark: 2.0})
     }
 
-    rateJoke(mark, jokeId) {
+    rateRestaurant(mark, jokeId) {
         return Promise.resolve({jokeId: jokeId,
             mark: mark})
        // return this.httpRequest.post("jokes/rate", {jokeId: jokeId, mark: mark}).then(data => data);

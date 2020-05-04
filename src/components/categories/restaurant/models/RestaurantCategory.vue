@@ -1,15 +1,8 @@
 <template>
     <div>
-        <div :id="`restaurant-category-component ${this.number}`">
-            <CategoryDropdown v-if="showCategoryDropdown" @categoryDropdownOnClick="this.onDropdown"/>
-            <div v-if="botRestaurantMessage">
-                <UserMessage :text="`${this.$t('weather.user.myChoice')} ${this.category}`"/>
-                <BotMessage
-                        :text="`${this.$t('food.bot.foodPredictions')} ${this.city} ${this.$t('food.bot.for')} ${this.category} ...`"/>
-                <BotMessage :text="this.addRateJoke"/>
-                <RestaurantMessage :data="this.restaurantData" :no-active="canNoRateRest" @rated="onRated" :key="canNoRateRest" />
-                <BImage :botIconSource=this.botIconSource />
-            </div>
+        <div>
+            <CategoryDropdown v-if="showCategoryDropdown" @categoryDropdownOnClick="this.categoryDropdownOnClick"/>
+            <div v-if="botRestaurantMessage" />
             <div id="more-details" v-if="more1">
                 <b-button id="showNewCategoryMessageButton" class="m-2"
                           v-on:click="this.showNewCategoryMessage">
@@ -23,118 +16,103 @@
                     {{$t('food.user.choiceMenu')}}
                 </b-button>
             </div>
-            <div v-if="menu">
-                <UserMessage :text="this.$t('weather.user.moreDetails')"/>
-                <MenuMessage :data="this.menuData"/>
-                <BImage :botIconSource=this.botIconSource />
+            <div id="more-nested-details" v-if="more2">
+                <b-button id="rateRest" class="m-2" v-on:click="this.showRateRestaurant">
+                    {{$t('food.user.rateRestauration')}}
+                </b-button>
             </div>
-            <div v-if="details">
-                <UserMessage :text="this.$t('weather.user.moreDetails')"/>
-                <WeatherDetailsMessage :data="this.weatherData"/>
-                <BImage :botIconSource=this.botIconSource />
-            </div>
-            <div v-if="endRestaurant">
-                <UserMessage :text="this.$t('food.user.choiceNewCategory')"/>
-                <BotMessage :text="this.$t('food.bot.foodCategory')"/>
-                <BImage :botIconSource=this.botIconSource />
-            </div>
+            <RatingRestaurant v-if="rate" :restaurant-id="restaurantData.id" @onRatedRestaurant="this.sendRatedMessage"/>
         </div>
     </div>
 </template>
 <script>
 
     import {restaurantService} from "../../../../App";
-
-    import UserMessage from "../../../common/UserMessage";
-    import BotMessage from "../../../common/BotMessage";
-    import BImage from "../../../common/BImage";
-    import RestaurantMessage from "./RestaurantMessage";
     import CategoryDropdown from "./CategoryDropdown";
-    import MenuMessage from "./MenuMessage";
-    import WeatherDetailsMessage from "../../weather/models/WeatherDetailsMessage";
+    import RatingRestaurant from "./RatingRestaurant";
+
 
     export default {
         name: 'Restaurant',
         components: {
-            WeatherDetailsMessage,
-            MenuMessage, RestaurantMessage, CategoryDropdown, UserMessage, BotMessage, BImage
+            RatingRestaurant,
+             CategoryDropdown
         },
-        props: ['botIconSource', 'showCategoryDropdown', 'city', 'number'],
+        props: ['showCategoryDropdown', 'city', 'number'],
         data: function () {
             return {
                 category: '',
-                details: false,
-                endRestaurant: false,
                 botRestaurantMessage: false,
                 menu: false,
-                weatherData: '',
-                restaurantData: '',
+                restaurantData: {},
                 menuData: '',
                 more1: false,
-                canNoRateRest: false,
-                addRateJoke: this.$t('food.bot.addRate')
+                more2: false,
+                rate: false,
             }
         },
         methods: {
-            onDropdown(value) {
-                this.categoryDropdownOnClick(value);
-            },
-            onRated() {
-                this.canNoRateRest = true;
-                this.addRateJoke = this.$t('food.bot.ratedRestaurant')
-            },
             categoryDropdownOnClick(value) {
                 this.category = value;
                 this.$emit('closeCategoryDropdown');
 
                 restaurantService.getRestaurantData(this.city, this.category).then((restaurantData) => {
                     this.restaurantData = restaurantData;
-                    this.botRestaurantMessage = true;
+                    this.$root.$emit('sendNestedMessage', 'user', `${this.$t('weather.user.myChoice')} ${this.category}`);
+                    this.$root.$emit('sendNestedMessage', 'bot', `${this.$t('food.bot.foodPredictions')}
+                                                ${this.category} ${this.$t('food.bot.for')} ${this.city}`);
+                    this.$root.$emit('sendNestedData', 'bot', this.restaurantData, 'restaurantMessage');
                     this.more1 = true;
-                    this.removeBotImage()
                 });
             },
             showNewCategoryMessage() {
-                this.details = true;
                 this.more1 = false;
+                this.$root.$emit('sendNestedMessage', 'user', this.$t('food.user.choiceNewCategory'));
+                this.$root.$emit('sendNestedMessage', 'bot', this.$t('food.bot.foodCategory'));
                 this.$emit('addChoseDropdown');
-                this.removeBotImage();
-                this.endTalk();
             },
             showAnotherRestaurantMessage() {
-                this.details = false;
-                this.canNoRateRest = false;
                 restaurantService.getRestaurantData(this.city, this.category).then((restaurantData) => {
                     this.restaurantData = restaurantData;
+                    this.$root.$emit('sendNestedData', 'bot', this.restaurantData, 'restaurantMessage');
                 });
-                this.addRateJoke = this.$t('food.bot.addRate');
             },
             showMenuMessage() {
                 this.more1 = false;
                 restaurantService.getMenuData(this.restaurantData.id).then(menuData => {
                     this.menuData = menuData;
-                    this.menu = true;
+                    this.$root.$emit('sendNestedMessage', 'user', this.$t('food.user.choiceMenu'));
+                    this.$root.$emit('sendNestedData', 'bot', this.menuData, 'menuMessage');
                 })
-                this.removeBotImage();
+                this.more2 = true;
+            },
+            sendRatedMessage(){
+                this.rate = false;
+                this.$root.$emit('sendNestedData', 'bot', this.restaurantData.id, 'ratedRestaurantMessage');
+                this.more2 = false;
+                this.endTalk();
+            },
+            showRateRestaurant() {
+                this.rate = true;
+                this.more1 = false;
             },
             endTalk() {
-                this.details = false;
-                this.menu = false;
-                this.endRestaurant = true;
-                this.$root.$emit("showCategories");
-            },
-            removeBotImage() {
-                const array = document.getElementsByClassName('bot-image');
-                if (array.length)
-                    array.item(array.length - 1).remove();
+                this.$root.$emit('sendNestedMessage', "user", this.$t('weather.user.thank'));
+                this.$root.$emit('sendNestedMessage', "bot", this.$t('weather.bot.couldHelp'));
+                this.$root.$emit('sendNestedMessage', "bot", this.$t('weather.bot.anythingToDo'));
+                this.$root.$emit('exitCategory');
             },
         },
 
     }
 </script>
 <style scoped>
-    #more-details{
+    #more-details {
         margin-left: 41%;
+        display: inline;
+    }
+    #more-nested-details {
+        margin-left: 85%;
         display: inline;
     }
 </style>

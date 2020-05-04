@@ -12,7 +12,9 @@
                 <weather-details-message v-bind:data="message.data"
                                          v-else-if="message.style === 'weatherDetailsMessage'"></weather-details-message>
                 <JokesMessage v-bind:data="message.data" v-else-if="message.style === 'jokesMessage'"></JokesMessage>
-                <JokesMessage v-bind:data="message.data" v-else-if="message.style === 'jokesMessage'"></JokesMessage>
+                <RestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'restaurantMessage'" />
+                <MenuMessage v-bind:data="message.data" v-else-if="message.style === 'menuMessage'" />
+                <RatedRestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'ratedRestaurantMessage'" />
                 <p v-if="index === lastBotMessageIndex">
                     <b-img class="bot-image" height="30" v-bind:src="botIconSource"></b-img>
                 </p>
@@ -23,9 +25,10 @@
         </ul>
         <div id="categoryComponent">
             <Weather v-on:addMessage="addMessage($event)" v-if="activeCategory === 'weather'"
-                     v-on:exitWeather="changeCategory(null)"/>
+                     v-on:exitCategory="changeCategory(null)"/>
             <Jokes v-on:addMessage="addMessage($event)" v-if="activeCategory === 'jokes'"></Jokes>
-            <Restaurant v-on:addMessage="addMessage($event)" :botIconSource="this.botIconSource" v-if="activeCategory === 'restaurant'" />
+            <Restaurant v-on:addMessage="addMessage($event)" :botIconSource="this.botIconSource"
+                        v-if="activeCategory === 'restaurant'"/>
         </div>
     </div>
 </template>
@@ -38,10 +41,23 @@
     import Jokes from "../categories/jokes/Jokes";
     import JokesMessage from "../categories/jokes/JokesMessage";
     import Restaurant from "../categories/restaurant/Restaurant";
+    import RestaurantMessage from "../categories/restaurant/models/RestaurantMessage";
+    import MenuMessage from "../categories/restaurant/models/MenuMessage";
+    import RatedRestaurantMessage from "../categories/restaurant/models/RatedRestaurantMessage";
 
     export default {
         name: "ChatBox",
-        components: {Restaurant, JokesMessage, Jokes, WeatherDetailsMessage, WeatherMessage, Weather},
+        components: {
+            RatedRestaurantMessage,
+            MenuMessage,
+            RestaurantMessage,
+            Restaurant,
+            JokesMessage,
+            Jokes,
+            WeatherDetailsMessage,
+            WeatherMessage,
+            Weather
+        },
         props: ["botIconSource"],
         data: function () {
             return {
@@ -55,6 +71,7 @@
                 this.scrollDown();
             },
             changeCategory: function (category) {
+                console.log("Hii")
                 this.activeCategory = null;
                 this.$nextTick(() => {
                     this.activeCategory = category;
@@ -84,7 +101,7 @@
                     }
                 }
                 return null;
-            }
+            },
         },
         mounted() {
             this.$root.$on('activeCategory', (category) => {

@@ -96,8 +96,7 @@
                 this.$emit('addMessage', {author: "bot", text: this.$t('weather.bot.couldHelp'), style: "default"});
                 this.$emit('addMessage', {author: "bot", text: this.$t('weather.bot.anythingToDo'), style: "default"});
                 this.showCityDropdown = true;
-                this.$emit('exitWeather');
-
+                this.$emit('exitCategory');
             }
         },
 

@@ -83,13 +83,16 @@
       "foodPredictions": "Swietnie! Oto co znalazłem w",
       "addRate": "Pss! Tez mozesz ocenic restauracje",
       "ratedRestaurant": "Swietnie! Wezmiemy ocenę pod uwagę",
-      "for": "dla"
+      "for": "dla",
+      "avgRate": "Użytkownicy zazwyczaj oceniali tę restaurację tak: "
     },
     "user": {
       "choiceRestaurant": "Chce poznac resturacje w okolicy",
       "choiceAnotherRestaurant" : "Pokaz podobne",
       "choiceNewCategory": "Pokaz inne kategorie",
-      "choiceMenu": "Swietnie! Pokaz menu"
+      "choiceMenu": "Swietnie! Pokaz menu",
+      "rateRestauration": "Ocen restauracje",
+      "maxRate": "na 5"
     }
   },
   "adminHome": {
