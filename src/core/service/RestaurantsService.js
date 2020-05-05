@@ -1,4 +1,4 @@
-export default class RestaurantService {
+export default class RestaurantsService {
     constructor(httpRequest) {
         this.httpRequest = httpRequest;
     }
@@ -13,7 +13,7 @@ export default class RestaurantService {
         //     return categories;
         // });
     }
-    getRestaurantData(city, category) {
+    getRestaurantOfCityAndCategory(city, category) {
         console.log(city);
         console.log(category);
         return Promise.resolve({name: 'Test 1',
@@ -26,7 +26,7 @@ export default class RestaurantService {
         // return this.httpRequest.get(`forecasts/city/${city}?date=${date}`).then(data => data);
     }
 
-    getMenuData(restaurantId) {
+    getMenuOfRestaurant(restaurantId) {
         console.log(restaurantId);
         return Promise.resolve([{dish: 'kebs', price: 9.99},
             {dish: 'szocik', price: 4},

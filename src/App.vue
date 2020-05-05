@@ -11,7 +11,7 @@
     import HttpRequest from './core/requests/HttpRequest';
     import Dialog from "./components/common/Dialog";
     import WeatherService from "./core/service/WeatherService";
-    import RestaurantService from "./core/service/RestaurantService";
+    import RestaurantsService from "./core/service/RestaurantsService";
     import JokesService from "./core/service/JokesService";
 
     const baseUrl = process.env.VUE_APP_BASE_URL;
@@ -20,7 +20,7 @@
     export const httpRequest = new HttpRequest(baseUrl, authorizationStorage);
 
     export const weatherService = new WeatherService(httpRequest);
-    export const restaurantService = new RestaurantService(httpRequest);
+    export const restaurantService = new RestaurantsService(httpRequest);
     export const jokesService = new JokesService(httpRequest);
 
     export default {

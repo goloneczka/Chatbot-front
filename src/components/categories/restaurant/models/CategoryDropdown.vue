@@ -19,7 +19,12 @@
             }
         },
         mounted() {
-            restaurantService.getAllCatgories().then( data => this.categories = data);
+            restaurantService.getAllCatgories().then( data => {
+                if (data.errors)
+                    this.$root.$emit("showDanger",this.$t('food.errors.errorListOfCategories') + data.errors[0]);
+                else
+                    this.categories = data
+            });
         },
         methods: {
             categoryDropdownOnClick(category) {

@@ -79,20 +79,27 @@
   },
   "food": {
     "bot": {
-      "foodCategory" : "Swietnie ! Wybierz teraz kategorię!",
+      "foodCategory": "Swietnie ! Wybierz teraz kategorię!",
       "foodPredictions": "Swietnie! Oto co znalazłem w",
       "addRate": "Pss! Tez mozesz ocenic restauracje",
       "ratedRestaurant": "Swietnie! Wezmiemy ocenę pod uwagę",
       "for": "dla",
+      "currencyPL": "zł",
       "avgRate": "Użytkownicy zazwyczaj oceniali tę restaurację tak: "
     },
     "user": {
       "choiceRestaurant": "Chce poznac resturacje w okolicy",
-      "choiceAnotherRestaurant" : "Pokaz podobne",
+      "choiceAnotherRestaurant": "Pokaz podobne",
       "choiceNewCategory": "Pokaz inne kategorie",
       "choiceMenu": "Swietnie! Pokaz menu",
       "rateRestauration": "Ocen restauracje",
       "maxRate": "na 5"
+    },
+    "errors": {
+      "errorListOfCategories": "Nie można pobrać kategorii. \n Błąd: ",
+      "errorListOfCities": "Nie można pobrać miast. \n Błąd: ",
+      "errorGetMenu": "Nie można pobrać menu. \n Błąd: ",
+      "errorGetRestaurantData": "Nie można pobrać restauracji. \n Błąd: "
     }
   },
   "adminHome": {

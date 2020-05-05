@@ -8,7 +8,7 @@
 </template>
 <script>
 
-    // TODO zmienic na RestaurantService !!!
+    // TODO zmienic na RestaurantsService !!!
     import { restaurantService } from '../../../../App'
 
     export default {
@@ -21,7 +21,10 @@
         },
         mounted() {
             restaurantService.getAllCities().then( data => {
-                this.cities = data
+                if (data.errors)
+                    this.$root.$emit("showDanger",this.$t('food.errors.errorListOfCities') + data.errors[0]);
+                else
+                    this.cities = data
             });
         },
         methods: {

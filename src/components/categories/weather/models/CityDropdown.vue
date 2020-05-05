@@ -8,7 +8,6 @@
 </template>
 <script>
 
-    // TODO zmienic na RestaurantService !!!
     import { weatherService } from '../../../../App'
 
     export default {

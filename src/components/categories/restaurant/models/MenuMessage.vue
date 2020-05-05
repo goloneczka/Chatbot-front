@@ -3,7 +3,7 @@
         <table>
             <tbody>
             <tr v-for="dish in menu" v-bind:key="dish.dish">
-                <td>{{dish.dish}} {{dish.price}}zł</td>
+                <td>{{dish.dish}} {{dish.price}} {{$t('food.bot.currencyPL')}}</td>
             </tr>
             </tbody>
         </table>

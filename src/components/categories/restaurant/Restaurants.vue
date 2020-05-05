@@ -2,11 +2,11 @@
     <div>
         <div id="restaurant-component">
             <CityDropdown v-if="showCityDropdown"/>
-            <div v-for="(isShow, index) in showCategoryDropdown1" v-bind:key=index>
+            <div v-for="(shouldShow, index) in showCategoryDropdown1" v-bind:key=index>
                 <RestaurantCategory @addChoseDropdown="addCategoryDropdownOnClick"
                                     @closeCategoryDropdown="closeCategoryDropdownOnClick"
                                     :number=index :city="city"
-                                    :show-category-dropdown="isShow"/>
+                                    :show-category-dropdown="shouldShow"/>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
     import RestaurantCategory from "./models/RestaurantCategory";
 
     export default {
-        name: 'Restaurant',
+        name: 'Restaurants',
         components: {RestaurantCategory, CityDropdown},
         props: [],
         data: function () {

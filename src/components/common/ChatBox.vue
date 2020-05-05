@@ -26,7 +26,7 @@
             <Weather v-on:addMessage="addMessage($event)" v-if="activeCategory === 'weather'"
                      v-on:exitCategory="changeCategory(null)"/>
             <Jokes v-on:addMessage="addMessage($event)" v-if="activeCategory === 'jokes'"></Jokes>
-            <Restaurant v-on:addMessage="addMessage($event)" :botIconSource="this.botIconSource"
+            <Restaurants v-on:addMessage="addMessage($event)" :botIconSource="this.botIconSource"
                         v-if="activeCategory === 'restaurant'"/>
         </div>
     </div>
@@ -39,7 +39,7 @@
     import WeatherDetailsMessage from "../categories/weather/models/WeatherDetailsMessage";
     import Jokes from "../categories/jokes/Jokes";
     import JokesMessage from "../categories/jokes/JokesMessage";
-    import Restaurant from "../categories/restaurant/Restaurant";
+    import Restaurants from "../categories/restaurant/Restaurants";
     import RestaurantMessage from "../categories/restaurant/models/RestaurantMessage";
     import MenuMessage from "../categories/restaurant/models/MenuMessage";
 
@@ -48,7 +48,7 @@
         components: {
             MenuMessage,
             RestaurantMessage,
-            Restaurant,
+            Restaurants,
             JokesMessage,
             Jokes,
             WeatherDetailsMessage,

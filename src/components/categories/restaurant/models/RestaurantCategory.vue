@@ -1,18 +1,15 @@
 <template>
     <div>
         <div>
-            <CategoryDropdown v-if="showCategoryDropdown" @categoryDropdownOnClick="this.categoryDropdownOnClick"/>
-            <div v-if="botRestaurantMessage" />
+            <CategoryDropdown v-if="showCategoryDropdown" @categoryDropdownOnClick="categoryDropdownOnClick"/>
             <div id="more-details" v-if="moreDetails">
-                <b-button id="showNewCategoryMessageButton" class="m-2"
-                          v-on:click="this.showNewCategoryMessage">
+                <b-button class="m-2" v-on:click="showNewCategoryMessage">
                     {{$t('food.user.choiceNewCategory')}}
                 </b-button>
-                <b-button id="moreDetailsButton" class="m-2"
-                          v-on:click="this.showAnotherRestaurantMessage">
+                <b-button class="m-2" v-on:click="showAnotherRestaurantMessage">
                     {{$t('food.user.choiceAnotherRestaurant')}}
                 </b-button>
-                <b-button id="changeRestauration" class="m-2" v-on:click="this.showMenuMessage">
+                <b-button class="m-2" v-on:click="showMenuMessage">
                     {{$t('food.user.choiceMenu')}}
                 </b-button>
             </div>
@@ -28,13 +25,12 @@
     export default {
         name: 'Restaurant',
         components: {
-             CategoryDropdown
+            CategoryDropdown
         },
         props: ['showCategoryDropdown', 'city', 'number'],
         data: function () {
             return {
                 category: '',
-                botRestaurantMessage: false,
                 menu: false,
                 restaurantData: {},
                 menuData: '',
@@ -45,14 +41,17 @@
             categoryDropdownOnClick(value) {
                 this.category = value;
                 this.$emit('closeCategoryDropdown');
-
-                restaurantService.getRestaurantData(this.city.id, this.category).then((restaurantData) => {
-                    this.restaurantData = restaurantData;
-                    this.$root.$emit('sendNestedMessage', 'user', `${this.$t('weather.user.myChoice')} ${this.category}`);
-                    this.$root.$emit('sendNestedMessage', 'bot', `${this.$t('food.bot.foodPredictions')}
-                                                ${this.category} ${this.$t('food.bot.for')} ${this.city.city}`);
-                    this.$root.$emit('sendNestedData', 'bot', this.restaurantData, 'restaurantMessage');
-                    this.moreDetails = true;
+                restaurantService.getRestaurantOfCityAndCategory(this.city.id, this.category).then((restaurantData) => {
+                    if (restaurantData.errors)
+                        this.$root.$emit("showDanger", this.$t('food.errors.errorGetRestaurantData') + restaurantData.errors[0]);
+                    else {
+                        this.restaurantData = restaurantData;
+                        this.$root.$emit('sendNestedMessage', 'user', `${this.$t('weather.user.myChoice')} ${this.category}`);
+                        this.$root.$emit('sendNestedMessage', 'bot', `${this.$t('food.bot.foodPredictions')}
+                                               ${this.city.city} ${this.$t('food.bot.for')} ${this.category}`);
+                        this.$root.$emit('sendNestedData', 'bot', this.restaurantData, 'restaurantMessage');
+                        this.moreDetails = true;
+                    }
                 });
             },
             showNewCategoryMessage() {
@@ -62,21 +61,28 @@
                 this.$emit('addChoseDropdown');
             },
             showAnotherRestaurantMessage() {
-                restaurantService.getRestaurantData(this.city.id, this.category).then((restaurantData) => {
-                    this.restaurantData = restaurantData;
-                    this.$root.$emit('sendNestedData', 'bot', this.restaurantData, 'restaurantMessage');
+                restaurantService.getRestaurantOfCityAndCategory(this.city.id, this.category).then((restaurantData) => {
+                    if (restaurantData.errors)
+                        this.$root.$emit("showDanger", this.$t('food.errors.errorGetRestaurantData') + restaurantData.errors[0]);
+                    else {
+                        this.restaurantData = restaurantData;
+                        this.$root.$emit('sendNestedData', 'bot', this.restaurantData, 'restaurantMessage');
+                    }
                 });
             },
             showMenuMessage() {
                 this.moreDetails = false;
-                restaurantService.getMenuData(this.restaurantData.id).then(menuData => {
-                    this.menuData = menuData;
-                    this.$root.$emit('sendNestedMessage', 'user', this.$t('food.user.choiceMenu'));
-                    this.$root.$emit('sendNestedData', 'bot', this.menuData, 'menuMessage');
+                restaurantService.getMenuOfRestaurant(this.restaurantData.id).then(menuData => {
+                    if (menuData.errors)
+                        this.$root.$emit("showDanger", this.$t('food.errors.errorGetMenu') + menuData.errors[0]);
+                    else {
+                        this.menuData = menuData;
+                        this.$root.$emit('sendNestedMessage', 'user', this.$t('food.user.choiceMenu'));
+                        this.$root.$emit('sendNestedData', 'bot', this.menuData, 'menuMessage');
+                        this.endTalk();
+                    }
                 })
-
             },
-
             endTalk() {
                 this.$root.$emit('sendNestedMessage', "user", this.$t('weather.user.thank'));
                 this.$root.$emit('sendNestedMessage', "bot", this.$t('weather.bot.couldHelp'));
@@ -89,11 +95,7 @@
 </script>
 <style scoped>
     #more-details {
-        margin-left: 41%;
-        display: inline;
-    }
-    #more-nested-details {
-        margin-left: 85%;
+        margin-left: 43%;
         display: inline;
     }
 </style>
