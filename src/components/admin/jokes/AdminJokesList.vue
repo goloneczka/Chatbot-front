@@ -45,7 +45,7 @@
                 <li v-for="(error) in addCategory.errors" :key="error">{{error}}</li>
             </ul>
             
-            <form  @submit="addNewCategorySubmit">
+            <form  @submit="addNewCategorySubmit" @submit.prevent>
                 <div class="form-group">
                     <label for="inputJoke">{{ $t('adminJokes.modalNewCategory') }}</label>
                     <input type="text" class="form-control" v-model="addCategory.name">
@@ -60,7 +60,7 @@
                 <li v-for="(error) in editCategory.errors" :key="error">{{error}}</li>
             </ul>
             
-            <form  @submit="editCategorySubmit">
+            <form  @submit="editCategorySubmit" @submit.prevent>
                 <div class="form-group">
                     <label for="inputJoke">{{ $t('adminJokes.modalEditCategory') }}</label>
                     <input type="text" class="form-control" v-model="editCategory.newCategory">
@@ -85,7 +85,7 @@
                 <li v-for="(error) in addJoke.errors" :key="error">{{error}}</li>
             </ul>
             
-            <form  @submit="addNewJokeSubmit">
+            <form  @submit="addNewJokeSubmit" @submit.prevent>
                 <div class="form-group">
                     <label for="inputJoke">{{ $t('adminJokes.modalNewJoke') }}</label>
                     <input type="text" class="form-control" v-model="addJoke.joke">
@@ -101,7 +101,7 @@
                 <li v-for="(error) in editJoke.errors" :key="error">{{error}}</li>
             </ul>
             
-            <form  @submit="editJokeSubmit">
+            <form  @submit="editJokeSubmit" @submit.prevent>
                 <div class="form-group">
                     <label for="inputJoke">{{ $t('adminJokes.modalEditJoke') }}</label>
                     <input type="text" class="form-control" v-model="editJoke.newJoke">
