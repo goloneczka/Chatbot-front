@@ -48,4 +48,11 @@ export default class RestaurantsService {
     }
 
 
+    rateRestaurant(mark, jokeId) {
+        return Promise.resolve({jokeId: jokeId,
+            mark: mark})
+        // return this.httpRequest.post("jokes/rate", {jokeId: jokeId, mark: mark}).then(data => data);
+    }
+
+
 }

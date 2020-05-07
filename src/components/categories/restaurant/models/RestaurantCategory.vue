@@ -9,10 +9,12 @@
                 <b-button class="m-2" v-on:click="showAnotherRestaurantMessage">
                     {{$t('food.user.choiceAnotherRestaurant')}}
                 </b-button>
-                <b-button class="m-2" v-on:click="showMenuMessage">
-                    {{$t('food.user.choiceMenu')}}
+                <b-button class="m-2" v-on:click="showRatingMessage">
+                    {{$t('food.user.rateRestaurationChoice')}}
                 </b-button>
             </div>
+            <RatingRestaurant v-if="rate" :restaurant-id="restaurantData.id"
+                              @onRatedRestaurant="this.sendRatedMessage"/>
         </div>
     </div>
 </template>
@@ -20,12 +22,13 @@
 
     import {restaurantService} from "../../../../App";
     import CategoryDropdown from "./CategoryDropdown";
+    import RatingRestaurant from "./RatingRestaurant";
 
 
     export default {
         name: 'Restaurant',
         components: {
-            CategoryDropdown
+            CategoryDropdown, RatingRestaurant
         },
         props: ['showCategoryDropdown', 'city', 'number'],
         data: function () {
@@ -35,6 +38,7 @@
                 restaurantData: {},
                 menuData: '',
                 moreDetails: false,
+                rate: false,
             }
         },
         methods: {
@@ -70,22 +74,18 @@
                     }
                 });
             },
-            showMenuMessage() {
+            showRatingMessage() {
+                this.$root.$emit('sendNestedMessage', "user", this.$t('food.user.rateRestauration'));
+                this.$root.$emit('sendNestedMessage', "bot", this.$t('food.bot.addRate'));
+                this.rate = true;
                 this.moreDetails = false;
-                restaurantService.getMenuOfRestaurant(this.restaurantData.id).then(menuData => {
-                    if (menuData.errors)
-                        this.$root.$emit("showDanger", this.$t('food.errors.errorGetMenu') + menuData.errors[0]);
-                    else {
-                        this.menuData = menuData;
-                        this.$root.$emit('sendNestedMessage', 'user', this.$t('food.user.choiceMenu'));
-                        this.$root.$emit('sendNestedData', 'bot', this.menuData, 'menuMessage');
-                        this.endTalk();
-                    }
-                })
+            },
+            sendRatedMessage() {
+                this.rate = false;
+                this.$root.$emit('sendNestedMessage', "bot", this.$t('food.bot.ratedRestaurant'));
+                this.endTalk();
             },
             endTalk() {
-                this.$root.$emit('sendNestedMessage', "user", this.$t('weather.user.thank'));
-                this.$root.$emit('sendNestedMessage', "bot", this.$t('weather.bot.couldHelp'));
                 this.$root.$emit('sendNestedMessage', "bot", this.$t('weather.bot.anythingToDo'));
                 this.$root.$emit('exitCategory');
             },
@@ -95,7 +95,6 @@
 </script>
 <style scoped>
     #more-details {
-        margin-left: 43%;
-        display: inline;
+        text-align: right;
     }
 </style>

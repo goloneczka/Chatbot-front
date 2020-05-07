@@ -13,7 +13,6 @@
                                          v-else-if="message.style === 'weatherDetailsMessage'"></weather-details-message>
                 <JokesMessage v-bind:data="message.data" v-else-if="message.style === 'jokesMessage'"></JokesMessage>
                 <RestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'restaurantMessage'" />
-                <MenuMessage v-bind:data="message.data" v-else-if="message.style === 'menuMessage'" />
                 <p v-if="index === lastBotMessageIndex">
                     <b-img class="bot-image" height="30" v-bind:src="botIconSource"></b-img>
                 </p>
@@ -41,12 +40,10 @@
     import JokesMessage from "../categories/jokes/JokesMessage";
     import Restaurants from "../categories/restaurant/Restaurants";
     import RestaurantMessage from "../categories/restaurant/models/RestaurantMessage";
-    import MenuMessage from "../categories/restaurant/models/MenuMessage";
 
     export default {
         name: "ChatBox",
         components: {
-            MenuMessage,
             RestaurantMessage,
             Restaurants,
             JokesMessage,

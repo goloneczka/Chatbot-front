@@ -79,9 +79,9 @@
   },
   "food": {
     "bot": {
-      "foodCategory": "Swietnie ! Wybierz teraz kategorię!",
+      "foodCategory": "Swietnie! Wybierz teraz kategorię!",
       "foodPredictions": "Swietnie! Oto co znalazłem w",
-      "addRate": "Pss! Tez mozesz ocenic restauracje",
+      "addRate": "Swietnie! podaj swoją ocenę",
       "ratedRestaurant": "Swietnie! Wezmiemy ocenę pod uwagę",
       "for": "dla",
       "currencyPL": "zł",
@@ -92,7 +92,8 @@
       "choiceAnotherRestaurant": "Pokaz podobne",
       "choiceNewCategory": "Pokaz inne kategorie",
       "choiceMenu": "Swietnie! Pokaz menu",
-      "rateRestauration": "Ocen restauracje",
+      "rateRestauration": "Chciałbym ocenić restauracje",
+      "rateRestaurationChoice" : "Oceń restauracje",
       "maxRate": "na 5"
     },
     "errors": {
