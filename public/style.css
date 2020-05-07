@@ -40,6 +40,14 @@
     --admin-joke-item-small-color: #657786;
     --admin-joke-item-small-font-size: 14px;
 
+    --admin-forecasts-item-bg-color: #fff;
+    --admin-forecasts-item-color: #373737;
+    --admin-forecasts-item-box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+    --admin-forecasts-item-padding: 30px;
+    --admin-forecasts-margin-top: 20px;
+    --admin-forecasts-item-small-color: #657786;
+    --admin-forecasts-item-small-font-size: 14px;
+
     --jokes-button-right-margin: 3px;
     --jokes-button-left-margin: 3px;
 }
