@@ -14,11 +14,11 @@
                 <div v-if="showCountries" class="col-12">
                     <div v-if="countries.length == 0">
                         <div class="text-center mt-4">   
-                            <h4>{{ $t('adminForecasts.emptyListOfCountriesTitle') }}</h4>
+                            <h4>{{ $t('adminForecasts.emptyListOfCountriesTitle') }} <button class="ml-4 btn btn-outline-secondary" v-on:click="addCountryShowModal" >{{ $t('adminForecasts.buttonAddCountryHeader') }}</button></h4>
                         </div>
                     </div>
                     <div v-else>
-                        <country-item v-for="(country) in countries" :country="country" :key="country.country" v-on:showCitiesForCountry="showCitiesForCountry($event)" v-on:editCountry="editCountryModal($event)" v-on:removeCountry="removeCountryShowAlert($event)"/>
+                        <country-item v-for="(country) in countries" :country="country" :key="country.country" v-on:showCitiesForCountry="showCitiesForCountry($event)" v-on:editCountry="editCountryShowModal($event)" v-on:removeCountry="removeCountryShowAlert($event)"/>
                     </div>
                 </div>
                 <div v-else-if="showLoading" class="col-12">
@@ -142,7 +142,7 @@ export default {
                 })
             }
         },
-        editCountryModal(country) {
+        editCountryShowModal(country) {
             this.editCountry.oldName = country.country
             this.editCountry.newName = country.country
             this.$bvModal.show('edit-country-modal')

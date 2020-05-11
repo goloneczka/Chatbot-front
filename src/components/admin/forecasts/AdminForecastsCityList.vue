@@ -14,11 +14,11 @@
                 <div v-if="showCities" class="col-12">
                     <div v-if="cities.length == 0">
                         <div class="text-center mt-4">   
-                            <h4>{{ $t('adminForecasts.emptyListOfCitiesTitle') }}</h4>
+                            <h4>{{ $t('adminForecasts.emptyListOfCitiesTitle') }} - <button class="ml-4 btn btn-outline-secondary" v-on:click="addCityShowModal" >{{ $t('adminForecasts.buttonAddCityHeader') }}</button></h4>
                         </div>
                     </div>
                     <div v-else>
-                        <city-item v-for="(city) in cities" :city="city" :key="city.city" v-on:editCity="editCityModal($event)" v-on:removeCity="removeCityShowAlert($event)"/>
+                        <city-item v-for="(city) in cities" :city="city" :key="city.city" v-on:editCity="editCityShowModal($event)" v-on:removeCity="removeCityShowAlert($event)"/>
                     </div>
                 </div>
                 <div v-else-if="showLoading" class="col-12">
@@ -184,7 +184,7 @@ export default {
                 })
             }
         },
-        editCityModal(city) {
+        editCityShowModal(city) {
             this.editCity.cityOld = city.city
             this.editCity.cityNew = city.city
             this.editCity.latitudeOld = city.latitude
