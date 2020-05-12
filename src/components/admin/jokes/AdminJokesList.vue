@@ -530,5 +530,6 @@
 <style scoped>
     button {
         float: none;
+        margin-top: 15px;
     }
 </style>
