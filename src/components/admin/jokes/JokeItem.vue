@@ -5,10 +5,11 @@
                 <p><small>{{joke.category}}</small>
                 <p>{{joke.joke}}</p>
                 <div class="float-right">
+                    <button v-if="!isConfirmed" type="button" class="btn btn-success btn-small  mr-1" v-on:click="confirmJoke">{{ $t('adminJokes.buttonConfirmJoke') }}</button>
                     <button type="button" class="btn btn-primary btn-small mr-1" v-on:click="editJoke">{{ $t('adminJokes.editJokeButton') }}</button>
                     <button type="button" class="btn btn-danger btn-small  mr-1" v-on:click="removeJoke">{{ $t('adminJokes.buttonDeleteJoke') }}</button>
                 </div>
-               
+
             </div>
         </div>
     </div>
@@ -17,7 +18,8 @@
     export default {
         name: 'joke-item',
         props: {
-            joke: Object
+            joke: Object,
+            isConfirmed: Boolean
         },
         methods: {
             editJoke() {
@@ -25,6 +27,9 @@
             },
             removeJoke() {
                 this.$emit('removeJoke', this.joke.id);
+            },
+            confirmJoke() {
+                this.$emit('confirmJoke', this.joke)
             }
         }
     }

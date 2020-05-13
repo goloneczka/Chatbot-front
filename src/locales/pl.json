@@ -93,6 +93,7 @@
   },
   "adminJokes": {
     "categoriesTitle" :"Lista kategorii",
+    "unconfirmedJokes": "Niepotwierdzone żarty",
     "emptyListOfCategoryTitle": "Brak kategorii żartów, stwórz nową",
     "emptyListOfCategoryButton": "klikając tutaj",
     "errorListOfCategories": "Nie można pobrać kategorii. \n Błąd: ",
@@ -105,6 +106,7 @@
     "buttonGoToCategory": "Przejdź do żartów",
     "buttonDeleteCategory": "Usuń kategorię",
     "buttonEditCategory": "Edytuj kategorię",
+    "buttonConfirmJoke": "Zatwierdź żart",
     "modalEditCategoryTitle": "Modyfikacja kategorii",
     "modalEditCategory": "Zmień nazwę kategorii",
     "modalEditCategorySubmit": "Modyfikuj kategorię",
@@ -130,7 +132,9 @@
     "validateJokeContentEmpty": "Zawartość żartu nie może byc pusta",
     "buttonDeleteJoke": "Usuń żart",
     "errorEditResponseJoke": "Nie udało się zmienić żartu",
-    "errorDelete": "Nie udało się usunać żartu"
+    "errorDelete": "Nie udało się usunać żartu",
+    "errorConfirmJoke": "Nie udało się zatwierdzić żartu",
+    "modalEditJokeCategory": "Zmień kategorię"
   },
   "adminForecasts": {
     "errorListOfCountries": "Nie można pobrać listy krajów. \n Błąd: ",

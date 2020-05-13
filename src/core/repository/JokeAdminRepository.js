@@ -23,5 +23,11 @@ export default {
     },
     addJoke(data) {
         return httpRequest.post('admin/jokes', data)
+    },
+    getUnconfirmedJokes() {
+        return httpRequest.get('admin/jokes/unconfirmed');
+    },
+    confirmJoke(id) {
+        return httpRequest.put('admin/jokes/confirm/' + id);
     }
 }
