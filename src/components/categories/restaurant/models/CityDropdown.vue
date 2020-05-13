@@ -8,8 +8,7 @@
 </template>
 <script>
 
-    // TODO zmienic na RestaurantsService !!!
-    import { restaurantService } from '../../../../App'
+    import {restaurantService} from '../../../../App'
 
     export default {
         name: 'CityDropdown',
@@ -29,7 +28,7 @@
         },
         methods: {
             cityDropdownOnClick(city) {
-                this.$root.$emit('cityDropdownOnClick', city);
+                this.$emit('cityDropdownOnClick', city);
             }
         }
     }

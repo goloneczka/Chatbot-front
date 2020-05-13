@@ -3,55 +3,33 @@ export default class RestaurantsService {
         this.httpRequest = httpRequest;
     }
 
-    getAllCatgories() {
-        return Promise.resolve(["Burger", "Rybka"]);
-
-        // TODO POBIERAC Z SERWERA
-        // return this.httpRequest.get("cities").then((data) => {
-        //     const categories = [];
-        //     data.forEach(city => categories.push(city.city));
-        //     return categories;
-        // });
-    }
-    getRestaurantOfCityAndCategory(city, category) {
-        console.log(city);
-        console.log(category);
-        return Promise.resolve({name: 'Test 1',
-                id: 2,
-                address: 'Ul. testowa 1A',
-                averageUsersRating: 2.0,
-                phoneNumbers: '312343123'
-        })
-        // TODO POBIERAC Z SERWERA
-        // return this.httpRequest.get(`forecasts/city/${city}?date=${date}`).then(data => data);
+    uniqBy(a, key) {
+        let seen = new Set();
+        return a.filter(item => {
+            let k = key(item);
+            return seen.has(k) ? false : seen.add(k);
+        });
     }
 
-    getMenuOfRestaurant(restaurantId) {
-        console.log(restaurantId);
-        return Promise.resolve([{dish: 'kebs', price: 9.99},
-            {dish: 'szocik', price: 4},
-            {dish: 'pizza', price: 29},
-            {dish: 'fryty', price: 6},
-            {dish: 'spaghetti', price: 31},
-            {dish: 'schabowy', price: 22},
-        ])
-        // TODO POBIERAC Z SERWERA
-    }
-    getAllCities()
-    {
-        // TODO POBIERAC Z SERWERA
-        // return this.httpRequest.get("food/city").then((data) => {
-        //     console.log(data);
-        //     return data;
-        // });
-        return Promise.resolve([{id: 1, city:'jarocin'}, {id: 2, city:'Plock'}])
+    getAllCatgories(cityId) {
+        return this.httpRequest.get(`food/city/${cityId}/cuisine`).then((data) => {
+            const uniqueArray = this.uniqBy(data, JSON.stringify)
+            return uniqueArray.map(item => item.cuisine)
+        });
     }
 
+    getRestaurantOfCityAndCategory(cityId, category) {
+        return this.httpRequest.get(`food/city/${cityId}/cuisine/${category}/restaurant`).then(data => data);
+    }
 
-    rateRestaurant(mark, jokeId) {
-        return Promise.resolve({jokeId: jokeId,
-            mark: mark})
-        // return this.httpRequest.post("jokes/rate", {jokeId: jokeId, mark: mark}).then(data => data);
+    getAllCities() {
+        return this.httpRequest.get("food/city").then((data) => {
+            return data;
+        });
+    }
+
+    rateRestaurant(mark, restaurantId) {
+         return this.httpRequest.post("food/rate", {restaurantId: restaurantId, mark: mark}).then(data => data);
     }
 
 

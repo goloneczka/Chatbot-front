@@ -25,7 +25,7 @@
             <Weather v-on:addMessage="addMessage($event)" v-if="activeCategory === 'weather'"
                      v-on:exitCategory="changeCategory(null)"/>
             <Jokes v-on:addMessage="addMessage($event)" v-if="activeCategory === 'jokes'"></Jokes>
-            <Restaurants v-on:addMessage="addMessage($event)" :botIconSource="this.botIconSource"
+            <Restaurants v-on:addMessage="addMessage($event)" v-on:changeMessage="changeMessage($event)" :botIconSource="this.botIconSource"
                         v-if="activeCategory === 'restaurant'"/>
         </div>
     </div>
@@ -63,6 +63,10 @@
             addMessage: function (message) {
                 this.messages.push(message);
                 this.scrollDown();
+            },
+            changeMessage: function(message) {
+                this.messages.pop();
+                this.messages.push(message);
             },
             changeCategory: function (category) {
                 this.activeCategory = null;

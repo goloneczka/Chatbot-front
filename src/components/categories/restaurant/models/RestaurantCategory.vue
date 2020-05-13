@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <CategoryDropdown v-if="showCategoryDropdown" @categoryDropdownOnClick="categoryDropdownOnClick"/>
+            <CategoryDropdown v-if="showCategoryDropdown" :city-id="city.id" @categoryDropdownOnClick="categoryDropdownOnClick"/>
             <div id="more-details" v-if="moreDetails">
                 <b-button class="m-2" v-on:click="showNewCategoryMessage">
                     {{$t('food.user.choiceNewCategory')}}
@@ -70,7 +70,7 @@
                         this.$root.$emit("showDanger", this.$t('food.errors.errorGetRestaurantData') + restaurantData.errors[0]);
                     else {
                         this.restaurantData = restaurantData;
-                        this.$root.$emit('sendNestedData', 'bot', this.restaurantData, 'restaurantMessage');
+                        this.$root.$emit('sendNestedDataToChange', 'bot', this.restaurantData, 'restaurantMessage');
                     }
                 });
             },

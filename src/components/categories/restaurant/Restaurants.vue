@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="restaurant-component">
-            <CityDropdown v-if="showCityDropdown"/>
+            <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown"/>
             <div v-for="(shouldShow, index) in showCategoryDropdown1" v-bind:key=index>
                 <RestaurantCategory @addChoseDropdown="addCategoryDropdownOnClick"
                                     @closeCategoryDropdown="closeCategoryDropdownOnClick"
@@ -34,18 +34,14 @@
             this.sendMessage("bot", this.$t('weather.bot.introduction'));
         },
         mounted() {
-            this.$root.$on('cityDropdownOnClick', (value) => {
-                this.showCityDropdown = false;
-                this.city = value;
-                this.sendMessage("user", `${this.$t('weather.user.chooseCity')} ${this.city.city}`);
-                this.sendMessage("bot", this.$t('food.bot.foodCategory'));
-                this.showCategoryDropdown1[0] = true;
-            });
             this.$root.$on('sendNestedMessage', (auth, text) => {
                 this.sendMessage(auth, text);
             });
             this.$root.$on('sendNestedData', (auth, text, style) => {
                 this.sendData(auth, text, style);
+            });
+            this.$root.$on('sendNestedDataToChange', (auth, text, style) => {
+                this.sendDataToChange(auth, text, style);
             });
         },
         methods: {
@@ -63,6 +59,13 @@
                     style: style
                 })
             },
+            sendDataToChange(author, text,style) {
+                this.$emit('changeMessage', {
+                    author: author,
+                    data: text,
+                    style: style
+                })
+            },
             addCategoryDropdownOnClick() {
                 this.showCategoryDropdown1.push(true);
             },
@@ -70,6 +73,14 @@
                 this.showCategoryDropdown1.pop();
                 this.showCategoryDropdown1.push(false);
             },
+            cityDropdownOnClick(value){
+                this.showCityDropdown = false;
+                this.city = value;
+                this.sendMessage("user", `${this.$t('weather.user.chooseCity')} ${this.city.city}`);
+                this.sendMessage("bot", this.$t('food.bot.foodCategory'));
+                this.showCategoryDropdown1[0] = true;
+            }
+
         },
 
     }
