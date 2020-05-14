@@ -1,6 +1,6 @@
 <template>
     <div id="dropdown-button">
-        <b-dropdown :text="$t('weather.user.restaurant')" class="m-2">
+        <b-dropdown :text="$t('food.user.restaurant')" class="m-2">
             <div class="enable-scroll">
             <b-dropdown-item v-for="category in categories" :key="category"
                              v-on:click="categoryDropdownOnClick(category)" style="overflow-y: auto;">{{category}} </b-dropdown-item>

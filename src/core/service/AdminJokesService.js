@@ -55,4 +55,13 @@ export default class AdminJokeService {
     removeJoke(id) {
         return this.jokeAdminRepository.removeJoke(id)
     }
+
+    getUnconfirmedJokes() {
+        return this.jokeAdminRepository.getUnconfirmedJokes();
+    }
+
+    confirmJoke(id) {
+        return this.jokeAdminRepository.confirmJoke(id);
+    }
+
 }
