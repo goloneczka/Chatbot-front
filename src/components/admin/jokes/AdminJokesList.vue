@@ -133,7 +133,7 @@
             <form @submit="addNewJokeSubmit" @submit.prevent>
                 <div class="form-group">
                     <label for="inputJoke">{{ $t('adminJokes.modalNewJoke') }}</label>
-                    <input type="text" class="form-control" v-model="addJoke.joke">
+                    <b-textarea cols="15" rows="5" type="text" class="form-control" v-model="addJoke.joke"/>
                 </div>
                 <div class="text-right">
                     <button type="submit" class="btn btn-primary" :disabled="checkAddJoke">{{
@@ -151,7 +151,7 @@
             <form @submit="editJokeSubmit" @submit.prevent>
                 <div class="form-group">
                     <label for="inputJoke">{{ $t('adminJokes.modalEditJoke') }}</label>
-                    <input type="text" class="form-control" v-model="editJoke.newJoke">
+                    <b-textarea cols="15" rows="5" type="text" class="form-control" v-model="editJoke.newJoke"/>
                 </div>
                 <div class="text-right">
                     <button type="submit" class="btn btn-primary" :disabled="checkEditJoke">{{
