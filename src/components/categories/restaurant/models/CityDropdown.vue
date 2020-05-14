@@ -1,14 +1,14 @@
 <template>
     <div id="dropdown-button">
         <b-dropdown :text="$t('user.city')" class="m-2">
-            <b-dropdown-item v-for="city in cities" :key="city" v-on:click="cityDropdownOnClick(city)">{{city}}
+            <b-dropdown-item v-for="city in cities" :key="city.id" v-on:click="cityDropdownOnClick(city)">{{city.city}}
             </b-dropdown-item>
         </b-dropdown>
     </div>
 </template>
 <script>
 
-    import { weatherService } from '../../../../App'
+    import {restaurantService} from '../../../../App'
 
     export default {
         name: 'CityDropdown',
@@ -18,8 +18,13 @@
                 cities: [],
             }
         },
-        created() {
-            weatherService.getAllCities().then( data => this.cities = data);
+        mounted() {
+            restaurantService.getAllCities().then( data => {
+                if (data.errors)
+                    this.$root.$emit("showDanger",this.$t('food.errors.errorListOfCities') + data.errors[0]);
+                else
+                    this.cities = data
+            });
         },
         methods: {
             cityDropdownOnClick(city) {
@@ -30,6 +35,6 @@
 </script>
 <style scoped>
     #dropdown-button {
-        text-align: right;
+        margin-left: 85%;
     }
 </style>

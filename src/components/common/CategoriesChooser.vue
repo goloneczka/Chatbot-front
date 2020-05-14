@@ -21,6 +21,10 @@
                     {
                         categoryName: this.$t('bot.categoryJokes'),
                         eventName: 'jokes'
+                    },
+                    {
+                        categoryName: this.$t('bot.categoryRestaurants'),
+                        eventName: 'restaurant'
                     }
                 ]
             }

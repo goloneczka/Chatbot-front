@@ -35,7 +35,7 @@
                 endOrDetailsButtons: false,
                 weatherData: '',
                 messages: {
-                    myChoice: this.$t('weather.user.myChoice'),
+                    myChoice: this.$t('user.myChoice'),
                     myPredictions: this.$t('weather.bot.myPredictions'),
                     inMessage: this.$t('weather.bot.in'),
                     chooseCity: this.$t('weather.user.chooseCity'),
@@ -96,8 +96,7 @@
                 this.$emit('addMessage', {author: "bot", text: this.$t('weather.bot.couldHelp'), style: "default"});
                 this.$emit('addMessage', {author: "bot", text: this.$t('weather.bot.anythingToDo'), style: "default"});
                 this.showCityDropdown = true;
-                this.$emit('exitWeather');
-
+                this.$emit('exitCategory');
             }
         },
 

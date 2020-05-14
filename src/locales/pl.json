@@ -4,7 +4,12 @@
     "introductionMessage": "Hej, to ja! Twój przyjazny chatbot. Tak właśnie czekałem tutaj na Ciebie i zastanawiałem się w czym mogę Ci dzisiaj pomóc?",
     "chooseCategoryMessage": "Wystarczy tylko, że wybierzesz kategorię, która Cię interesuje.",
     "categoryWeather": "Pogoda",
-    "categoryJokes": "Żarty"
+    "categoryJokes": "Żarty",
+    "categoryRestaurants": "Restauracje"
+  },
+  "user": {
+    "city": "Wybór miasta",
+    "myChoice": "Wybieram "
   },
   "weather": {
     "bot": {
@@ -24,12 +29,9 @@
     "user": {
       "choiceWeather": "Chciałbym poznać pogodę.",
       "chooseCity": "Wybieram miasto ",
-      "myChoice" : "Wybieram ",
       "thank": "Dzięki!",
       "moreDetails": "Chcę więcej szczegółów",
-      "choiceDay": "Wybierz dzień",
-      "city": "Wybór miasta"
-
+      "choiceDay": "Wybierz dzień"
     },
     "error": {
       "wrongDate": "Nie wybrano daty!",
@@ -73,6 +75,34 @@
       "tellJokeRespond": "Zamieniam się w słuch!",
       "savingJoke": "Hahaha, dobre, zapamięta go sobie!",
       "anotherJokeResponse": "Jasne! O czym miałby on być?"
+    }
+  },
+  "food": {
+    "bot": {
+      "foodCategory": "Swietnie! Wybierz teraz kategorię!",
+      "foodPredictions": "Swietnie! Oto co znalazłem w",
+      "addRate": "Swietnie! podaj swoją ocenę",
+      "ratedRestaurant": "Swietnie! Wezmiemy ocenę pod uwagę",
+      "for": "dla",
+      "currencyPL": "zł",
+      "avgRate": "Użytkownicy zazwyczaj oceniali tę restaurację tak: "
+    },
+    "user": {
+      "choiceRestaurant": "Chce poznac resturacje w okolicy",
+      "choiceAnotherRestaurant": "Pokaz podobne",
+      "choiceNewCategory": "Pokaz inne kategorie",
+      "choiceMenu": "Swietnie! Pokaz menu",
+      "restaurant": "kategorie",
+      "rateRestauration": "Chciałbym ocenić restauracje",
+      "rateRestaurationChoice": "Oceń restauracje",
+      "maxRate": "na 5"
+    },
+    "errors": {
+      "errorListOfCategories": "Nie można pobrać kategorii. \n Błąd: ",
+      "errorListOfCities": "Nie można pobrać miast. \n Błąd: ",
+      "errorGetMenu": "Nie można pobrać menu. \n Błąd: ",
+      "errorGetRestaurantData": "Nie można pobrać restauracji. \n Błąd: ",
+      "errorRateRestaurant": "Nie można ocenić restauracji. \n Błąd: "
     }
   },
   "adminHome": {

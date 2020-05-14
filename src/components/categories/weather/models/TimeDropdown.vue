@@ -7,8 +7,7 @@
                     <b-button
                             size="sm"
                             class="m-2"
-                            @click="setDay"
-                    >
+                            @click="setDay">
                         {{$t('weather.user.choiceDay')}}
                     </b-button>
                 </div>
