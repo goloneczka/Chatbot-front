@@ -59,7 +59,8 @@
                 })
             },
             sendMessageFromBot(text) {
-                this.sendMessage("bot", text)
+                const messagesFromBackend = text.split("\n");
+                messagesFromBackend.forEach(message => this.sendMessage("bot", message));
             },
             sendMessageFromUser(text) {
                 this.sendMessage("user", text)

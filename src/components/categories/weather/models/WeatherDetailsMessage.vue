@@ -39,7 +39,7 @@
             this.temperature = this.data.temperature;
             this.feelTemperature = this.data.perceivedTemperature;
             this.airPressure = this.data.pressure;
-            this.humidity = this.data.humidity;
+            this.humidity = this.data.humidity * 100;
             this.windSpeed = this.data.windSpeed;
         }
 
