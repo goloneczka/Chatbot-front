@@ -24,6 +24,7 @@
 <script>
     import JokesCategoryChooser from "./JokesCategoryChooser";
     import {jokesService} from './../../../App'
+    import {formatter} from "../../../App";
     import RatingJoke from "./RatingJoke";
     import TellJokeForm from "./TellJokeForm";
 
@@ -59,8 +60,8 @@
                 })
             },
             sendMessageFromBot(text) {
-                const messagesFromBackend = text.split("\n");
-                messagesFromBackend.forEach(message => this.sendMessage("bot", message));
+                const jokesLines = formatter.asLines(text);
+                jokesLines.forEach(message => this.sendMessage("bot", message));
             },
             sendMessageFromUser(text) {
                 this.sendMessage("user", text)
