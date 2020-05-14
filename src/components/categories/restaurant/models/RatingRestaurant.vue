@@ -28,7 +28,7 @@
             setRating(rating) {
                 restaurantService.rateRestaurant(rating, this.restaurantId).then((data) => {
                     if (data.errors)
-                        this.$root.$emit("showDanger", this.$t('jokes.errors.errorRateJoke') + data.errors[0]);
+                        this.$root.$emit("showDanger", this.$t('food.errors.errorRateRestaurant') + data.errors[0]);
                     else {
                         this.$root.$emit('sendNestedMessage', 'user', `${rating} ${this.$t('food.user.maxRate')}`);
                         this.$emit("onRatedRestaurant");

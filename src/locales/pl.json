@@ -6,7 +6,10 @@
     "categoryWeather": "Pogoda",
     "categoryJokes": "Żarty",
     "categoryRestaurants": "Restauracje"
-
+  },
+  "user": {
+    "city": "Wybór miasta",
+    "myChoice": "Wybieram "
   },
   "weather": {
     "bot": {
@@ -26,11 +29,9 @@
     "user": {
       "choiceWeather": "Chciałbym poznać pogodę.",
       "chooseCity": "Wybieram miasto ",
-      "myChoice": "Wybieram ",
       "thank": "Dzięki!",
       "moreDetails": "Chcę więcej szczegółów",
       "choiceDay": "Wybierz dzień",
-      "city": "Wybór miasta",
       "restaurant": "kategorie"
     },
     "error": {
@@ -93,14 +94,15 @@
       "choiceNewCategory": "Pokaz inne kategorie",
       "choiceMenu": "Swietnie! Pokaz menu",
       "rateRestauration": "Chciałbym ocenić restauracje",
-      "rateRestaurationChoice" : "Oceń restauracje",
+      "rateRestaurationChoice": "Oceń restauracje",
       "maxRate": "na 5"
     },
     "errors": {
       "errorListOfCategories": "Nie można pobrać kategorii. \n Błąd: ",
       "errorListOfCities": "Nie można pobrać miast. \n Błąd: ",
       "errorGetMenu": "Nie można pobrać menu. \n Błąd: ",
-      "errorGetRestaurantData": "Nie można pobrać restauracji. \n Błąd: "
+      "errorGetRestaurantData": "Nie można pobrać restauracji. \n Błąd: ",
+      "errorRateRestaurant": "Nie można ocenić restauracji. \n Błąd: "
     }
   },
   "adminHome": {
@@ -120,7 +122,7 @@
     }
   },
   "adminJokes": {
-    "categoriesTitle" :"Lista kategorii",
+    "categoriesTitle": "Lista kategorii",
     "emptyListOfCategoryTitle": "Brak kategorii żartów, stwórz nową",
     "emptyListOfCategoryButton": "klikając tutaj",
     "errorListOfCategories": "Nie można pobrać kategorii. \n Błąd: ",
@@ -140,7 +142,7 @@
     "modalRemoveCategoryTitle": "Usuwanie kategorii",
     "modalRemoveCategoryTextAlert": "Czy na pewno chcesz usunać tą kategorię?",
     "modalRemoveCategoryButton": "Tak, jestem tego pewien.",
-    "errorRemoveResponseCategory":"Wystąpił błąd podczas usuwania kategorii.",
+    "errorRemoveResponseCategory": "Wystąpił błąd podczas usuwania kategorii.",
     "loadingTitle": "Trwa ładowanie 🔥🔥🔥",
     "emptyListOfJokeTitle": "Oh no, nie mamy nic śmiesnego 😢, zmień to",
     "emptyListOfJokeButton": "klikając tutaj",
@@ -152,7 +154,7 @@
     "modalNewJoke": "Wprowadź treść żartu",
     "validateJokeNameEmpty": "Zawartość żartu nie może byc pusta",
     "modalEditJokeTitle": "Modyfikacja żartu",
-    "modalEditJoke":"Wprowadź treść żartu",
+    "modalEditJoke": "Wprowadź treść żartu",
     "modalEditJokeButton": "Edytuj żart",
     "editJokeButton": "Edytuj żart",
     "validateJokeContentEmpty": "Zawartość żartu nie może byc pusta",

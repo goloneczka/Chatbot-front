@@ -35,7 +35,7 @@
                 endOrDetailsButtons: false,
                 weatherData: '',
                 messages: {
-                    myChoice: this.$t('weather.user.myChoice'),
+                    myChoice: this.$t('user.myChoice'),
                     myPredictions: this.$t('weather.bot.myPredictions'),
                     inMessage: this.$t('weather.bot.in'),
                     chooseCity: this.$t('weather.user.chooseCity'),

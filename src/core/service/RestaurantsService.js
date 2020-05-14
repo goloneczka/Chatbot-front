@@ -19,18 +19,14 @@ export default class RestaurantsService {
     }
 
     getRestaurantOfCityAndCategory(cityId, category) {
-        return this.httpRequest.get(`food/city/${cityId}/cuisine/${category}/restaurant`).then(data => data);
+        return this.httpRequest.get(`food/city/${cityId}/cuisine/${category}/restaurant`);
     }
 
     getAllCities() {
-        return this.httpRequest.get("food/city").then((data) => {
-            return data;
-        });
+        return this.httpRequest.get("food/city");
     }
 
     rateRestaurant(mark, restaurantId) {
-         return this.httpRequest.post("food/rate", {restaurantId: restaurantId, mark: mark}).then(data => data);
+         return this.httpRequest.post("food/rate", {restaurantId: restaurantId, mark: mark});
     }
-
-
 }
