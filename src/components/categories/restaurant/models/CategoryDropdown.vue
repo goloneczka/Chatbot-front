@@ -3,7 +3,7 @@
         <b-dropdown :text="$t('food.user.restaurant')" class="m-2">
             <div class="enable-scroll">
             <b-dropdown-item v-for="category in categories" :key="category"
-                             v-on:click="categoryDropdownOnClick(category)" style="overflow-y: auto;">{{category}} </b-dropdown-item>
+                             v-on:click="categoryDropdownOnClick(category)" >{{category}} </b-dropdown-item>
             </div>
         </b-dropdown>
     </div>
