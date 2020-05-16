@@ -3,7 +3,7 @@ export default class WeatherService {
         this.httpRequest = httpRequest;
     }
     getAllCities() {
-        return this.httpRequest.get("cities").then((data) => {
+        return this.httpRequest.get("citiesWithForecast").then((data) => {
             const cities = [];
             data.forEach(city => cities.push(city.city));
             return cities;
