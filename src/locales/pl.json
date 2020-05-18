@@ -74,7 +74,8 @@
       "avgRate": "Użytkownicy zazwyczaj oceniali ten żart tak: ",
       "tellJokeRespond": "Zamieniam się w słuch!",
       "savingJoke": "Hahaha, dobre, zapamięta go sobie!",
-      "anotherJokeResponse": "Jasne! O czym miałby on być?"
+      "anotherJokeResponse": "Jasne! O czym miałby on być?",
+      "noJokeInCategory": "O nie! W danej kategorii nie mamy żadnych żartów"
     }
   },
   "food": {
