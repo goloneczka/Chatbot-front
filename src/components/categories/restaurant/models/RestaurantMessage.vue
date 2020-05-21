@@ -20,13 +20,6 @@
     export default {
         name: 'RestaurantMessage',
         props: ['data'],
-        watch: {
-            data: function (newVal) {
-                this.name = newVal.name;
-                this.address = newVal.address;
-                this.restaurantRate = newVal.averageUsersRating;
-            }
-        },
         components: {
             StarRating
         },

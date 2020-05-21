@@ -40,9 +40,6 @@
             this.$root.$on('sendNestedData', (auth, text, style) => {
                 this.sendData(auth, text, style);
             });
-            this.$root.$on('sendNestedDataToChange', (auth, text, style) => {
-                this.sendDataToChange(auth, text, style);
-            });
         },
         methods: {
             sendMessage(author, text) {
