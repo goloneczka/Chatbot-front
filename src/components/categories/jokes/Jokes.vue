@@ -88,7 +88,8 @@
                     jokesService.getJokeForCategory(category).then(
                         (data) => {
                             if (data.errors) {
-                                this.error = this.$t('adminJokes.errorGetJokeCategory') + data.errors[0]
+                                this.error = this.$t('adminJokes.errorGetJokeCategory') + data.errors[0];
+                                this.sendMessageFromBot(this.$t('jokes.bot.noJokeInCategory'));
                             } else {
                                 this.shownJoke = data;
                                 this.sendMessageFromBot(this.shownJoke.joke);
@@ -97,7 +98,7 @@
                                 this.showNextSteps = true;
                             }
                         }
-                    );
+                    )
                 }
             },
 
