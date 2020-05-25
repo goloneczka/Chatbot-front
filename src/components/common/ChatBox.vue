@@ -5,7 +5,7 @@
             <li class="message"
                 v-for="(message, index) in messages"
                 v-bind:key="index"
-                v-bind:class="message.author">
+                v-bind:class="message.author" v-bind:data-with="message.author">
                 <div v-if="message.style === 'default'"><a>{{message.text}}</a></div>
                 <weather-message v-bind:data="message.data"
                                  v-else-if="message.style === 'weatherMessage'"></weather-message>
@@ -142,10 +142,13 @@
     li > div {
         padding: 10px;
         margin-bottom: 20px;
-        background: var(--chat-box-mesaage-bg-color);
+        background: var(--chat-box-mesaage-bg-bot-color);
         color: white;
         display: inline-flex;
         border: var(--chat-box-meassage-border);
+    }
+    li.message[data-with="user"] > div {
+        background: var(--chat-box-mesaage-bg-user-color);
     }
 
 
