@@ -70,7 +70,7 @@
                         this.$root.$emit("showDanger", this.$t('food.errors.errorGetRestaurantData') + restaurantData.errors[0]);
                     else {
                         this.restaurantData = restaurantData;
-                        this.$root.$emit('sendNestedDataToChange', 'bot', this.restaurantData, 'restaurantMessage');
+                        this.$root.$emit('sendNestedData', 'bot', this.restaurantData, 'restaurantMessage');
                     }
                 });
             },

@@ -90,9 +90,9 @@
     },
     "user": {
       "choiceRestaurant": "Chce poznac resturacje w okolicy",
-      "choiceAnotherRestaurant": "Pokaz podobne",
-      "choiceNewCategory": "Pokaz inne kategorie",
-      "choiceMenu": "Swietnie! Pokaz menu",
+      "choiceAnotherRestaurant": "Pokaż podobne",
+      "choiceNewCategory": "Pokaż inne kategorie",
+      "choiceMenu": "Swietnie! Pokaż menu",
       "restaurant": "kategorie",
       "rateRestauration": "Chciałbym ocenić restauracje",
       "rateRestaurationChoice": "Oceń restauracje",
