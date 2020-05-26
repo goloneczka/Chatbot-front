@@ -21,7 +21,8 @@
     --home-nav-item-hover-bg-color: #ebf6ff;
     --home-chat-box-border: 2px solid gray;
 
-    --chat-box-mesaage-bg-color: #9933ff;
+    --chat-box-mesaage-bg-bot-color: #9933ff;
+    --chat-box-mesaage-bg-user-color: #9933f0;
     --chat-box-message-bot-border-radius: 20px 20px 20px 0;
     --chat-box-message-user-border-radius: 20px 20px 0 20px;
     --chat-box-meassage-border: 1px solid white;
