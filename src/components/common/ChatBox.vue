@@ -15,6 +15,7 @@
                 <RestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'restaurantMessage'" />
                 <p v-if="index === lastBotMessageIndex">
                     <b-img class="bot-image" height="30" v-bind:src="botIconSource"></b-img>
+                    <ChatBoxAnimation />
                 </p>
                 <p v-else-if="index === lastUserMessageIndex">
                     <b-img class="bot-image" height="30" :src="require('../../assets/user_icon.png')"></b-img>
@@ -25,8 +26,7 @@
             <Weather v-on:addMessage="addMessage($event)" v-if="activeCategory === 'weather'"
                      v-on:exitCategory="changeCategory(null)"/>
             <Jokes v-on:addMessage="addMessage($event)" v-if="activeCategory === 'jokes'"></Jokes>
-            <Restaurants v-on:addMessage="addMessage($event)" :botIconSource="this.botIconSource"
-                        v-if="activeCategory === 'restaurant'"/>
+            <Restaurants v-on:addMessage="addMessage($event)" v-if="activeCategory === 'restaurant'"/>
         </div>
     </div>
 </template>
@@ -40,6 +40,7 @@
     import JokesMessage from "../categories/jokes/JokesMessage";
     import Restaurants from "../categories/restaurant/Restaurants";
     import RestaurantMessage from "../categories/restaurant/models/RestaurantMessage";
+    import ChatBoxAnimation from "./ChatBoxAnimation";
 
     export default {
         name: "ChatBox",
@@ -50,19 +51,31 @@
             Jokes,
             WeatherDetailsMessage,
             WeatherMessage,
-            Weather
+            Weather,
+            ChatBoxAnimation
         },
         props: ["botIconSource"],
         data: function () {
             return {
                 messages: [],
-                activeCategory: null
+                activeCategory: null,
             }
         },
         methods: {
             addMessage: function (message) {
-                this.messages.push(message);
-                this.scrollDown();
+                if (message.author === 'bot') {
+                    this.messages.push({author: message.author})
+                    new Promise((resolve) => {
+                        this.$root.$emit('botAnimate', resolve)
+                    })
+                        .then(() => {this.modifyLastBootMessage(message)})
+                }
+                else if (message.author === 'user') {
+                    this.messages.push(message)
+                    this.$nextTick(() => {
+                        this.$root.$emit('scrollAnimate');
+                    });
+                }
             },
             changeCategory: function (category) {
                 this.activeCategory = null;
@@ -70,10 +83,9 @@
                     this.activeCategory = category;
                 });
             },
-            scrollDown: function () {
-                this.$nextTick(() => {
-                    window.scrollBy({top: document.body.scrollHeight, behavior: 'smooth'});
-                })
+            modifyLastBootMessage: function (message) {
+                const index = this.lastBotMessageIndex;
+                this.messages[index] = message
             }
         },
         computed: {
@@ -84,7 +96,7 @@
                         return index;
                     }
                 }
-                return index;
+                return 0;
             },
             lastUserMessageIndex: function () {
                 let index = this.messages.length - 1;
