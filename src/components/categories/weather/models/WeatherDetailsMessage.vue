@@ -36,8 +36,8 @@
         mounted() {
             this.city = this.data.city;
             this.weather = this.data.summary;
-            this.temperature = this.data.temperature;
-            this.feelTemperature = this.data.perceivedTemperature;
+            this.temperature = Math.round(this.data.temperature);
+            this.feelTemperature = Math.round(this.data.perceivedTemperature);
             this.airPressure = this.data.pressure;
             this.humidity = this.data.humidity * 100;
             this.windSpeed = this.data.windSpeed;
