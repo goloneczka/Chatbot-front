@@ -4,10 +4,9 @@
             <b-calendar class="calendar" @context="onContext" value-as-date locale="pl-PL"
                         v-bind="labels" :min="min" :max="max">
                 <div class="d-flex" dir="ltr">
-                    <b-button
-                            size="sm"
-                            class="m-2"
-                            @click="setDay">
+                    <b-button v-bind:class="$store.getters.activeTheme.themeName"
+                              class="m-2"
+                              @click="setDay">
                         {{$t('weather.user.choiceDay')}}
                     </b-button>
                 </div>
@@ -60,6 +59,10 @@
 <style scoped>
     #calendar {
         text-align: right;
+    }
+
+    button {
+        border-radius: 1em;
     }
 
 </style>

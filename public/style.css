@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?spartan');
+
 :root {
     --main-bg-color: #9933ff;
     --main-secound-bg-color: gray;
@@ -12,22 +14,75 @@
     --main-medium-font-size: 20px;
     --main-small-font-size: 12px;
 
-    --home-light-theme-bg-color: rgb(241, 241, 255);
-    --home-dark-theme-bg-color: rgb(26, 26, 53);
-    --home-nav-bg-color: #9933ff;
+    --home-light-theme-bg-color: #e5eaf2;
+    --home-dark-theme-bg-color: #18191a;
+    --home-blue-theme-bg-color: #f0f6ff;/* Do rozważenia */
+    --home-nav-light-theme-bg-color: #c4cad7;
+    --home-nav-dark-theme-bg-color: #242526;
+    --home-nav-blue-theme-bg-color: linear-gradient(to right, #2cc3ed , #00e6b8);
     --home-nav-border: 1px solid black;
     --home-nav-item-border: 2px solid;
     --home-nav-item-active-border-color: #d3d9e0;
     --home-nav-item-hover-bg-color: #ebf6ff;
-    --home-chat-box-border: 2px solid gray;
+    --home-chat-box-border: 2px solid;
+    --home-chat-box-light-theme-border-color: gray;
+    --home-chat-box-dark-theme-border-color: gray;
+    --home-chat-box-blue-theme-border-color: #2cc3ed;
 
-    --chat-box-mesaage-bg-bot-color: #9933ff;
-    --chat-box-mesaage-bg-user-color: #9933f0;
+    --chat-box-mesaage-light-theme-bg-bot-color: #e5eaf2;
+    --chat-box-mesaage-dark-theme-bg-bot-color: #6c6e70;
+    --chat-box-mesaage-blue-theme-bg-bot-color: #2cc3ed;
+    --chat-box-mesaage-light-theme-text-bot-color: #000000;
+    --chat-box-mesaage-dark-theme-text-bot-color: #ffffff;
+    --chat-box-mesaage-blue-theme-text-bot-color: #ffffff;
+
+    --chat-box-mesaage-light-theme-bg-user-color: #c4cad7;
+    --chat-box-mesaage-dark-theme-bg-user-color: #c4c4c4;
+    --chat-box-mesaage-blue-theme-bg-user-color: #00e6b8;
+    --chat-box-mesaage-light-theme-text-user-color: #000000;
+    --chat-box-mesaage-dark-theme-text-user-color: #000000;
+    --chat-box-mesaage-blue-theme-text-user-color: #ffffff;
+
     --chat-box-message-bot-border-radius: 20px 20px 20px 0;
     --chat-box-message-user-border-radius: 20px 20px 0 20px;
     --chat-box-meassage-border: 1px solid white;
-    --chat-box-bg-color: rgba(255, 255, 255, 0.19);
-    --chat-box-category-button-bg-color: #f6f7ff;
+    --chat-box-light-theme-bg-color: #ffffff;
+    --chat-box-dark-theme-bg-color: #242526;
+    --chat-box-blue-theme-bg-color: #ffffff;
+
+    --button-border-style: 1px solid;
+
+    --button-light-theme-bg-color: #c4cad7;
+    --button-dark-theme-bg-color: #545556;
+    --button-blue-theme-bg-color: #ffffff;
+    --button-light-theme-text-color: #000000;
+    --button-dark-theme-text-color: #ffffff;
+    --button-blue-theme-text-color: #657786;
+    --button-light-theme-border-color: #000000;
+    --button-dark-theme-border-color: #000000;
+    --button-blue-theme-border-color: #2cc3ed;
+
+
+    --button-hover-light-theme-bg-color: #8f949d;
+    --button-hover-dark-theme-bg-color: #898a8b;
+    --button-hover-blue-theme-bg-color: #2cc3ed;
+    --button-hover-light-theme-text-color: #000000;
+    --button-hover-dark-theme-text-color: #ffffff;
+    --button-hover-blue-theme-text-color: #ffffff;
+    --button-hover-light-theme-border-color: #000000;
+    --button-hover-dark-theme-border-color: #000000;
+    --button-hover-blue-theme-border-color: #2cc3ed;
+
+    --button-active-light-theme-bg-color: #242628;
+    --button-active-dark-theme-bg-color: #ffffff;
+    --button-active-blue-theme-bg-color: #47dfff;
+    --button-active-light-theme-text-color: #ffffff;
+    --button-active-dark-theme-text-color: #000000;
+    --button-active-blue-theme-text-color: #ffffff;
+    --button-active-light-theme-border-color: #000000;
+    --button-active-dark-theme-border-color: #000000;
+    --button-active-blue-theme-border-color:#2cc3ed;
+
     --chat-box-category-button-hover-bg-color: rgb(26, 26, 53);
     --chat-box-category-button-text-color: #00000;
     --chat-box-category-button-hover-text-shadow: 0 0 6px rgba(255, 255, 255, 1);
@@ -51,6 +106,13 @@
 
     --jokes-button-right-margin: 3px;
     --jokes-button-left-margin: 3px;
+
+    --bot-hello-message-light-theme-bg-color: #ffffff;
+    --bot-hello-message-dark-theme-bg-color: #4a4b4d;
+    --bot-hello-message-blue-theme-bg-color: #2cc3ed;
+    --bot-hello-message-light-theme-text-color: #000000;
+    --bot-hello-message-dark-theme-text-color: #ffffff;
+    --bot-hello-message-blue-theme-text-color: #ffffff;
 }
 
 html, body {
@@ -59,5 +121,5 @@ html, body {
 
 #app {
     height: 100%;
-    font-family: "Source Sans Pro",serif;
+    font-family: 'Spartan';
 }

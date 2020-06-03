@@ -83,4 +83,7 @@
     }
 </script>
 <style scoped>
+    /deep/ button {
+        border-radius: 1.0rem;
+    }
 </style>

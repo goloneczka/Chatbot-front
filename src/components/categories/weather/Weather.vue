@@ -4,10 +4,12 @@
             <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown"/>
             <TimeDropdown v-on:showWeatherMessage="showWeatherMessage($event)" v-if="showTimeDropdown"/>
             <div class="weather-buttons" v-if="endOrDetailsButtons">
-                <b-button id="endWeatherTalkButton" class="m-2" v-on:click="this.endWeatherTalk">
+                <b-button id="endWeatherTalkButton" v-bind:class="$store.getters.activeTheme.themeName"
+                          class="m-2" v-on:click="this.endWeatherTalk">
                     {{$t('weather.user.thank')}}
                 </b-button>
-                <b-button id="moreDetailsButton" class="m-2" v-on:click="this.showMoreDetailsMessage">
+                <b-button id="moreDetailsButton" v-bind:class="$store.getters.activeTheme.themeName" class="m-2"
+                          v-on:click="this.showMoreDetailsMessage">
                     {{$t('weather.user.moreDetails')}}
                 </b-button>
             </div>
@@ -57,7 +59,7 @@
                     text: this.messages.chooseCity + value,
                     style: "default"
                 });
-                this.$emit('addMessage', {author: "bot", text: this.messages.choiceTime , style: "default"});
+                this.$emit('addMessage', {author: "bot", text: this.messages.choiceTime, style: "default"});
             },
             showWeatherMessage(data) {
                 this.userTime = data[0];
@@ -68,7 +70,11 @@
                     weatherData.time = this.time;
                     this.weatherData = weatherData;
                     this.endOrDetailsButtons = true;
-                    this.$emit('addMessage', {author: "user", text: this.messages.myChoice + this.userTime, style: "default"});
+                    this.$emit('addMessage', {
+                        author: "user",
+                        text: this.messages.myChoice + this.userTime,
+                        style: "default"
+                    });
                     this.$emit('addMessage', {
                         author: "bot",
                         text: this.messages.myPredictions + this.city + this.messages.inMessage + this.userTime + '....',
@@ -103,7 +109,13 @@
     }
 </script>
 <style scoped>
+
     .weather-buttons {
         text-align: right;
     }
+
+    button {
+        border-radius: 1.0rem;
+    }
+
 </style>

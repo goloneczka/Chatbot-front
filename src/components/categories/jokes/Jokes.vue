@@ -171,4 +171,8 @@
         margin-left: var(--jokes-button-left-margin);
         margin-right: var(--jokes-button-right-margin);
     }
+
+    /deep/ button {
+        border-radius: 1.0rem;
+    }
 </style>

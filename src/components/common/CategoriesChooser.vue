@@ -1,6 +1,7 @@
 <template>
     <div class="categories-chooser">
-        <b-button class="category-button" v-for="(category, index) in categories" v-bind:key="index"
+        <b-button class="category-button" v-bind:class="$store.getters.activeTheme.themeName"
+                  v-for="(category, index) in categories" v-bind:key="index"
                   v-on:click="chooseCategory(category.eventName)">
             {{category.categoryName}}
         </b-button>
@@ -55,5 +56,8 @@
         width: 200px;
     }
 
+    button {
+        border-radius: 1.0rem;
+    }
 
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="hello-message">
         <div>
-            <b-img height="100" v-bind:src="botIconSource"></b-img>
+            <b-img height="100" v-bind:src="$store.getters.activeTheme.imageSource"></b-img>
             <bot-message v-bind:text="$t('bot.introductionMessage')"></bot-message>
         </div>
     </div>
@@ -12,7 +12,6 @@
 
     export default {
         name: "HelloMessage",
-        props: ["botIconSource"],
         components: {BotMessage},
 
     }

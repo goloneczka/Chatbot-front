@@ -1,20 +1,20 @@
 <template>
-    <div class="chat-box">
-        <div class="chat-box-top-border"></div>
+    <div class="chat-box" v-bind:class="$store.getters.activeTheme.themeName">
+        <div class="chat-box-top-border" v-bind:class="$store.getters.activeTheme.themeName"></div>
         <ul class="messages-list">
             <li class="message"
                 v-for="(message, index) in messages"
                 v-bind:key="index"
-                v-bind:class="message.author" v-bind:data-with="message.author">
+                v-bind:class="[message.author, $store.getters.activeTheme.themeName]" v-bind:data-with="message.author">
                 <div v-if="message.style === 'default'"><a>{{message.text}}</a></div>
                 <weather-message v-bind:data="message.data"
                                  v-else-if="message.style === 'weatherMessage'"></weather-message>
                 <weather-details-message v-bind:data="message.data"
                                          v-else-if="message.style === 'weatherDetailsMessage'"></weather-details-message>
                 <JokesMessage v-bind:data="message.data" v-else-if="message.style === 'jokesMessage'"></JokesMessage>
-                <RestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'restaurantMessage'" />
+                <RestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'restaurantMessage'"/>
                 <p v-if="index === lastBotMessageIndex">
-                    <b-img class="bot-image" height="30" v-bind:src="botIconSource"></b-img>
+                    <b-img class="bot-image" height="30" v-bind:src="$store.getters.activeTheme.imageSource"></b-img>
                 </p>
                 <p v-else-if="index === lastUserMessageIndex">
                     <b-img class="bot-image" height="30" :src="require('../../assets/user_icon.png')"></b-img>
@@ -25,8 +25,8 @@
             <Weather v-on:addMessage="addMessage($event)" v-if="activeCategory === 'weather'"
                      v-on:exitCategory="changeCategory(null)"/>
             <Jokes v-on:addMessage="addMessage($event)" v-if="activeCategory === 'jokes'"></Jokes>
-            <Restaurants v-on:addMessage="addMessage($event)" :botIconSource="this.botIconSource"
-                        v-if="activeCategory === 'restaurant'"/>
+            <Restaurants v-on:addMessage="addMessage($event)" :botIconSource="$store.getters.activeTheme.imageSource"
+                         v-if="activeCategory === 'restaurant'"/>
         </div>
     </div>
 </template>
@@ -52,7 +52,6 @@
             WeatherMessage,
             Weather
         },
-        props: ["botIconSource"],
         data: function () {
             return {
                 messages: [],
@@ -94,7 +93,7 @@
                     }
                 }
                 return null;
-            },
+            }
         },
         mounted() {
             this.$root.$on('activeCategory', (category) => {
@@ -108,17 +107,11 @@
 
     .chat-box {
         padding: 0 40px 60px;
-        border-bottom: var(--home-chat-box-border);
-        border-left: var(--home-chat-box-border);
-        border-right: var(--home-chat-box-border);
     }
 
     .chat-box-top-border {
         position: sticky;
         top: 202px;
-        border-top: var(--home-chat-box-border);
-        border-left: var(--home-chat-box-border);
-        border-right: var(--home-chat-box-border);
         margin: 0 -42px;
         height: 60px;
     }
@@ -138,42 +131,160 @@
     li > div {
         padding: 10px;
         margin-bottom: 20px;
-        background: var(--chat-box-mesaage-bg-bot-color);
-        color: white;
         display: inline-flex;
-        border: var(--chat-box-meassage-border);
     }
-    li.message[data-with="user"] > div {
-        background: var(--chat-box-mesaage-bg-user-color);
-    }
-
 
     .bot div {
         border-radius: 20px 20px 20px 0;
     }
 
+    .bot.light div {
+        background: var(--chat-box-mesaage-light-theme-bg-bot-color);
+        color: var(--chat-box-mesaage-light-theme-text-bot-color);
+    }
+
+    .bot.dark div {
+        background: var(--chat-box-mesaage-dark-theme-bg-bot-color);
+        color: var(--chat-box-mesaage-dark-theme-text-bot-color);
+    }
+
+    .bot.blue div {
+        background: var(--chat-box-mesaage-blue-theme-bg-bot-color);
+        color: var(--chat-box-mesaage-blue-theme-text-bot-color);
+    }
 
     .user div {
         border-radius: 20px 20px 0 20px;
+    }
+
+    .user.light div {
+        background: var(--chat-box-mesaage-light-theme-bg-user-color);
+        color: var(--chat-box-mesaage-light-theme-text-user-color);
+    }
+
+    .user.dark div {
+        background: var(--chat-box-mesaage-dark-theme-bg-user-color);
+        color: var(--chat-box-mesaage-dark-theme-text-user-color);
+    }
+
+    .user.blue div {
+        background: var(--chat-box-mesaage-blue-theme-bg-user-color);
+        color: var(--chat-box-mesaage-blue-theme-text-user-color);
     }
 
     .user {
         text-align: right;
     }
 
-    .chat-box {
-        background: var(--chat-box-bg-color);
+    .chat-box.light {
+        background: var(--chat-box-light-theme-bg-color);
+        border-bottom: var(--home-chat-box-border) var(--home-chat-box-light-theme-border-color);
+        border-left: var(--home-chat-box-border) var(--home-chat-box-light-theme-border-color);
+        border-right: var(--home-chat-box-border) var(--home-chat-box-light-theme-border-color);
     }
 
-    button {
-        background: var(--chat-box-category-button-bg-color);
-        color: var(--chat-box-category-button-text-color);
+    .chat-box.dark {
+        background: var(--chat-box-dark-theme-bg-color);
+        border-bottom: var(--home-chat-box-border) var(--home-chat-box-dark-theme-border-color);
+        border-left: var(--home-chat-box-border) var(--home-chat-box-dark-theme-border-color);
+        border-right: var(--home-chat-box-border) var(--home-chat-box-dark-theme-border-color);
     }
 
-    button:hover {
-        text-shadow: var(--chat-box-category-button-hover-text-shadow);
-        background: var(--chat-box-category-button-hover-bg-color);
-        box-shadow: var(--chat-box-category-button-hover-box-shadow);
+    .chat-box.blue {
+        background: var(--chat-box-blue-theme-bg-color);
+        border-bottom: var(--home-chat-box-border) var(--home-chat-box-blue-theme-border-color);
+        border-left: var(--home-chat-box-border) var(--home-chat-box-blue-theme-border-color);
+        border-right: var(--home-chat-box-border) var(--home-chat-box-blue-theme-border-color);
+    }
+
+    .chat-box-top-border.light {
+        border-top: var(--home-chat-box-border) var(--home-chat-box-light-theme-border-color);
+        border-left: var(--home-chat-box-border) var(--home-chat-box-light-theme-border-color);
+        border-right: var(--home-chat-box-border) var(--home-chat-box-light-theme-border-color);
+    }
+
+    .chat-box-top-border.dark {
+        border-top: var(--home-chat-box-border) var(--home-chat-box-dark-theme-border-color);
+        border-left: var(--home-chat-box-border) var(--home-chat-box-dark-theme-border-color);
+        border-right: var(--home-chat-box-border) var(--home-chat-box-dark-theme-border-color);
+    }
+
+    .chat-box-top-border.blue {;
+        border-top: var(--home-chat-box-border) var(--home-chat-box-blue-theme-border-color);
+        border-left: var(--home-chat-box-border) var(--home-chat-box-blue-theme-border-color);
+        border-right: var(--home-chat-box-border) var(--home-chat-box-blue-theme-border-color);
+    }
+
+    button.light, .light /deep/ button {
+        background: var(--button-light-theme-bg-color)!important;
+        color: var(--button-light-theme-text-color)!important;
+        border: var(--button-border-style) var(--button-light-theme-border-color)!important;
+    }
+
+    button.light:hover, .light /deep/ button:hover {
+        background: var(--button-hover-light-theme-bg-color)!important;
+        color: var(--button-hover-light-theme-text-color)!important;
+        border: var(--button-border-style) var(--button-hover-light-theme-border-color)!important;
+    }
+
+    button.light:active, .light /deep/ button:active {
+        background: var(--button-active-light-theme-bg-color)!important;
+        color: var(--button-active-light-theme-text-color)!important;
+        border: var(--button-border-style) var(--button-active-light-theme-border-color)!important;
+    }
+
+    button.light:focus, .light /deep/ button:focus {
+        background: var(--button-active-light-theme-bg-color)!important;
+        color: var(--button-active-light-theme-text-color)!important;
+        border: var(--button-border-style) var(--button-active-light-theme-border-color)!important;
+    }
+
+    button.dark, .dark /deep/ button {
+        background: var(--button-dark-theme-bg-color)!important;
+        color: var(--button-dark-theme-text-color)!important;
+        border: var(--button-border-style) var(--button-dark-theme-border-color)!important;
+    }
+
+    button.dark:hover, .dark /deep/ button:hover {
+        background: var(--button-hover-dark-theme-bg-color)!important;
+        color: var(--button-hover-dark-theme-text-color)!important;
+        border: var(--button-border-style) var(--button-hover-dark-theme-border-color)!important;
+    }
+
+    button.dark:active, .dark /deep/ button:active {
+        background: var(--button-active-dark-theme-bg-color)!important;
+        color: var(--button-active-dark-theme-text-color)!important;
+        border: var(--button-border-style) var(--button-active-dark-theme-border-color)!important;
+    }
+
+    button.dark:focus, .dark /deep/ button:focus {
+        background: var(--button-active-dark-theme-bg-color)!important;
+        color: var(--button-active-dark-theme-text-color)!important;
+        border: var(--button-border-style) var(--button-active-dark-theme-border-color)!important;
+    }
+
+    button.blue, .blue /deep/ button {
+        background: var(--button-blue-theme-bg-color)!important;
+        color: var(--button-blue-theme-text-color)!important;
+        border: var(--button-border-style) var(--button-blue-theme-border-color)!important;
+    }
+
+    button.blue:hover, .blue /deep/ button:hover {
+        background: var(--button-hover-blue-theme-bg-color)!important;
+        color: var(--button-hover-blue-theme-text-color)!important;
+        border: var(--button-border-style) var(--button-hover-blue-theme-border-color)!important;
+    }
+
+    button.blue:active, .blue /deep/ button:active {
+        background: var(--button-active-blue-theme-bg-color)!important;
+        color: var(--button-active-blue-theme-text-color)!important;
+        border: var(--button-border-style) var(--button-active-blue-theme-border-color)!important;
+    }
+
+    button.blue:focus, .blue /deep/ button:focus {
+        background: var(--button-active-blue-theme-bg-color)!important;
+        color: var(--button-active-blue-theme-text-color)!important;
+        border: var(--button-border-style) var(--button-active-blue-theme-border-color)!important;
     }
 
 </style>
