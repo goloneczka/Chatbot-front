@@ -1,0 +1,19 @@
+
+.button-dropdown-slide-enter-active{
+    transition: all .5s ease;
+}
+.button-dropdown-slide-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.button-dropdown-slide-enter, .button-dropdown-slide-leave-to {
+    transform: translateX(10px);
+    opacity: 0;
+}
+@keyframes button-dropdown-slide-enter-active {
+    99% {
+        visibility: hidden;
+    }
+    100% {
+        visibility: visible;
+    }
+}

@@ -1,7 +1,9 @@
 <template>
     <div>
         <div id="restaurant-component">
-            <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown"/>
+            <transition name="button-picker-slide" >
+                <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown" />
+            </transition>
             <div v-for="(shouldShow, index) in showCategoryDropdown1" v-bind:key=index>
                 <RestaurantCategory @addChoseDropdown="addCategoryDropdownOnClick"
                                     @closeCategoryDropdown="closeCategoryDropdownOnClick"
@@ -19,11 +21,12 @@
     export default {
         name: 'Restaurants',
         components: {RestaurantCategory, CityDropdown},
+
         props: [],
         data: function () {
             return {
                 city: {},
-                showCityDropdown: true,
+                showCityDropdown: false,
                 botRestaurantMessage: false,
                 showCategoryDropdown1: [],
 
@@ -34,6 +37,7 @@
             this.sendMessage("bot", this.$t('weather.bot.introduction'));
         },
         mounted() {
+            this.showCityDropdown = true;
             this.$root.$on('sendNestedMessage', (auth, text) => {
                 this.sendMessage(auth, text);
             });
@@ -56,13 +60,6 @@
                     style: style
                 })
             },
-            sendDataToChange(author, text,style) {
-                this.$emit('changeMessage', {
-                    author: author,
-                    data: text,
-                    style: style
-                })
-            },
             addCategoryDropdownOnClick() {
                 this.showCategoryDropdown1.push(true);
             },
@@ -77,10 +74,10 @@
                 this.sendMessage("bot", this.$t('food.bot.foodCategory'));
                 this.showCategoryDropdown1[0] = true;
             }
-
         },
-
     }
 </script>
 <style scoped>
+    @import "../../../../src/assets/buttonAnimate.css";
+
 </style>

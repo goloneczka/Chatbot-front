@@ -11,11 +11,12 @@
                                  v-else-if="message.style === 'weatherMessage'"></weather-message>
                 <weather-details-message v-bind:data="message.data"
                                          v-else-if="message.style === 'weatherDetailsMessage'"></weather-details-message>
-                <JokesMessage v-bind:data="message.data" v-else-if="message.style === 'jokesMessage'"></JokesMessage>
-                <RestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'restaurantMessage'" />
+                <JokesMessage v-bind:data="message.data"
+                              v-else-if="message.style === 'jokesMessage'"></JokesMessage>
+                <RestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'restaurantMessage'"/>
                 <p v-if="index === lastBotMessageIndex">
+                    <ChatBoxAnimation class="animate-block-message"/>
                     <b-img class="bot-image" height="30" v-bind:src="botIconSource"></b-img>
-                    <ChatBoxAnimation />
                 </p>
                 <p v-else-if="index === lastUserMessageIndex">
                     <b-img class="bot-image" height="30" :src="require('../../assets/user_icon.png')"></b-img>
@@ -65,12 +66,15 @@
             addMessage: function (message) {
                 if (message.author === 'bot') {
                     this.messages.push({author: message.author})
-                    new Promise((resolve) => {
-                        this.$root.$emit('botAnimate', resolve)
-                    })
-                        .then(() => {this.modifyLastBootMessage(message)})
-                }
-                else if (message.author === 'user') {
+
+                    this.$nextTick(() => {
+                        new Promise((resolve) => {
+                            this.$root.$emit('botAnimate', resolve);
+                        }).then(() => {
+                            this.modifyLastMessage(message);
+                        })
+                    });
+                } else if (message.author === 'user') {
                     this.messages.push(message)
                     this.$nextTick(() => {
                         this.$root.$emit('scrollAnimate');
@@ -83,9 +87,9 @@
                     this.activeCategory = category;
                 });
             },
-            modifyLastBootMessage: function (message) {
-                const index = this.lastBotMessageIndex;
-                this.messages[index] = message
+            modifyLastMessage: function (message) {
+                this.messages.pop();
+                this.messages.push(message);
             }
         },
         computed: {
@@ -156,6 +160,15 @@
         border: var(--chat-box-meassage-border);
     }
 
+    .animate-block-message {
+        padding: 10px;
+        margin-bottom: 20px;
+        background: var(--chat-box-mesaage-bg-color);
+        color: white;
+        display: block;
+        max-width: 70px;
+        border: var(--chat-box-meassage-border);
+    }
 
     .bot div {
         border-radius: 20px 20px 20px 0;

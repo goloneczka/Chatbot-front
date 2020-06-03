@@ -1,7 +1,10 @@
 <template>
     <div>
-        <div>
-            <CategoryDropdown v-if="showCategoryDropdown" :city-id="city.id" @categoryDropdownOnClick="categoryDropdownOnClick"/>
+        <transition name="button-dropdown-slide">
+            <CategoryDropdown v-if="showCategoryDropdown" :city-id="city.id"
+                              @categoryDropdownOnClick="categoryDropdownOnClick"/>
+        </transition>
+        <transition name="button-picker-slide">
             <div id="more-details" v-if="moreDetails">
                 <b-button class="m-2" v-on:click="showNewCategoryMessage">
                     {{$t('food.user.choiceNewCategory')}}
@@ -13,9 +16,9 @@
                     {{$t('food.user.rateRestaurationChoice')}}
                 </b-button>
             </div>
-            <RatingRestaurant v-if="rate" :restaurant-id="restaurantData.id"
-                              @onRatedRestaurant="this.sendRatedMessage"/>
-        </div>
+        </transition>
+        <RatingRestaurant v-if="rate" :restaurant-id="restaurantData.id"
+                          @onRatedRestaurant="this.sendRatedMessage"/>
     </div>
 </template>
 <script>
@@ -94,7 +97,10 @@
     }
 </script>
 <style scoped>
+    @import "../../../../../src/assets/buttonAnimate.css";
+
     #more-details {
         text-align: right;
     }
+
 </style>
