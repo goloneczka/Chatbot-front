@@ -25,6 +25,10 @@
                     {
                         categoryName: this.$t('bot.categoryRestaurants'),
                         eventName: 'restaurant'
+                    },
+                    {
+                        categoryName: this.$t('bot.categoryMoney'),
+                        eventName: 'money'
                     }
                 ]
             }

@@ -5,7 +5,8 @@
     "chooseCategoryMessage": "Wystarczy tylko, że wybierzesz kategorię, która Cię interesuje.",
     "categoryWeather": "Pogoda",
     "categoryJokes": "Żarty",
-    "categoryRestaurants": "Restauracje"
+    "categoryRestaurants": "Restauracje",
+    "categoryMoney": "Złotówa"
   },
   "user": {
     "city": "Wybór miasta",
@@ -224,6 +225,48 @@
     "login": "Twój login",
     "password": "Twoje hasło",
     "incorrectData": "Nie poprawne dane logowania!"
+  },
+  "money": {
+    "user": {
+      "entrance": "Chciałbym sprawdzić kursy giełdowe.",
+      "currency": "Chciałbym dowiedzieć się czegoś o kursach walut.",
+      "exchange": "Chciałbym dowiedzieć się czegoś o kursach na giełdzie.",
+      "chosenCurrency": "Wybieram walutę ",
+      "chosenExchange": "Wybieram akcje firmy ",
+      "chosenActual": "Wybieram aktualny ceny akcji.",
+      "chosenFuture": "Wybieram prognozy cen akcji.",
+      "chosenHistory": "Wybieram dane historyczne cen akcji.",
+      "chosenDay": "Chce poznać dane z konkretnego dnia",
+      "chosenPeriod": "Chce poznać dane z pewnego okresu.",
+      "myChoice": "Wybieram ",
+      "to": "do"
+    },
+    "bot": {
+      "entrance": "Co dokładnie chciałbyś sprawdzić?",
+      "currency": "O jakiej dokładnie walucie rozmawiamy?",
+      "exchange": "O akcjach jakiej firmy dokładnie rozmawiamy?",
+      "anotherCurrency": "Teraz musisz wybrać inną walutę na którą chcesz sprawdzić kurs",
+      "chooseTime": "Z jakiego okresu chcesz dane?",
+      "actualData": "Oto aktualne ceny akcji: ",
+      "futureData": "Oto prognoza cen akcji: ",
+      "historyData": "Oto historyczne ceny akcji dla wybranego okresu: ",
+      "historyDataDay": "Oto historyczne dane cen akcji dla wybranego dnia: ",
+      "historyChoice": "Wybierasz dzień czy okres?",
+      "dayChoice": "A z jakiego konretnie?",
+      "periodChoice": "A z jakiego konretnie?"
+    },
+    "buttons": {
+      "currency": "Waluta",
+      "exchange": "Giełda",
+      "choiceCurrency": "Wybierz walutę",
+      "choiceExchange": "Wybierz firmę",
+      "history": "Historyczne",
+      "actual": "Aktualne",
+      "future": "Przyszłe",
+      "day": "Dzień",
+      "period": "Okres",
+      "choicePeriod": "Wybieram okres"
+    }
   }
 }
 
