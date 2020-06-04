@@ -6,6 +6,7 @@
 <script>
     export default {
         name: "FutureData",
+        props: ['stocks'],
         data: function(){
             return{
 

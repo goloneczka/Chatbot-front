@@ -6,6 +6,7 @@
 <script>
     export default {
         name: "HistoryData",
+        props: ['stocks'],
         data: function(){
             return{
 

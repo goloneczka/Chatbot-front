@@ -8,13 +8,17 @@
             <ExchangeDropdown v-if="showExchanges"/>
             <CurrencyDropdown v-if="showCurrencies"/>
             <CurrencyDropdown v-if="showAnotherCurrencies"/>
-            <ChooseTime v-if="showTimeButtons" />
+            <ChooseTime v-if="showTimeButtons"/>
             <div class="choiceDate" v-if="choosePeriod">
                 <b-button class="m-2" v-on:click="showDayChoiceComponent">{{$t('money.buttons.day')}}</b-button>
                 <b-button class="m-2" v-on:click="showPeriodChoiceComponent">{{$t('money.buttons.period')}}</b-button>
             </div>
-            <DayChooseComponent v-if="showDayChooser" />
-            <PeriodChooseComponent v-if="showPeriodChooser" />
+            <DayChooseComponent v-if="showDayChooser"/>
+            <PeriodChooseComponent v-if="showPeriodChooser"/>
+            <div>
+                <HistoryData :stocks="this.data" v-if="showHistoryDataComponent"/>
+                <FutureData :stocks="this.data" v-if="showFutureDataComponent"/>
+            </div>
         </div>
     </div>
 </template>
@@ -25,10 +29,19 @@
     import ChooseTime from "./models/ChooseTime";
     import DayChooseComponent from "./models/DayChooseComponent"
     import PeriodChooseComponent from "./models/PeriodChooseComponent"
+    import HistoryData from "./models/HistoryData";
+    import FutureData from "./models/FutureData";
+    import {moneyService} from "../../../App";
+
+    import moment from 'moment';
 
     export default {
         name: 'Money',
-        components: {ChooseTime, CurrencyDropdown, ExchangeDropdown, DayChooseComponent, PeriodChooseComponent},
+        components: {
+            FutureData,
+            HistoryData,
+            ChooseTime, CurrencyDropdown, ExchangeDropdown, DayChooseComponent, PeriodChooseComponent
+        },
         props: ['botIconSource'],
         data: function () {
             return {
@@ -44,6 +57,10 @@
                 choosePeriod: false,
                 showDayChooser: false,
                 showPeriodChooser: false,
+                showFutureDataComponent: false,
+                showHistoryDataComponent: false,
+                data: null
+
             }
         },
         created() {
@@ -73,7 +90,7 @@
             },
             showAnotherCurrency(currency) {
                 if (this.currency === null) {
-                    this.currency = currency;
+                    this.currency = currency.symbol;
                     this.showCurrencies = false;
                     this.$emit('addMessage', {
                         author: "user",
@@ -88,7 +105,7 @@
                     this.showAnotherCurrencies = true;
                 } else {
                     this.showAnotherCurrencies = false;
-                    this.secondCurrency = currency;
+                    this.secondCurrency = currency.symbol;
                     this.$emit('addMessage', {
                         author: "user",
                         text: `${this.$t('money.user.chosenCurrency')} ${currency.name}`,
@@ -102,9 +119,9 @@
                     this.showTimeButtons = true;
                 }
             },
-            showExchangeAndButtons(exchange){
+            showExchangeAndButtons(exchange) {
                 this.showExchanges = false;
-                this.exchange = exchange;
+                this.exchange = exchange.symbol;
                 this.$emit('addMessage', {
                     author: "user",
                     text: `${this.$t('money.user.chosenExchange')} ${exchange.name}`,
@@ -117,34 +134,7 @@
                 });
                 this.showTimeButtons = true;
             },
-            showActualData(){
-                this.showTimeButtons = false;
-                this.$emit('addMessage', {
-                    author: "user",
-                    text: `${this.$t('money.user.chosenActual')}`,
-                    style: "default"
-                });
-                this.$emit('addMessage', {
-                    author: "bot",
-                    text: this.$t('money.bot.actualData'),
-                    style: "default"
-                });
-
-            },
-            showFutureData(){
-                this.showTimeButtons = false;
-                this.$emit('addMessage', {
-                    author: "user",
-                    text: `${this.$t('money.user.chosenFuture')}`,
-                    style: "default"
-                });
-                this.$emit('addMessage', {
-                    author: "bot",
-                    text: this.$t('money.bot.futureData'),
-                    style: "default"
-                });
-            },
-            showHistoryData(){
+            showHistoryData() {
                 this.showTimeButtons = false;
                 this.$emit('addMessage', {
                     author: "user",
@@ -158,7 +148,7 @@
                 });
                 this.choosePeriod = true;
             },
-            showDayChoiceComponent(){
+            showDayChoiceComponent() {
                 this.choosePeriod = false;
                 this.$emit('addMessage', {
                     author: "user",
@@ -172,7 +162,7 @@
                 });
                 this.showDayChooser = true;
             },
-            showPeriodChoiceComponent(){
+            showPeriodChoiceComponent() {
                 this.choosePeriod = false;
                 this.$emit('addMessage', {
                     author: "user",
@@ -186,20 +176,63 @@
                 });
                 this.showPeriodChooser = true;
             },
-            showHistoryDataForDay(data){
+            showActualData() {
+                this.showTimeButtons = false;
+                this.$emit('addMessage', {
+                    author: "user",
+                    text: `${this.$t('money.user.chosenActual')}`,
+                    style: "default"
+                });
+                this.$emit('addMessage', {
+                    author: "bot",
+                    text: this.$t('money.bot.actualData'),
+                    style: "default"
+                });
+                moneyService.getActualDataForSymbol(this.isCurrency === null ? this.currency : this.exchange, moment(Date.now()).format('YYYY-MM-DD'))
+                    .then(response => {
+                        this.$emit('addMessage', {
+                            author: "bot",
+                            text: `${this.$t('money.bot.valueStockToday')} ${this.$t('money.bot.isValue')} ${response.value}`,
+                            style: "default"
+                        });
+                    })
+            },
+            showFutureData() {
+                this.showTimeButtons = false;
+                this.$emit('addMessage', {
+                    author: "user",
+                    text: `${this.$t('money.user.chosenFuture')}`,
+                    style: "default"
+                });
+                this.$emit('addMessage', {
+                    author: "bot",
+                    text: this.$t('money.bot.futureData'),
+                    style: "default"
+                });
+                this.showFutureDataComponent = true;
+                moneyService.getFutureDataForSymbol(this.isCurrency === null ? this.currency : this.exchange)
+                    .then(response => {
+                        this.data = response;
+                        this.showFutureDataComponent = true;
+                    })
+            },
+            showHistoryDataForDay(data) {
                 this.showDayChooser = false;
                 this.$emit('addMessage', {
                     author: "user",
                     text: `${this.$t('money.user.myChoice')} ${data[0]}`,
                     style: "default"
                 });
-                this.$emit('addMessage', {
-                    author: "bot",
-                    text: this.$t('money.bot.historyDataDay'),
-                    style: "default"
-                });
+                moneyService.getHistoryDataForSymbol(this.isCurrency === null ? this.currency : this.exchange, moment(data[1]).format('YYYY-MM-DD'))
+                    .then(response => {
+                        this.$emit('addMessage', {
+                            author: "bot",
+                            text: `${this.$t('money.bot.valueStockInDay')} ${data[0]} ${this.$t('money.bot.value')} ${response.value}`,
+                            style: "default"
+                        });
+                    })
             },
-            showHistoryDataForPeriod(data){
+            showHistoryDataForPeriod(data) {
                 this.showPeriodChooser = false;
                 this.$emit('addMessage', {
                     author: "user",
@@ -212,6 +245,12 @@
                     text: this.$t('money.bot.historyData'),
                     style: "default"
                 });
+                moneyService.getHistoryDataForSymbolForPeriod(this.isCurrency === null ? this.currency : this.exchange, moment(data[0]).format('YYYY-MM-DD'), moment(data[1]).format('YYYY-MM-DD'))
+                    .then(response => {
+                        this.data = response;
+                        this.showHistoryDataComponent = true;
+                    })
+
             }
         },
     }

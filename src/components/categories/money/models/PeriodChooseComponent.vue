@@ -29,7 +29,6 @@
         },
         methods: {
             setPeriod() {
-                console.log(this.time3);
                 this.$root.$emit('showPeriodHistory', this.time3);
             },
         }
