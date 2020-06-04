@@ -15,11 +15,14 @@
                               v-else-if="message.style === 'jokesMessage'"></JokesMessage>
                 <RestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'restaurantMessage'"/>
                 <p v-if="index === lastBotMessageIndex">
-                    <ChatBoxAnimation class="animate-block-message"/>
+                    <ChatBoxAnimation class="animate-bot-message"/>
                     <b-img class="bot-image" height="30" v-bind:src="botIconSource"></b-img>
                 </p>
                 <p v-else-if="index === lastUserMessageIndex">
                     <b-img class="bot-image" height="30" :src="require('../../assets/user_icon.png')"></b-img>
+                </p>
+                <p v-if="index === lastMessageIndex">
+
                 </p>
             </li>
         </ul>
@@ -64,22 +67,16 @@
         },
         methods: {
             addMessage: function (message) {
-                if (message.author === 'bot') {
-                    this.messages.push({author: message.author})
-
-                    this.$nextTick(() => {
-                        new Promise((resolve) => {
-                            this.$root.$emit('botAnimate', resolve);
-                        }).then(() => {
-                            this.modifyLastMessage(message);
-                        })
-                    });
-                } else if (message.author === 'user') {
-                    this.messages.push(message)
-                    this.$nextTick(() => {
+                this.messages.push({author: message.author})
+                this.$nextTick(() => {
+                    new Promise((resolve) => {
+                        this.$root.$emit('messageAnimate', resolve);
+                    }).then(() => {
+                        this.modifyLastMessage(message);
                         this.$root.$emit('scrollAnimate');
-                    });
-                }
+                        message.resolve();
+                    })
+                });
             },
             changeCategory: function (category) {
                 this.activeCategory = null;
@@ -110,6 +107,9 @@
                     }
                 }
                 return null;
+            },
+            lastMessageIndex: function () {
+                return this.messages.length - 1;
             },
         },
         mounted() {
@@ -160,7 +160,7 @@
         border: var(--chat-box-meassage-border);
     }
 
-    .animate-block-message {
+    .animate-bot-message {
         padding: 10px;
         margin-bottom: 20px;
         background: var(--chat-box-mesaage-bg-color);

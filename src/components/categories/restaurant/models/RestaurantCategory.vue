@@ -1,6 +1,6 @@
 <template>
     <div>
-        <transition name="button-dropdown-slide">
+        <transition name="button-picker-slide">
             <CategoryDropdown v-if="showCategoryDropdown" :city-id="city.id"
                               @categoryDropdownOnClick="categoryDropdownOnClick"/>
         </transition>
@@ -33,9 +33,10 @@
         components: {
             CategoryDropdown, RatingRestaurant
         },
-        props: ['showCategoryDropdown', 'city', 'number'],
+        props: ['city', 'number'],
         data: function () {
             return {
+                showCategoryDropdown: false,
                 category: '',
                 menu: false,
                 restaurantData: {},
@@ -44,10 +45,13 @@
                 rate: false,
             }
         },
+        mounted() {
+            this.showCategoryDropdown = true
+        },
         methods: {
             categoryDropdownOnClick(value) {
                 this.category = value;
-                this.$emit('closeCategoryDropdown');
+                this.showCategoryDropdown = false;
                 restaurantService.getRestaurantOfCityAndCategory(this.city.id, this.category).then((restaurantData) => {
                     if (restaurantData.errors)
                         this.$root.$emit("showDanger", this.$t('food.errors.errorGetRestaurantData') + restaurantData.errors[0]);
@@ -65,7 +69,7 @@
                 this.moreDetails = false;
                 this.$root.$emit('sendNestedMessage', 'user', this.$t('food.user.choiceNewCategory'));
                 this.$root.$emit('sendNestedMessage', 'bot', this.$t('food.bot.foodCategory'));
-                this.$emit('addChoseDropdown');
+                this.$root.$emit('addNewCategoryMessage');
             },
             showAnotherRestaurantMessage() {
                 restaurantService.getRestaurantOfCityAndCategory(this.city.id, this.category).then((restaurantData) => {

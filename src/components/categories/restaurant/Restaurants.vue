@@ -4,11 +4,8 @@
             <transition name="button-picker-slide" >
                 <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown" />
             </transition>
-            <div v-for="(shouldShow, index) in showCategoryDropdown1" v-bind:key=index>
-                <RestaurantCategory @addChoseDropdown="addCategoryDropdownOnClick"
-                                    @closeCategoryDropdown="closeCategoryDropdownOnClick"
-                                    :number=index :city="city"
-                                    :show-category-dropdown="shouldShow"/>
+            <div v-for="index in choosenCategories" v-bind:key=index>
+                <RestaurantCategory :number=index :city="city"/>
             </div>
         </div>
     </div>
@@ -28,16 +25,20 @@
                 city: {},
                 showCityDropdown: false,
                 botRestaurantMessage: false,
-                showCategoryDropdown1: [],
+                choosenCategories: [],
 
             }
         },
         created() {
-            this.sendMessage("user", this.$t('food.user.choiceRestaurant'));
-            this.sendMessage("bot", this.$t('weather.bot.introduction'));
+            this.sendMessage("user", this.$t('food.user.choiceRestaurant')).then(() => {
+                this.sendMessage("bot", this.$t('weather.bot.introduction'));
+            });
         },
         mounted() {
             this.showCityDropdown = true;
+            this.$root.$on('addNewCategoryMessage', () => {
+                this.choosenCategories.push(true)
+            });
             this.$root.$on('sendNestedMessage', (auth, text) => {
                 this.sendMessage(auth, text);
             });
@@ -47,11 +48,14 @@
         },
         methods: {
             sendMessage(author, text) {
-                this.$emit('addMessage', {
-                    author: author,
-                    text: text,
-                    style: 'default'
-                })
+                return new Promise((resolve) => {
+                    this.$emit('addMessage', {
+                        author: author,
+                        text: text,
+                        style: 'default',
+                        resolve: resolve
+                    })
+                });
             },
             sendData(author, text,style) {
                 this.$emit('addMessage', {
@@ -60,19 +64,12 @@
                     style: style
                 })
             },
-            addCategoryDropdownOnClick() {
-                this.showCategoryDropdown1.push(true);
-            },
-            closeCategoryDropdownOnClick() {
-                this.showCategoryDropdown1.pop();
-                this.showCategoryDropdown1.push(false);
-            },
             cityDropdownOnClick(value){
                 this.showCityDropdown = false;
                 this.city = value;
                 this.sendMessage("user", `${this.$t('weather.user.chooseCity')} ${this.city.city}`);
                 this.sendMessage("bot", this.$t('food.bot.foodCategory'));
-                this.showCategoryDropdown1[0] = true;
+                this.choosenCategories[0] = true;
             }
         },
     }

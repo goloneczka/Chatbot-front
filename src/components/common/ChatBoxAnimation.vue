@@ -25,7 +25,7 @@
             }
         },
         mounted() {
-            this.$root.$on('botAnimate', (resolve) => {
+            this.$root.$on('messageAnimate', (resolve) => {
                 this.loading = true;
                 this.scrollDown();
                 setTimeout(() => {
