@@ -14,16 +14,16 @@
                 <JokesMessage v-bind:data="message.data"
                               v-else-if="message.style === 'jokesMessage'"></JokesMessage>
                 <RestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'restaurantMessage'"/>
-                <p v-if="index === lastBotMessageIndex">
-                    <ChatBoxAnimation class="animate-bot-message"/>
-                    <b-img class="bot-image" height="30" v-bind:src="botIconSource"></b-img>
-                </p>
-                <p v-else-if="index === lastUserMessageIndex">
+                <ChatBoxAnimation class="animate-bot-message" v-bind:data-with="message.author"
+                                      v-if="index === lastMessageIndex && messageAnimate" />
+                <p v-if="index === lastUserMessageIndex">
                     <b-img class="bot-image" height="30" :src="require('../../assets/user_icon.png')"></b-img>
                 </p>
-                <p v-if="index === lastMessageIndex">
-
+                <p v-else-if="index === lastBotMessageIndex">
+                    <b-img class="bot-image" height="30" v-bind:src="botIconSource"></b-img>
                 </p>
+
+
             </li>
         </ul>
         <div id="categoryComponent">
@@ -63,10 +63,13 @@
             return {
                 messages: [],
                 activeCategory: null,
+                messageAnimate: false
             }
         },
         methods: {
             addMessage: function (message) {
+                console.log(message)
+                this.messageAnimate = true;
                 this.messages.push({author: message.author})
                 this.$nextTick(() => {
                     new Promise((resolve) => {
@@ -75,6 +78,7 @@
                         this.modifyLastMessage(message);
                         this.$root.$emit('scrollAnimate');
                         message.resolve();
+                        this.messageAnimate = false;
                     })
                 });
             },
@@ -162,11 +166,21 @@
 
     .animate-bot-message {
         padding: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         background: var(--chat-box-mesaage-bg-color);
         color: white;
         display: block;
         max-width: 70px;
+        border: var(--chat-box-meassage-border);
+    }
+    .animate-bot-message[data-with="user"] {
+        margin-right:auto;
+        margin-left:0;
+        padding: 10px;
+        margin-bottom: 15px;
+        background: var(--chat-box-mesaage-bg-color);
+        color: white;
+        display: inline-block;
         border: var(--chat-box-meassage-border);
     }
 

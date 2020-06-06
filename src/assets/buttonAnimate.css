@@ -1,7 +1,7 @@
 
 .button-picker-slide-enter-active{
-    transition-delay: 2s !important;
     transition: all .5s ease-in;
+    transition-delay: var(--delay);
 }
 .button-picker-slide-leave-active {
     transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
@@ -10,4 +10,3 @@
     transform: translateX(10px);
     opacity: 0;
 }
-

@@ -2,10 +2,11 @@
     <div>
         <transition name="button-picker-slide">
             <CategoryDropdown v-if="showCategoryDropdown" :city-id="city.id"
-                              @categoryDropdownOnClick="categoryDropdownOnClick"/>
+                              @categoryDropdownOnClick="categoryDropdownOnClick"
+                              style="--delay: var(--chat-box-meassage-double-delay)"/>
         </transition>
         <transition name="button-picker-slide">
-            <div id="more-details" v-if="moreDetails">
+            <div id="more-details" v-if="moreDetails" >
                 <b-button class="m-2" v-on:click="showNewCategoryMessage">
                     {{$t('food.user.choiceNewCategory')}}
                 </b-button>
@@ -17,8 +18,10 @@
                 </b-button>
             </div>
         </transition>
+        <transition name="button-picker-slide">
         <RatingRestaurant v-if="rate" :restaurant-id="restaurantData.id"
                           @onRatedRestaurant="this.sendRatedMessage"/>
+        </transition>
     </div>
 </template>
 <script>
@@ -49,6 +52,28 @@
             this.showCategoryDropdown = true
         },
         methods: {
+            sendNestedMessage(author, text, style = 'default') {
+                return new Promise((resolve) => {
+                    const basicMessage = {
+                        author: author,
+                        style: style,
+                        resolve: resolve
+                    };
+                    let message;
+                    if (style === 'default')
+                        message = {
+                        ...basicMessage,
+                            text: text
+                        }
+                    else {
+                        message = {
+                            ...basicMessage,
+                            data: text
+                        }
+                    }
+                    this.$root.$emit('addNestedMessage', message)
+                });
+            },
             categoryDropdownOnClick(value) {
                 this.category = value;
                 this.showCategoryDropdown = false;
@@ -57,18 +82,22 @@
                         this.$root.$emit("showDanger", this.$t('food.errors.errorGetRestaurantData') + restaurantData.errors[0]);
                     else {
                         this.restaurantData = restaurantData;
-                        this.$root.$emit('sendNestedMessage', 'user', `${this.$t('user.myChoice')} ${this.category}`);
-                        this.$root.$emit('sendNestedMessage', 'bot', `${this.$t('food.bot.foodPredictions')}
-                                               ${this.city.city} ${this.$t('food.bot.for')} ${this.category}`);
-                        this.$root.$emit('sendNestedData', 'bot', this.restaurantData, 'restaurantMessage');
-                        this.moreDetails = true;
+                        this.sendNestedMessage( 'user', `${this.$t('user.myChoice')} ${this.category}`).then(() => {
+                            this.sendNestedMessage( 'bot', `${this.$t('food.bot.foodPredictions')}
+                                               ${this.city.city} ${this.$t('food.bot.for')} ${this.category}`).then(() => {
+                                this.sendNestedMessage(  'bot', this.restaurantData, 'restaurantMessage').then(() => {
+                                    this.moreDetails = true;
+                                })
+                            })
+                        })
                     }
-                });
+                })
             },
             showNewCategoryMessage() {
                 this.moreDetails = false;
-                this.$root.$emit('sendNestedMessage', 'user', this.$t('food.user.choiceNewCategory'));
-                this.$root.$emit('sendNestedMessage', 'bot', this.$t('food.bot.foodCategory'));
+                this.sendNestedMessage('user', this.$t('food.user.choiceNewCategory')).then(() => {
+                    this.sendNestedMessage('bot', this.$t('food.bot.foodCategory'));
+                });
                 this.$root.$emit('addNewCategoryMessage');
             },
             showAnotherRestaurantMessage() {
@@ -77,24 +106,25 @@
                         this.$root.$emit("showDanger", this.$t('food.errors.errorGetRestaurantData') + restaurantData.errors[0]);
                     else {
                         this.restaurantData = restaurantData;
-                        this.$root.$emit('sendNestedData', 'bot', this.restaurantData, 'restaurantMessage');
+                        this.sendNestedMessage( 'bot', this.restaurantData, 'restaurantMessage');
                     }
                 });
             },
             showRatingMessage() {
-                this.$root.$emit('sendNestedMessage', "user", this.$t('food.user.rateRestauration'));
-                this.$root.$emit('sendNestedMessage', "bot", this.$t('food.bot.addRate'));
-                this.rate = true;
                 this.moreDetails = false;
+                this.sendNestedMessage( "user", this.$t('food.user.rateRestauration')).then(() => {
+                    this.sendNestedMessage( "bot", this.$t('food.bot.addRate')).then(()=>{
+                        this.rate = true;
+                    })
+                })
             },
             sendRatedMessage() {
                 this.rate = false;
-                this.$root.$emit('sendNestedMessage', "bot", this.$t('food.bot.ratedRestaurant'));
-                this.endTalk();
-            },
-            endTalk() {
-                this.$root.$emit('sendNestedMessage', "bot", this.$t('weather.bot.anythingToDo'));
-                this.$root.$emit('exitCategory');
+                this.sendNestedMessage( "bot", this.$t('food.bot.ratedRestaurant')).then(() => {
+                    this.sendNestedMessage( "bot", this.$t('weather.bot.anythingToDo')).then(() => {
+                        this.$root.$emit('exitCategory');
+                    })
+                });
             },
         },
 

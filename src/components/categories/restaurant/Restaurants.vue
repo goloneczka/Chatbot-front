@@ -1,10 +1,11 @@
 <template>
     <div>
         <div id="restaurant-component">
-            <transition name="button-picker-slide" >
-                <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown" />
+            <transition name="button-picker-slide">
+                <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown"
+                              style="--delay: var(--chat-box-meassage-double-delay)"/>
             </transition>
-            <div v-for="index in choosenCategories" v-bind:key=index>
+            <div v-for="(item, index) in choosenCategories" v-bind:key=index>
                 <RestaurantCategory :number=index :city="city"/>
             </div>
         </div>
@@ -39,11 +40,8 @@
             this.$root.$on('addNewCategoryMessage', () => {
                 this.choosenCategories.push(true)
             });
-            this.$root.$on('sendNestedMessage', (auth, text) => {
-                this.sendMessage(auth, text);
-            });
-            this.$root.$on('sendNestedData', (auth, text, style) => {
-                this.sendData(auth, text, style);
+            this.$root.$on('addNestedMessage', (auth, text, style) => {
+                this.sendNestedMessage(auth, text, style);
             });
         },
         methods: {
@@ -57,18 +55,20 @@
                     })
                 });
             },
-            sendData(author, text,style) {
-                this.$emit('addMessage', {
-                    author: author,
-                    data: text,
-                    style: style
-                })
+            sendNestedMessage(message) {
+                return new Promise((resolveNested) => {
+                    this.$emit('addMessage', {
+                        ...message,
+                        resolve: resolveNested
+                    })
+                }).then(() => message.resolve());
             },
-            cityDropdownOnClick(value){
+            cityDropdownOnClick(value) {
                 this.showCityDropdown = false;
                 this.city = value;
-                this.sendMessage("user", `${this.$t('weather.user.chooseCity')} ${this.city.city}`);
-                this.sendMessage("bot", this.$t('food.bot.foodCategory'));
+                this.sendMessage("user", `${this.$t('weather.user.chooseCity')} ${this.city.city}`).then(() => {
+                    this.sendMessage("bot", this.$t('food.bot.foodCategory'));
+                });
                 this.choosenCategories[0] = true;
             }
         },
