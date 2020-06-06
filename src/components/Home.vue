@@ -73,7 +73,6 @@
     }
 
     nav {
-        border-bottom: var(--home-nav-border);
         margin-bottom: 30px;
     }
 

@@ -1,6 +1,7 @@
 <template>
     <div id="dropdown-button">
-        <b-dropdown :text="$t('user.city')" class="m-2">
+        <b-dropdown :text="$t('user.city')" class="m-2"
+                    v-bind:class="$store.getters.activeTheme.themeName">
             <b-dropdown-item v-for="city in cities" :key="city.id" v-on:click="cityDropdownOnClick(city)">{{city.city}}
             </b-dropdown-item>
         </b-dropdown>

@@ -1,6 +1,6 @@
 <template>
     <div class="category-chooser">
-        <b-dropdown v-bind:text="$t('jokes.user.categories')">
+        <b-dropdown v-bind:text="$t('jokes.user.categories')" v-bind:class="$store.getters.activeTheme.themeName">
             <b-dropdown-item v-for="category in categories" v-bind:key="category" v-on:click="chosenCategory(category)">
                 {{category}}
             </b-dropdown-item>

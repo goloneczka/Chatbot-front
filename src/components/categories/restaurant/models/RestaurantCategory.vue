@@ -3,13 +3,16 @@
         <div>
             <CategoryDropdown v-if="showCategoryDropdown" :city-id="city.id" @categoryDropdownOnClick="categoryDropdownOnClick"/>
             <div id="more-details" v-if="moreDetails">
-                <b-button class="m-2" v-on:click="showNewCategoryMessage">
+                <b-button class="m-2" v-on:click="showNewCategoryMessage"
+                          v-bind:class="$store.getters.activeTheme.themeName">
                     {{$t('food.user.choiceNewCategory')}}
                 </b-button>
-                <b-button class="m-2" v-on:click="showAnotherRestaurantMessage">
+                <b-button class="m-2" v-on:click="showAnotherRestaurantMessage"
+                          v-bind:class="$store.getters.activeTheme.themeName">
                     {{$t('food.user.choiceAnotherRestaurant')}}
                 </b-button>
-                <b-button class="m-2" v-on:click="showRatingMessage">
+                <b-button class="m-2" v-on:click="showRatingMessage"
+                          v-bind:class="$store.getters.activeTheme.themeName">
                     {{$t('food.user.rateRestaurationChoice')}}
                 </b-button>
             </div>

@@ -1,6 +1,7 @@
 <template>
     <div id="dropdown-button">
-        <b-dropdown :text="$t('food.user.restaurant')" class="m-2">
+        <b-dropdown :text="$t('food.user.restaurant')" class="m-2"
+                    v-bind:class="$store.getters.activeTheme.themeName">
             <div class="enable-scroll">
             <b-dropdown-item v-for="category in categories" :key="category"
                              v-on:click="categoryDropdownOnClick(category)" >{{category}} </b-dropdown-item>

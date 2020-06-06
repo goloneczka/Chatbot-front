@@ -112,7 +112,7 @@
     .chat-box-top-border {
         position: sticky;
         top: 202px;
-        margin: 0 -42px;
+        margin: 0 -41px;
         height: 60px;
     }
 
@@ -195,6 +195,8 @@
         border-bottom: var(--home-chat-box-border) var(--home-chat-box-blue-theme-border-color);
         border-left: var(--home-chat-box-border) var(--home-chat-box-blue-theme-border-color);
         border-right: var(--home-chat-box-border) var(--home-chat-box-blue-theme-border-color);
+        border-image-source: var(--home-nav-blue-theme-bg-color);
+        border-image-slice: 5;
     }
 
     .chat-box-top-border.light {
@@ -209,82 +211,13 @@
         border-right: var(--home-chat-box-border) var(--home-chat-box-dark-theme-border-color);
     }
 
-    .chat-box-top-border.blue {;
+    .chat-box-top-border.blue {
         border-top: var(--home-chat-box-border) var(--home-chat-box-blue-theme-border-color);
         border-left: var(--home-chat-box-border) var(--home-chat-box-blue-theme-border-color);
         border-right: var(--home-chat-box-border) var(--home-chat-box-blue-theme-border-color);
+        border-image-source: var(--home-nav-blue-theme-bg-color);
+        border-image-slice: 5;
     }
 
-    button.light, .light /deep/ button {
-        background: var(--button-light-theme-bg-color)!important;
-        color: var(--button-light-theme-text-color)!important;
-        border: var(--button-border-style) var(--button-light-theme-border-color)!important;
-    }
-
-    button.light:hover, .light /deep/ button:hover {
-        background: var(--button-hover-light-theme-bg-color)!important;
-        color: var(--button-hover-light-theme-text-color)!important;
-        border: var(--button-border-style) var(--button-hover-light-theme-border-color)!important;
-    }
-
-    button.light:active, .light /deep/ button:active {
-        background: var(--button-active-light-theme-bg-color)!important;
-        color: var(--button-active-light-theme-text-color)!important;
-        border: var(--button-border-style) var(--button-active-light-theme-border-color)!important;
-    }
-
-    button.light:focus, .light /deep/ button:focus {
-        background: var(--button-active-light-theme-bg-color)!important;
-        color: var(--button-active-light-theme-text-color)!important;
-        border: var(--button-border-style) var(--button-active-light-theme-border-color)!important;
-    }
-
-    button.dark, .dark /deep/ button {
-        background: var(--button-dark-theme-bg-color)!important;
-        color: var(--button-dark-theme-text-color)!important;
-        border: var(--button-border-style) var(--button-dark-theme-border-color)!important;
-    }
-
-    button.dark:hover, .dark /deep/ button:hover {
-        background: var(--button-hover-dark-theme-bg-color)!important;
-        color: var(--button-hover-dark-theme-text-color)!important;
-        border: var(--button-border-style) var(--button-hover-dark-theme-border-color)!important;
-    }
-
-    button.dark:active, .dark /deep/ button:active {
-        background: var(--button-active-dark-theme-bg-color)!important;
-        color: var(--button-active-dark-theme-text-color)!important;
-        border: var(--button-border-style) var(--button-active-dark-theme-border-color)!important;
-    }
-
-    button.dark:focus, .dark /deep/ button:focus {
-        background: var(--button-active-dark-theme-bg-color)!important;
-        color: var(--button-active-dark-theme-text-color)!important;
-        border: var(--button-border-style) var(--button-active-dark-theme-border-color)!important;
-    }
-
-    button.blue, .blue /deep/ button {
-        background: var(--button-blue-theme-bg-color)!important;
-        color: var(--button-blue-theme-text-color)!important;
-        border: var(--button-border-style) var(--button-blue-theme-border-color)!important;
-    }
-
-    button.blue:hover, .blue /deep/ button:hover {
-        background: var(--button-hover-blue-theme-bg-color)!important;
-        color: var(--button-hover-blue-theme-text-color)!important;
-        border: var(--button-border-style) var(--button-hover-blue-theme-border-color)!important;
-    }
-
-    button.blue:active, .blue /deep/ button:active {
-        background: var(--button-active-blue-theme-bg-color)!important;
-        color: var(--button-active-blue-theme-text-color)!important;
-        border: var(--button-border-style) var(--button-active-blue-theme-border-color)!important;
-    }
-
-    button.blue:focus, .blue /deep/ button:focus {
-        background: var(--button-active-blue-theme-bg-color)!important;
-        color: var(--button-active-blue-theme-text-color)!important;
-        border: var(--button-border-style) var(--button-active-blue-theme-border-color)!important;
-    }
 
 </style>

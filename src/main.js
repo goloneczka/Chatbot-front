@@ -29,19 +29,20 @@ router.beforeEach((to, from, next) => {
 
 const store = new Vuex.Store({
     state: {
-        themes: [{
-            themeName: "light",
-            imageSource: require('./assets/light_bot.png'),
-            isActiveTheme: true
-        }, {
-            themeName: "dark",
-            imageSource: require('./assets/dark_bot.png'),
-            isActiveTheme: false
-        }, {
-            themeName: "blue",
-            imageSource: require('./assets/blue_bot.png'),
-            isActiveTheme: false
-        }
+        themes: [
+            {
+                themeName: "blue",
+                imageSource: require('./assets/blue_bot.png'),
+                isActiveTheme: true
+            }, {
+                themeName: "light",
+                imageSource: require('./assets/light_bot.png'),
+                isActiveTheme: false
+            }, {
+                themeName: "dark",
+                imageSource: require('./assets/dark_bot.png'),
+                isActiveTheme: false
+            }
         ]
     },
     mutations: {
