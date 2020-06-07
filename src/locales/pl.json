@@ -6,7 +6,7 @@
     "categoryWeather": "Pogoda",
     "categoryJokes": "Żarty",
     "categoryRestaurants": "Restauracje",
-    "categoryMoney": "Złotówa"
+    "categoryFortune": "Złotówa"
   },
   "user": {
     "city": "Wybór miasta",
@@ -226,7 +226,7 @@
     "password": "Twoje hasło",
     "incorrectData": "Nie poprawne dane logowania!"
   },
-  "money": {
+  "fortune": {
     "user": {
       "entrance": "Chciałbym sprawdzić kursy giełdowe.",
       "currency": "Chciałbym dowiedzieć się czegoś o kursach walut.",
@@ -271,6 +271,12 @@
       "period": "Okres",
       "choicePeriod": "Wybieram okres"
     }
+  },
+  "common": {
+    "dayPicker": "Wybierz dzień"
+  },
+  "errors": {
+    "wrongDate": "Nie wybrano poprawnej daty"
   }
 }
 

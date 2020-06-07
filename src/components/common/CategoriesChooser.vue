@@ -27,8 +27,8 @@
                         eventName: 'restaurant'
                     },
                     {
-                        categoryName: this.$t('bot.categoryMoney'),
-                        eventName: 'money'
+                        categoryName: this.$t('bot.categoryFortune'),
+                        eventName: 'fortune'
                     }
                 ]
             }

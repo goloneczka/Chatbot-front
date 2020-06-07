@@ -1,12 +1,12 @@
 <template>
-    <div class="periodDataComponent">
-        <date-picker v-model="time3" range></date-picker>
+    <div class="period-data-component">
+        <date-picker v-model="timePeriod" range></date-picker>
         <div class="button">
             <b-button
                     size="sm"
                     class="m-2"
                     @click="setPeriod">
-                {{$t('money.buttons.choicePeriod')}}
+                {{$t('fortune.buttons.choicePeriod')}}
             </b-button>
         </div>
     </div>
@@ -22,21 +22,21 @@
         components: {DatePicker},
         data: function () {
             return {
-                time3: null,
+                timePeriod: null,
             }
         },
         mounted() {
         },
         methods: {
             setPeriod() {
-                this.$root.$emit('showPeriodHistory', this.time3);
+                this.$root.$emit('showPeriodHistory', this.timePeriod);
             },
         }
     }
 </script>
 
 <style scoped>
-    .periodDataComponent, .button {
+    .period-data-component, .button {
         text-align: right;
     }
 </style>

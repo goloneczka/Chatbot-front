@@ -1,8 +1,8 @@
 <template>
     <div class="chooseTime">
-        <b-button class="m-2" v-on:click="history">{{$t('money.buttons.history')}}</b-button>
-        <b-button class="m-2" v-on:click="actual">{{$t('money.buttons.actual')}}</b-button>
-        <b-button class="m-2" v-on:click="future">{{$t('money.buttons.future')}}</b-button>
+        <b-button class="m-2" v-on:click="history">{{$t('fortune.buttons.history')}}</b-button>
+        <b-button class="m-2" v-on:click="actual">{{$t('fortune.buttons.actual')}}</b-button>
+        <b-button class="m-2" v-on:click="future">{{$t('fortune.buttons.future')}}</b-button>
     </div>
 </template>
 

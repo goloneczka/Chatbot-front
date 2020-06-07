@@ -1,6 +1,6 @@
 <template>
-    <div class="exchangeChooser">
-        <b-dropdown v-bind:text="$t('money.buttons.choiceExchange')">
+    <div class="exchange-chooser">
+        <b-dropdown v-bind:text="$t('fortune.buttons.choiceExchange')">
             <b-dropdown-item v-for="exchange in exchanges" v-bind:key="exchange" v-on:click="chooseExchange(exchange)">
                 {{exchange.name}}
             </b-dropdown-item>
@@ -12,7 +12,7 @@
 
 
 
-    import {moneyService} from "../../../../App";
+    import {fortuneService} from "../../../../App";
 
     export default {
         name: "ExchangeDropdown",
@@ -22,7 +22,7 @@
             }
         },
         mounted() {
-            moneyService.getAllCompanies().then(result => this.exchanges = result);
+            fortuneService.getAllCompanies().then(result => this.exchanges = result);
         },
         methods:{
             chooseExchange(exchange){
@@ -33,7 +33,7 @@
 </script>
 
 <style scoped>
-    .exchangeChooser {
+    .exchange-chooser {
         text-align: right;
     }
 </style>

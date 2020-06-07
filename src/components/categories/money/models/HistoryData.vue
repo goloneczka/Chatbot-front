@@ -1,5 +1,5 @@
 <template>
-    <div class="HistoryDataComponent">
+    <div class="history-data-component">
     </div>
 </template>
 

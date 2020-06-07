@@ -1,6 +1,6 @@
 <template>
-    <div class="currencyChooser">
-        <b-dropdown v-bind:text="$t('money.buttons.choiceCurrency')">
+    <div class="currency-chooser">
+        <b-dropdown v-bind:text="$t('fortune.buttons.choiceCurrency')">
             <b-dropdown-item v-for="currency in curriences" v-bind:key="currency" v-on:click="chosenCategory(currency)">
                 {{currency.name}}
             </b-dropdown-item>
@@ -10,7 +10,7 @@
 
 <script>
 
-    import { moneyService } from './../../../../App'
+    import { fortuneService } from './../../../../App'
 
     export default {
         name: "CurrencyDropdown",
@@ -20,7 +20,7 @@
             }
         },
         mounted() {
-            moneyService.getAllCurrencies().then(result => this.curriences = result)
+            fortuneService.getAllCurrencies().then(result => this.curriences = result)
         },
         methods:{
             chosenCategory(currency){
@@ -31,11 +31,7 @@
 </script>
 
 <style scoped>
-    .dropdown{
-        margin-left: var(--jokes-button-left-margin);
-        margin-right: var(--jokes-button-right-margin);
-    }
-    .currencyChooser {
+    .currency-chooser {
         text-align: right;
     }
 </style>

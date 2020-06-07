@@ -14,9 +14,9 @@
     import RestaurantsService from "./core/service/RestaurantsService";
     import JokesService from "./core/service/JokesService";
     import Formatter from "./core/functions/Formatter";
-    import MoneyService from "./core/service/MoneyService";
+    import FortuneService from "./core/service/FortuneService";
 
-    const baseUrl = "http://localhost:8081";
+    const baseUrl = process.env.VUE_APP_BASE_URL;
 
     export const authorizationStorage = new AuthorizationStorage();
     export const httpRequest = new HttpRequest(baseUrl, authorizationStorage);
@@ -26,7 +26,7 @@
     export const weatherService = new WeatherService(httpRequest);
     export const restaurantService = new RestaurantsService(httpRequest);
     export const jokesService = new JokesService(httpRequest);
-    export const moneyService = new MoneyService(httpRequest);
+    export const fortuneService = new FortuneService(httpRequest);
 
     export default {
         name: 'App',

@@ -1,24 +1,22 @@
 <template>
     <div>
-        <div id="money-component">
-            <div class="userButtons" v-if=exchangeCurrencyButtons>
-                <b-button class="m-2" v-on:click="showExchange">{{$t('money.buttons.exchange')}}</b-button>
-                <b-button class="m-2" v-on:click="showCurrency">{{$t('money.buttons.currency')}}</b-button>
-            </div>
-            <ExchangeDropdown v-if="showExchanges"/>
-            <CurrencyDropdown v-if="showCurrencies"/>
-            <CurrencyDropdown v-if="showAnotherCurrencies"/>
-            <ChooseTime v-if="showTimeButtons"/>
-            <div class="choiceDate" v-if="choosePeriod">
-                <b-button class="m-2" v-on:click="showDayChoiceComponent">{{$t('money.buttons.day')}}</b-button>
-                <b-button class="m-2" v-on:click="showPeriodChoiceComponent">{{$t('money.buttons.period')}}</b-button>
-            </div>
-            <DayChooseComponent v-if="showDayChooser"/>
-            <PeriodChooseComponent v-if="showPeriodChooser"/>
-            <div>
-                <HistoryData :stocks="this.data" v-if="showHistoryDataComponent"/>
-                <FutureData :stocks="this.data" v-if="showFutureDataComponent"/>
-            </div>
+        <div class="user-buttons" v-if=exchangeCurrencyButtons>
+            <b-button class="m-2" v-on:click="showExchange">{{$t('fortune.buttons.exchange')}}</b-button>
+            <b-button class="m-2" v-on:click="showCurrency">{{$t('fortune.buttons.currency')}}</b-button>
+        </div>
+        <ExchangeDropdown v-if="showExchanges"/>
+        <CurrencyDropdown v-if="showCurrencies"/>
+        <CurrencyDropdown v-if="showAnotherCurrencies"/>
+        <ChooseTime v-if="showTimeButtons"/>
+        <div class="choice-date" v-if="choosePeriod">
+            <b-button class="m-2" v-on:click="showDayChoiceComponent">{{$t('fortune.buttons.day')}}</b-button>
+            <b-button class="m-2" v-on:click="showPeriodChoiceComponent">{{$t('fortune.buttons.period')}}</b-button>
+        </div>
+        <DayChooseComponent v-if="showDayChooser"/>
+        <PeriodChooseComponent v-if="showPeriodChooser"/>
+        <div>
+            <HistoryData :stocks="this.data" v-if="showHistoryDataComponent"/>
+            <FutureData :stocks="this.data" v-if="showFutureDataComponent"/>
         </div>
     </div>
 </template>
@@ -31,12 +29,11 @@
     import PeriodChooseComponent from "./models/PeriodChooseComponent"
     import HistoryData from "./models/HistoryData";
     import FutureData from "./models/FutureData";
-    import {moneyService} from "../../../App";
-
-    import moment from 'moment';
+    import {fortuneService} from "../../../App";
+    import {formatter} from  "../../../App";
 
     export default {
-        name: 'Money',
+        name: 'Fortune',
         components: {
             FutureData,
             HistoryData,
@@ -49,10 +46,8 @@
                 showExchanges: false,
                 showCurrencies: false,
                 showAnotherCurrencies: false,
-                currency: null,
                 isCurrency: true,
-                exchange: null,
-                secondCurrency: null,
+                symbol: null,
                 showTimeButtons: false,
                 choosePeriod: false,
                 showDayChooser: false,
@@ -64,8 +59,8 @@
             }
         },
         created() {
-            this.$emit('addMessage', {author: "user", text: this.$t('money.user.entrance'), style: "default"});
-            this.$emit('addMessage', {author: "bot", text: this.$t('money.bot.entrance'), style: "default"});
+            this.$emit('addMessage', {author: "user", text: this.$t('fortune.user.entrance'), style: "default"});
+            this.$emit('addMessage', {author: "bot", text: this.$t('fortune.bot.entrance'), style: "default"});
             this.$root.$on('showCurrency', (currency) => this.showAnotherCurrency(currency));
             this.$root.$on('chooseExchange', (exchange) => this.showExchangeAndButtons(exchange));
             this.$root.$on('showActualData', () => this.showActualData());
@@ -77,43 +72,43 @@
         methods: {
             showExchange() {
                 this.exchangeCurrencyButtons = false;
-                this.$emit('addMessage', {author: "user", text: this.$t('money.user.exchange'), style: "default"});
-                this.$emit('addMessage', {author: "bot", text: this.$t('money.bot.exchange'), style: "default"});
+                this.$emit('addMessage', {author: "user", text: this.$t('fortune.user.exchange'), style: "default"});
+                this.$emit('addMessage', {author: "bot", text: this.$t('fortune.bot.exchange'), style: "default"});
                 this.showExchanges = true;
             },
             showCurrency() {
                 this.isCurrency = true;
                 this.exchangeCurrencyButtons = false;
-                this.$emit('addMessage', {author: "user", text: this.$t('money.user.currency'), style: "default"});
-                this.$emit('addMessage', {author: "bot", text: this.$t('money.bot.currency'), style: "default"});
+                this.$emit('addMessage', {author: "user", text: this.$t('fortune.user.currency'), style: "default"});
+                this.$emit('addMessage', {author: "bot", text: this.$t('fortune.bot.currency'), style: "default"});
                 this.showCurrencies = true;
             },
             showAnotherCurrency(currency) {
-                if (this.currency === null) {
-                    this.currency = currency.symbol;
+                if (this.symbol === null) {
+                    this.symbol = currency.symbol;
                     this.showCurrencies = false;
                     this.$emit('addMessage', {
                         author: "user",
-                        text: `${this.$t('money.user.chosenCurrency')} ${currency.name}`,
+                        text: `${this.$t('fortune.user.chosenCurrency')} ${currency.name}`,
                         style: "default"
                     });
                     this.$emit('addMessage', {
                         author: "bot",
-                        text: this.$t('money.bot.anotherCurrency'),
+                        text: this.$t('fortune.bot.anotherCurrency'),
                         style: "default"
                     });
                     this.showAnotherCurrencies = true;
                 } else {
                     this.showAnotherCurrencies = false;
-                    this.secondCurrency = currency.symbol;
+                    this.symbol = `${this.symbol}=${currency.symbol}`;
                     this.$emit('addMessage', {
                         author: "user",
-                        text: `${this.$t('money.user.chosenCurrency')} ${currency.name}`,
+                        text: `${this.$t('fortune.user.chosenCurrency')} ${currency.name}`,
                         style: "default"
                     });
                     this.$emit('addMessage', {
                         author: "bot",
-                        text: this.$t('money.bot.chooseTime'),
+                        text: this.$t('fortune.bot.chooseTime'),
                         style: "default"
                     });
                     this.showTimeButtons = true;
@@ -121,15 +116,15 @@
             },
             showExchangeAndButtons(exchange) {
                 this.showExchanges = false;
-                this.exchange = exchange.symbol;
+                this.symbol = exchange.symbol;
                 this.$emit('addMessage', {
                     author: "user",
-                    text: `${this.$t('money.user.chosenExchange')} ${exchange.name}`,
+                    text: `${this.$t('fortune.user.chosenExchange')} ${exchange.name}`,
                     style: "default"
                 });
                 this.$emit('addMessage', {
                     author: "bot",
-                    text: this.$t('money.bot.chooseTime'),
+                    text: this.$t('fortune.bot.chooseTime'),
                     style: "default"
                 });
                 this.showTimeButtons = true;
@@ -138,12 +133,12 @@
                 this.showTimeButtons = false;
                 this.$emit('addMessage', {
                     author: "user",
-                    text: `${this.$t('money.user.chosenHistory')}`,
+                    text: `${this.$t('fortune.user.chosenHistory')}`,
                     style: "default"
                 });
                 this.$emit('addMessage', {
                     author: "bot",
-                    text: this.$t('money.bot.historyChoice'),
+                    text: this.$t('fortune.bot.historyChoice'),
                     style: "default"
                 });
                 this.choosePeriod = true;
@@ -152,12 +147,12 @@
                 this.choosePeriod = false;
                 this.$emit('addMessage', {
                     author: "user",
-                    text: `${this.$t('money.user.chosenDay')}`,
+                    text: `${this.$t('fortune.user.chosenDay')}`,
                     style: "default"
                 });
                 this.$emit('addMessage', {
                     author: "bot",
-                    text: this.$t('money.bot.dayChoice'),
+                    text: this.$t('fortune.bot.dayChoice'),
                     style: "default"
                 });
                 this.showDayChooser = true;
@@ -166,12 +161,12 @@
                 this.choosePeriod = false;
                 this.$emit('addMessage', {
                     author: "user",
-                    text: `${this.$t('money.user.chosenPeriod')}`,
+                    text: `${this.$t('fortune.user.chosenPeriod')}`,
                     style: "default"
                 });
                 this.$emit('addMessage', {
                     author: "bot",
-                    text: this.$t('money.bot.periodChoice'),
+                    text: this.$t('fortune.bot.periodChoice'),
                     style: "default"
                 });
                 this.showPeriodChooser = true;
@@ -180,19 +175,19 @@
                 this.showTimeButtons = false;
                 this.$emit('addMessage', {
                     author: "user",
-                    text: `${this.$t('money.user.chosenActual')}`,
+                    text: `${this.$t('fortune.user.chosenActual')}`,
                     style: "default"
                 });
                 this.$emit('addMessage', {
                     author: "bot",
-                    text: this.$t('money.bot.actualData'),
+                    text: this.$t('fortune.bot.actualData'),
                     style: "default"
                 });
-                moneyService.getActualDataForSymbol(this.isCurrency === null ? this.currency : this.exchange, moment(Date.now()).format('YYYY-MM-DD'))
+                fortuneService.getActualDataForSymbol(this.symbol, formatter.formatDate(Date.now()))
                     .then(response => {
                         this.$emit('addMessage', {
                             author: "bot",
-                            text: `${this.$t('money.bot.valueStockToday')} ${this.$t('money.bot.isValue')} ${response.value}`,
+                            text: `${this.$t('fortune.bot.valueStockToday')} ${this.$t('fortune.bot.isValue')} ${response.value}`,
                             style: "default"
                         });
                     })
@@ -201,16 +196,16 @@
                 this.showTimeButtons = false;
                 this.$emit('addMessage', {
                     author: "user",
-                    text: `${this.$t('money.user.chosenFuture')}`,
+                    text: `${this.$t('fortune.user.chosenFuture')}`,
                     style: "default"
                 });
                 this.$emit('addMessage', {
                     author: "bot",
-                    text: this.$t('money.bot.futureData'),
+                    text: this.$t('fortune.bot.futureData'),
                     style: "default"
                 });
                 this.showFutureDataComponent = true;
-                moneyService.getFutureDataForSymbol(this.isCurrency === null ? this.currency : this.exchange)
+                fortuneService.getFutureDataForSymbol(this.symbol)
                     .then(response => {
                         this.data = response;
                         this.showFutureDataComponent = true;
@@ -220,14 +215,14 @@
                 this.showDayChooser = false;
                 this.$emit('addMessage', {
                     author: "user",
-                    text: `${this.$t('money.user.myChoice')} ${data[0]}`,
+                    text: `${this.$t('fortune.user.myChoice')} ${data[0]}`,
                     style: "default"
                 });
-                moneyService.getHistoryDataForSymbol(this.isCurrency === null ? this.currency : this.exchange, moment(data[1]).format('YYYY-MM-DD'))
+                fortuneService.getHistoryDataForSymbol(this.symbol, formatter)
                     .then(response => {
                         this.$emit('addMessage', {
                             author: "bot",
-                            text: `${this.$t('money.bot.valueStockInDay')} ${data[0]} ${this.$t('money.bot.value')} ${response.value}`,
+                            text: `${this.$t('fortune.bot.valueStockInDay')} ${data[0]} ${this.$t('fortune.bot.value')} ${response.value}`,
                             style: "default"
                         });
                     })
@@ -236,16 +231,16 @@
                 this.showPeriodChooser = false;
                 this.$emit('addMessage', {
                     author: "user",
-                    text: `${this.$t('money.user.myChoice')} ${new Date(data[0]).toLocaleDateString()} ${this.$t('money.user.to')}
+                    text: `${this.$t('fortune.user.myChoice')} ${new Date(data[0]).toLocaleDateString()} ${this.$t('fortune.user.to')}
                     ${new Date(data[1]).toLocaleDateString()}`,
                     style: "default"
                 });
                 this.$emit('addMessage', {
                     author: "bot",
-                    text: this.$t('money.bot.historyData'),
+                    text: this.$t('fortune.bot.historyData'),
                     style: "default"
                 });
-                moneyService.getHistoryDataForSymbolForPeriod(this.isCurrency === null ? this.currency : this.exchange, moment(data[0]).format('YYYY-MM-DD'), moment(data[1]).format('YYYY-MM-DD'))
+                fortuneService.getHistoryDataForSymbolForPeriod(this.symbol, formatter.formatDate(data[0]), formatter.formatDate(data[1]))
                     .then(response => {
                         this.data = response;
                         this.showHistoryDataComponent = true;
@@ -256,7 +251,7 @@
     }
 </script>
 <style scoped>
-    .userButtons, .choiceDate {
+    .user-buttons, .choice-date {
         text-align: right;
     }
 </style>

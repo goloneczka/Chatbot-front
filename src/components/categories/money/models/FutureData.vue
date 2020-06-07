@@ -1,5 +1,5 @@
 <template>
-    <div class="futureDataComponent">
+    <div class="future-data-component">
     </div>
 </template>
 
