@@ -27,6 +27,8 @@
             <Jokes v-on:addMessage="addMessage($event)" v-if="activeCategory === 'jokes'"></Jokes>
             <Restaurants v-on:addMessage="addMessage($event)" :botIconSource="this.botIconSource"
                         v-if="activeCategory === 'restaurant'"/>
+            <Fortune v-on:addMessage="addMessage($event)" :botIconSource="this.botIconSource"
+                   v-if="activeCategory === 'fortune'" />
         </div>
     </div>
 </template>
@@ -40,6 +42,7 @@
     import JokesMessage from "../categories/jokes/JokesMessage";
     import Restaurants from "../categories/restaurant/Restaurants";
     import RestaurantMessage from "../categories/restaurant/models/RestaurantMessage";
+    import Fortune from "../categories/money/Fortune";
 
     export default {
         name: "ChatBox",
@@ -50,7 +53,8 @@
             Jokes,
             WeatherDetailsMessage,
             WeatherMessage,
-            Weather
+            Weather,
+            Fortune
         },
         props: ["botIconSource"],
         data: function () {
