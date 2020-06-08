@@ -32,7 +32,7 @@
             this.city = this.data.city;
             this.time = this.data.time;
             this.weather = this.data.summary;
-            this.temperature = this.data.temperature;
+            this.temperature = Math.round(this.data.temperature);
             this.src = this.data.icon;
         }
 

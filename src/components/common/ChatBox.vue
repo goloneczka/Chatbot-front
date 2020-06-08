@@ -5,7 +5,7 @@
             <li class="message"
                 v-for="(message, index) in messages"
                 v-bind:key="index"
-                v-bind:class="message.author">
+                v-bind:class="message.author" v-bind:data-with="message.author">
                 <div v-if="message.style === 'default'"><a>{{message.text}}</a></div>
                 <weather-message v-bind:data="message.data"
                                  v-else-if="message.style === 'weatherMessage'"></weather-message>
@@ -30,6 +30,8 @@
             <Weather v-on:addMessage="addMessage($event)" v-if="activeCategory === 'weather'"
                      v-on:exitCategory="changeCategory(null)"/>
             <Jokes v-on:addMessage="addMessage($event)" v-if="activeCategory === 'jokes'"></Jokes>
+            <Fortune v-on:addMessage="addMessage($event)" :botIconSource="this.botIconSource"
+                   v-if="activeCategory === 'fortune'" />
             <Restaurants v-on:addMessage="addMessage($event)" v-if="activeCategory === 'restaurant'"/>
         </div>
     </div>
@@ -45,6 +47,7 @@
     import Restaurants from "../categories/restaurant/Restaurants";
     import RestaurantMessage from "../categories/restaurant/models/RestaurantMessage";
     import ChatBoxAnimation from "./ChatBoxAnimation";
+    import Fortune from "../categories/money/Fortune";
 
     export default {
         name: "ChatBox",
@@ -56,7 +59,8 @@
             WeatherDetailsMessage,
             WeatherMessage,
             Weather,
-            ChatBoxAnimation
+            ChatBoxAnimation,
+            Fortune
         },
         props: ["botIconSource"],
         data: function () {
@@ -100,7 +104,7 @@
                         return index;
                     }
                 }
-                return 0;
+                return index;
             },
             lastUserMessageIndex: function () {
                 let index = this.messages.length - 1;
@@ -157,16 +161,19 @@
     li > div {
         padding: 10px;
         margin-bottom: 20px;
-        background: var(--chat-box-mesaage-bg-color);
+        background: var(--chat-box-mesaage-bg-bot-color);
         color: white;
         display: inline-flex;
         border: var(--chat-box-meassage-border);
+    }
+    li.message[data-with="user"] > div {
+        background: var(--chat-box-mesaage-bg-user-color);
     }
 
     .animate-bot-message {
         padding: 10px;
         margin-bottom: 15px;
-        background: var(--chat-box-mesaage-bg-color);
+        background: var(--chat-box-mesaage-bg-bot-color);
         color: white;
         display: block;
         max-width: 70px;
@@ -177,7 +184,7 @@
         margin-left:0;
         padding: 10px;
         margin-bottom: 15px;
-        background: var(--chat-box-mesaage-bg-color);
+        background: var(--chat-box-mesaage-bg-bot-color);
         color: white;
         display: inline-block;
         border: var(--chat-box-meassage-border);
