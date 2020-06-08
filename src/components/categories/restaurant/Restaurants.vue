@@ -2,8 +2,7 @@
     <div>
         <div id="restaurant-component">
             <transition name="button-picker-slide">
-                <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown"
-                              style="--delay: var(--chat-box-meassage-double-delay)"/>
+                <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown"/>
             </transition>
             <div v-for="(item, index) in choosenCategories" v-bind:key=index>
                 <RestaurantCategory :number=index :city="city"/>
@@ -32,11 +31,12 @@
         },
         created() {
             this.sendMessage("user", this.$t('food.user.choiceRestaurant')).then(() => {
-                this.sendMessage("bot", this.$t('weather.bot.introduction'));
+                this.sendMessage("bot", this.$t('weather.bot.introduction')).then(() => {
+                    this.showCityDropdown = true;
+                })
             });
         },
         mounted() {
-            this.showCityDropdown = true;
             this.$root.$on('addNewCategoryMessage', () => {
                 this.choosenCategories.push(true)
             });
