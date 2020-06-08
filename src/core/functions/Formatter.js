@@ -6,7 +6,7 @@ export default class Formatter {
         return text.split("\n");
     }
 
-    formatDate(data){
-        return moment(data).format('YYYY-MM-DD');
+    formatDate(date){
+        return moment(date).format('YYYY-MM-DD');
     }
 }
