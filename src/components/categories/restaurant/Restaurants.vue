@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="restaurant-component">
-            <transition name="button-picker-slide">
+            <transition name="button-dropdown-slide">
                 <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown"/>
             </transition>
             <div v-for="(item, index) in choosenCategories" v-bind:key=index>
@@ -14,6 +14,7 @@
 
     import CityDropdown from "./models/CityDropdown";
     import RestaurantCategory from "./models/RestaurantCategory";
+    import {setMessage} from "../../common/messages";
 
     export default {
         name: 'Restaurants',
@@ -45,14 +46,10 @@
             });
         },
         methods: {
-            sendMessage(author, text) {
+            sendMessage(author, text, style = 'default') {
                 return new Promise((resolve) => {
-                    this.$emit('addMessage', {
-                        author: author,
-                        text: text,
-                        style: 'default',
-                        resolve: resolve
-                    })
+                    const message = setMessage(author, text, style, resolve)
+                    this.$emit('addMessage', message)
                 });
             },
             sendNestedMessage(message) {
@@ -67,14 +64,15 @@
                 this.showCityDropdown = false;
                 this.city = value;
                 this.sendMessage("user", `${this.$t('weather.user.chooseCity')} ${this.city.city}`).then(() => {
-                    this.sendMessage("bot", this.$t('food.bot.foodCategory'));
+                    this.sendMessage("bot", this.$t('food.bot.foodCategory')).then(() => {
+                        this.choosenCategories.push(true);
+                    })
                 });
-                this.choosenCategories[0] = true;
             }
         },
     }
 </script>
 <style scoped>
-    @import "../../../../src/assets/buttonAnimate.css";
+    @import "../../../../src/assets/buttonDropdownAnimate.css";
 
 </style>

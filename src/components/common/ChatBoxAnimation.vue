@@ -25,13 +25,14 @@
             }
         },
         mounted() {
-            this.$root.$on('messageAnimate', (resolve) => {
+            this.$root.$on('messageAnimate', (author, resolve) => {
+                const t = author === 'bot' ? 2000 : 1200;
                 this.loading = true;
                 this.scrollDown();
                 setTimeout(() => {
                     this.loading = false
                     resolve()
-                }, 2000)
+                }, t)
             });
             this.$root.$on('scrollAnimate', () => {
                 this.scrollDown();

@@ -1,9 +1,8 @@
 <template>
     <div>
-        <transition name="button-picker-slide">
+        <transition name="button-dropdown-slide">
             <CategoryDropdown v-if="showCategoryDropdown" :city-id="city.id"
-                              @categoryDropdownOnClick="categoryDropdownOnClick"
-                              style="--delay: var(--chat-box-meassage-double-delay)"/>
+                              @categoryDropdownOnClick="categoryDropdownOnClick" />
         </transition>
         <transition name="button-picker-slide">
             <div id="more-details" v-if="moreDetails" >
@@ -29,6 +28,7 @@
     import {restaurantService} from "../../../../App";
     import CategoryDropdown from "./CategoryDropdown";
     import RatingRestaurant from "./RatingRestaurant";
+    import {setMessage} from "../../../common/messages";
 
 
     export default {
@@ -49,28 +49,12 @@
             }
         },
         mounted() {
-            this.showCategoryDropdown = true
+            this.showCategoryDropdown = true;
         },
         methods: {
             sendNestedMessage(author, text, style = 'default') {
                 return new Promise((resolve) => {
-                    const basicMessage = {
-                        author: author,
-                        style: style,
-                        resolve: resolve
-                    };
-                    let message;
-                    if (style === 'default')
-                        message = {
-                        ...basicMessage,
-                            text: text
-                        }
-                    else {
-                        message = {
-                            ...basicMessage,
-                            data: text
-                        }
-                    }
+                    const message = setMessage(author, text, style, resolve)
                     this.$root.$emit('addNestedMessage', message)
                 });
             },
@@ -96,9 +80,10 @@
             showNewCategoryMessage() {
                 this.moreDetails = false;
                 this.sendNestedMessage('user', this.$t('food.user.choiceNewCategory')).then(() => {
-                    this.sendNestedMessage('bot', this.$t('food.bot.foodCategory'));
+                    this.sendNestedMessage('bot', this.$t('food.bot.foodCategory')).then(() => {
+                        this.$root.$emit('addNewCategoryMessage');
+                    })
                 });
-                this.$root.$emit('addNewCategoryMessage');
             },
             showAnotherRestaurantMessage() {
                 restaurantService.getRestaurantOfCityAndCategory(this.city.id, this.category).then((restaurantData) => {
@@ -132,6 +117,8 @@
 </script>
 <style scoped>
     @import "../../../../../src/assets/buttonAnimate.css";
+    @import "../../../../../src/assets/buttonDropdownAnimate.css";
+
 
     #more-details {
         text-align: right;

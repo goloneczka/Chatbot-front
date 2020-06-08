@@ -1,6 +1,6 @@
 <template>
     <div class="jokes-component">
-        <transition name="button-picker-slide">
+        <transition name="button-dropdown-slide">
             <div v-if="showCategories" class="categoryChooser">
                 <b-button v-on:click="showJoke(null)">
                     {{$t('jokes.user.randomCategoryChosen')}}
@@ -31,6 +31,7 @@
     import {formatter} from "../../../App";
     import RatingJoke from "./RatingJoke";
     import TellJokeForm from "./TellJokeForm";
+    import {setMessage} from "../../common/messages";
 
     export default {
         name: "Jokes",
@@ -63,23 +64,7 @@
         methods: {
             sendMessage(author, text, style = 'default') {
                 return new Promise((resolve) => {
-                    const basicMessage = {
-                        author: author,
-                        style: style,
-                        resolve: resolve
-                    };
-                    let message;
-                    if (style === 'default')
-                        message = {
-                            ...basicMessage,
-                            text: text
-                        }
-                    else {
-                        message = {
-                            ...basicMessage,
-                            data: text
-                        }
-                    }
+                    const message = setMessage(author, text, style, resolve)
                     this.$emit('addMessage', message)
                 })
             },
@@ -199,6 +184,8 @@
 
 <style scoped>
     @import "../../../../src/assets/buttonAnimate.css";
+    @import "../../../../src/assets/buttonDropdownAnimate.css";
+
 
     .jokes-component {
         text-align: right;

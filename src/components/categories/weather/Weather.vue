@@ -1,12 +1,13 @@
 <template>
     <div>
         <div id="weather-component">
-            <transition name="button-picker-slide">
+            <transition name="button-dropdown-slide">
             <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown"/>
             </transition>
-            <transition name="button-picker-slide">
+            <transition name="button-dropdown-slide">
             <TimeDropdown v-on:showWeatherMessage="showWeatherMessage($event)" v-if="showTimeDropdown"/>
             </transition>
+            <transition name="button-picker-slide">
             <div class="weather-buttons" v-if="endOrDetailsButtons">
                 <b-button id="endWeatherTalkButton" class="m-2" v-on:click="this.endWeatherTalk">
                     {{$t('weather.user.thank')}}
@@ -15,12 +16,14 @@
                     {{$t('weather.user.moreDetails')}}
                 </b-button>
             </div>
+            </transition>
         </div>
     </div>
 </template>
 <script>
 
     import {weatherService} from "../../../App";
+    import {setMessage} from  "../../common/messages"
 
     import CityDropdown from "./models/CityDropdown";
     import TimeDropdown from "./models/TimeDropdown";
@@ -57,23 +60,7 @@
         methods: {
             sendMessage(author, text, style = 'default') {
                 return new Promise((resolve) => {
-                    const basicMessage = {
-                        author: author,
-                        style: style,
-                        resolve: resolve
-                    };
-                    let message;
-                    if (style === 'default')
-                        message = {
-                            ...basicMessage,
-                            text: text
-                        }
-                    else {
-                        message = {
-                            ...basicMessage,
-                            data: text
-                        }
-                    }
+                    const message = setMessage(author, text, style, resolve)
                     this.$emit('addMessage', message);
                 });
             },
@@ -131,6 +118,8 @@
 </script>
 <style scoped>
     @import "../../../../src/assets/buttonAnimate.css";
+    @import "../../../../src/assets/buttonDropdownAnimate.css";
+
     .weather-buttons {
         text-align: right;
     }
