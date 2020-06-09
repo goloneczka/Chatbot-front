@@ -28,6 +28,9 @@
             <Jokes v-on:addMessage="addMessage($event)" v-if="activeCategory === 'jokes'"></Jokes>
             <Restaurants v-on:addMessage="addMessage($event)" :botIconSource="themeService.getActiveTheme().imageSource"
                          v-if="activeCategory === 'restaurant'"/>
+            <Fortune v-on:addMessage="addMessage($event)" :botIconSource="themeService.getActiveTheme().imageSource"
+                   v-if="activeCategory === 'fortune'" />
+
         </div>
     </div>
 </template>
@@ -41,6 +44,7 @@
     import JokesMessage from "../categories/jokes/JokesMessage";
     import Restaurants from "../categories/restaurant/Restaurants";
     import RestaurantMessage from "../categories/restaurant/models/RestaurantMessage";
+    import Fortune from "../categories/money/Fortune";
 
     import {themeService} from "../../App";
 
@@ -53,7 +57,8 @@
             Jokes,
             WeatherDetailsMessage,
             WeatherMessage,
-            Weather
+            Weather,
+            Fortune
         },
         data: function () {
             return {

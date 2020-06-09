@@ -35,7 +35,7 @@
             return {
                 context: null,
                 labels: {
-                    labelNoDateSelected: this.$t('weather.error.wrongDate'),
+                    labelNoDateSelected: this.$t('errors.wrongDate'),
                 },
                 min: minDate,
                 max: maxDate,
@@ -45,7 +45,7 @@
         methods: {
             setDay() {
                 if (this.context.selectedFormatted === this.$t('weather.error.wrongDate')) {
-                    this.$root.$emit("showDanger", this.$t('weather.error.wrongDate'))
+                    this.$root.$emit("showDanger", this.$t('errors.wrongDate'))
                 } else if (moment(this.context.activeYMD).isBefore(moment().format('l'))) {
                     this.$root.$emit("showDanger", this.$t('weather.error.backDate'))
                 } else {

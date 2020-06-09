@@ -27,6 +27,10 @@
                     {
                         categoryName: this.$t('bot.categoryRestaurants'),
                         eventName: 'restaurant'
+                    },
+                    {
+                        categoryName: this.$t('bot.categoryFortune'),
+                        eventName: 'fortune'
                     }
                 ],
                 themeService
