@@ -1,20 +1,20 @@
 <template>
     <div class="jokes-component">
         <div v-if="showCategories" class="categoryChooser">
-            <b-button v-on:click="showJoke(null)" v-bind:class="$store.getters.activeTheme.themeName">
+            <b-button v-on:click="showJoke(null)" v-bind:class="themeService.getActiveTheme().themeName">
                 {{$t('jokes.user.randomCategoryChosen')}}
             </b-button>
             <JokesCategoryChooser v-on:chooseCategory="showJoke($event)"></JokesCategoryChooser>
         </div>
         <div v-if="showNextSteps">
             <b-button v-if="showRatingJokesBtn" v-on:click="showRatingComponent()"
-                      v-bind:class="$store.getters.activeTheme.themeName">{{$t('jokes.user.rateJokeBtn')}}
+                      v-bind:class="themeService.getActiveTheme().themeName">{{$t('jokes.user.rateJokeBtn')}}
             </b-button>
             <b-button v-if="showCategoriesBtn" v-on:click="showAnotherJoke()"
-                      v-bind:class="$store.getters.activeTheme.themeName">{{$t('jokes.user.choiceJokes')}}
+                      v-bind:class="themeService.getActiveTheme().themeName">{{$t('jokes.user.choiceJokes')}}
             </b-button>
             <b-button v-if="showNewJokeBtn" v-on:click="showNewJoke()"
-                      v-bind:class="$store.getters.activeTheme.themeName">{{$t('jokes.user.tellJokeBtn')}}
+                      v-bind:class="themeService.getActiveTheme().themeName">{{$t('jokes.user.tellJokeBtn')}}
             </b-button>
         </div>
         <RatingJoke v-bind:joke-id="shownJoke.id" v-if="showRatingJokesComponent"
@@ -30,6 +30,7 @@
     import {formatter} from "../../../App";
     import RatingJoke from "./RatingJoke";
     import TellJokeForm from "./TellJokeForm";
+    import {themeService} from "../../../App";
 
     export default {
         name: "Jokes",
@@ -45,7 +46,8 @@
                 showNextSteps: false,
                 shownJoke: null,
                 maxRate: 5,
-                error: ''
+                error: '',
+                themeService
             }
         },
         created() {
@@ -177,85 +179,6 @@
 
     /deep/ button {
         border-radius: 1.0rem;
-    }
-
-    /deep/ button.light, /deep/ .light /deep/ button {
-        background: var(--chat-button-light-theme-bg-color) !important;
-        color: var(--chat-button-light-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-light-theme-border-color) !important;
-    }
-
-    /deep/ button.light:hover, /deep/ .light /deep/ button:hover {
-        background: var(--chat-button-hover-light-theme-bg-color) !important;
-        color: var(--chat-button-hover-light-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-hover-light-theme-border-color) !important;
-    }
-
-    /deep/ button.light:active, /deep/ .light /deep/ button:active {
-        background: var(--chat-button-active-light-theme-bg-color) !important;
-        color: var(--chat-button-active-light-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-active-light-theme-border-color) !important;
-        box-shadow: none !important;
-    }
-
-    /deep/ button.light:focus, /deep/ .light /deep/ button:focus {
-        background: var(--chat-button-active-light-theme-bg-color) !important;
-        color: var(--chat-button-active-light-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-active-light-theme-border-color) !important;
-        box-shadow: none !important;
-    }
-
-    /deep/ button.dark, /deep/ .dark /deep/ button {
-        background: var(--chat-button-dark-theme-bg-color) !important;
-        color: var(--chat-button-dark-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-dark-theme-border-color) !important;
-    }
-
-    /deep/ button.dark:hover, /deep/ .dark /deep/ button:hover {
-        background: var(--chat-button-hover-dark-theme-bg-color) !important;
-        color: var(--chat-button-hover-dark-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-hover-dark-theme-border-color) !important;
-    }
-
-    /deep/ button.dark:active, /deep/ .dark /deep/ button:active {
-        background: var(--chat-button-active-dark-theme-bg-color) !important;
-        color: var(--chat-button-active-dark-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-active-dark-theme-border-color) !important;
-        box-shadow: none !important;
-
-    }
-
-    /deep/ button.dark:focus, /deep/ .dark /deep/ button:focus {
-        background: var(--chat-button-active-dark-theme-bg-color) !important;
-        color: var(--chat-button-active-dark-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-active-dark-theme-border-color) !important;
-        box-shadow: none !important;
-    }
-
-    /deep/ button.blue, /deep/ .blue /deep/ button {
-        background: var(--chat-button-blue-theme-bg-color) !important;
-        color: var(--chat-button-blue-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-blue-theme-border-color) !important;
-    }
-
-    /deep/ button.blue:hover, /deep/ .blue /deep/ button:hover {
-        background: var(--chat-button-hover-blue-theme-bg-color) !important;
-        color: var(--chat-button-hover-blue-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-hover-blue-theme-border-color) !important;
-    }
-
-    /deep/ button.blue:active, /deep/ .blue /deep/ button:active {
-        background: var(--chat-button-active-blue-theme-bg-color) !important;
-        color: var(--chat-button-active-blue-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-active-blue-theme-border-color) !important;
-        box-shadow: none !important;
-    }
-
-    /deep/ button.blue:focus, /deep/ .blue /deep/ button:focus {
-        background: var(--chat-button-active-blue-theme-bg-color) !important;
-        color: var(--chat-button-active-blue-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-active-blue-theme-border-color) !important;
-        box-shadow: none !important;
     }
 
 </style>

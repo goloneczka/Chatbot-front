@@ -1,18 +1,19 @@
 <template>
     <div>
         <div>
-            <CategoryDropdown v-if="showCategoryDropdown" :city-id="city.id" @categoryDropdownOnClick="categoryDropdownOnClick"/>
+            <CategoryDropdown v-if="showCategoryDropdown" :city-id="city.id"
+                              @categoryDropdownOnClick="categoryDropdownOnClick"/>
             <div id="more-details" v-if="moreDetails">
                 <b-button class="m-2" v-on:click="showNewCategoryMessage"
-                          v-bind:class="$store.getters.activeTheme.themeName">
+                          v-bind:class="themeService.getActiveTheme().themeName">
                     {{$t('food.user.choiceNewCategory')}}
                 </b-button>
                 <b-button class="m-2" v-on:click="showAnotherRestaurantMessage"
-                          v-bind:class="$store.getters.activeTheme.themeName">
+                          v-bind:class="themeService.getActiveTheme().themeName">
                     {{$t('food.user.choiceAnotherRestaurant')}}
                 </b-button>
                 <b-button class="m-2" v-on:click="showRatingMessage"
-                          v-bind:class="$store.getters.activeTheme.themeName">
+                          v-bind:class="themeService.getActiveTheme().themeName">
                     {{$t('food.user.rateRestaurationChoice')}}
                 </b-button>
             </div>
@@ -23,6 +24,7 @@
 </template>
 <script>
 
+    import {themeService} from "../../../../App";
     import {restaurantService} from "../../../../App";
     import CategoryDropdown from "./CategoryDropdown";
     import RatingRestaurant from "./RatingRestaurant";
@@ -42,6 +44,7 @@
                 menuData: '',
                 moreDetails: false,
                 rate: false,
+                themeService
             }
         },
         methods: {

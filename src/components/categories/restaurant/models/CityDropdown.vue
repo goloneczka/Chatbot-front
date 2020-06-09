@@ -1,7 +1,7 @@
 <template>
     <div id="dropdown-button">
         <b-dropdown :text="$t('user.city')" class="m-2"
-                    v-bind:class="$store.getters.activeTheme.themeName">
+                    v-bind:class="themeService.getActiveTheme().themeName">
             <b-dropdown-item v-for="city in cities" :key="city.id" v-on:click="cityDropdownOnClick(city)">{{city.city}}
             </b-dropdown-item>
         </b-dropdown>
@@ -10,6 +10,7 @@
 <script>
 
     import {restaurantService} from '../../../../App'
+    import {themeService} from "../../../../App";
 
     export default {
         name: 'CityDropdown',
@@ -17,12 +18,13 @@
         data() {
             return {
                 cities: [],
+                themeService
             }
         },
         mounted() {
-            restaurantService.getAllCities().then( data => {
+            restaurantService.getAllCities().then(data => {
                 if (data.errors)
-                    this.$root.$emit("showDanger",this.$t('food.errors.errorListOfCities') + data.errors[0]);
+                    this.$root.$emit("showDanger", this.$t('food.errors.errorListOfCities') + data.errors[0]);
                 else
                     this.cities = data
             });

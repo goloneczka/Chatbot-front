@@ -4,11 +4,11 @@
             <CityDropdown v-on:cityDropdownOnClick="cityDropdownOnClick($event)" v-if="showCityDropdown"/>
             <TimeDropdown v-on:showWeatherMessage="showWeatherMessage($event)" v-if="showTimeDropdown"/>
             <div class="weather-buttons" v-if="endOrDetailsButtons">
-                <b-button id="endWeatherTalkButton" v-bind:class="$store.getters.activeTheme.themeName"
+                <b-button id="endWeatherTalkButton" v-bind:class="themeService.getActiveTheme().themeName"
                           class="m-2" v-on:click="this.endWeatherTalk">
                     {{$t('weather.user.thank')}}
                 </b-button>
-                <b-button id="moreDetailsButton" v-bind:class="$store.getters.activeTheme.themeName" class="m-2"
+                <b-button id="moreDetailsButton" v-bind:class="themeService.getActiveTheme().themeName" class="m-2"
                           v-on:click="this.showMoreDetailsMessage">
                     {{$t('weather.user.moreDetails')}}
                 </b-button>
@@ -19,6 +19,7 @@
 <script>
 
     import {weatherService} from "../../../App";
+    import {themeService} from "../../../App";
 
     import CityDropdown from "./models/CityDropdown";
     import TimeDropdown from "./models/TimeDropdown";
@@ -42,7 +43,8 @@
                     inMessage: this.$t('weather.bot.in'),
                     chooseCity: this.$t('weather.user.chooseCity'),
                     choiceTime: this.$t('weather.bot.choiceTime')
-                }
+                },
+                themeService
             }
         },
         created() {
@@ -116,85 +118,6 @@
 
     button {
         border-radius: 1.0rem;
-    }
-
-    /deep/ button.light, /deep/ .light /deep/ button {
-        background: var(--chat-button-light-theme-bg-color) !important;
-        color: var(--chat-button-light-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-light-theme-border-color) !important;
-    }
-
-    /deep/ button.light:hover, /deep/ .light /deep/ button:hover {
-        background: var(--chat-button-hover-light-theme-bg-color) !important;
-        color: var(--chat-button-hover-light-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-hover-light-theme-border-color) !important;
-    }
-
-    /deep/ button.light:active, /deep/ .light /deep/ button:active {
-        background: var(--chat-button-active-light-theme-bg-color) !important;
-        color: var(--chat-button-active-light-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-active-light-theme-border-color) !important;
-        box-shadow: none !important;
-    }
-
-    /deep/ button.light:focus, /deep/ .light /deep/ button:focus {
-        background: var(--chat-button-active-light-theme-bg-color) !important;
-        color: var(--chat-button-active-light-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-active-light-theme-border-color) !important;
-        box-shadow: none !important;
-    }
-
-    /deep/ button.dark, /deep/ .dark /deep/ button {
-        background: var(--chat-button-dark-theme-bg-color) !important;
-        color: var(--chat-button-dark-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-dark-theme-border-color) !important;
-    }
-
-    /deep/ button.dark:hover, /deep/ .dark /deep/ button:hover {
-        background: var(--chat-button-hover-dark-theme-bg-color) !important;
-        color: var(--chat-button-hover-dark-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-hover-dark-theme-border-color) !important;
-    }
-
-    /deep/ button.dark:active, /deep/ .dark /deep/ button:active {
-        background: var(--chat-button-active-dark-theme-bg-color) !important;
-        color: var(--chat-button-active-dark-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-active-dark-theme-border-color) !important;
-        box-shadow: none !important;
-
-    }
-
-    /deep/ button.dark:focus, /deep/ .dark /deep/ button:focus {
-        background: var(--chat-button-active-dark-theme-bg-color) !important;
-        color: var(--chat-button-active-dark-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-active-dark-theme-border-color) !important;
-        box-shadow: none !important;
-    }
-
-    /deep/ button.blue, /deep/ .blue /deep/ button {
-        background: var(--chat-button-blue-theme-bg-color) !important;
-        color: var(--chat-button-blue-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-blue-theme-border-color) !important;
-    }
-
-    /deep/ button.blue:hover, /deep/ .blue /deep/ button:hover {
-        background: var(--chat-button-hover-blue-theme-bg-color) !important;
-        color: var(--chat-button-hover-blue-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-hover-blue-theme-border-color) !important;
-    }
-
-    /deep/ button.blue:active, /deep/ .blue /deep/ button:active {
-        background: var(--chat-button-active-blue-theme-bg-color) !important;
-        color: var(--chat-button-active-blue-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-active-blue-theme-border-color) !important;
-        box-shadow: none !important;
-    }
-
-    /deep/ button.blue:focus, /deep/ .blue /deep/ button:focus {
-        background: var(--chat-button-active-blue-theme-bg-color) !important;
-        color: var(--chat-button-active-blue-theme-text-color) !important;
-        border: var(--button-border-style) var(--chat-button-active-blue-theme-border-color) !important;
-        box-shadow: none !important;
     }
 
 </style>

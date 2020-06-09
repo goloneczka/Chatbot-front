@@ -4,7 +4,7 @@
             <b-calendar class="calendar" @context="onContext" value-as-date locale="pl-PL"
                         v-bind="labels" :min="min" :max="max">
                 <div class="d-flex" dir="ltr">
-                    <b-button v-bind:class="$store.getters.activeTheme.themeName"
+                    <b-button v-bind:class="themeService.getActiveTheme().themeName"
                               class="m-2"
                               @click="setDay">
                         {{$t('weather.user.choiceDay')}}
@@ -17,6 +17,7 @@
 <script>
 
     import moment from 'moment';
+    import {themeService} from "../../../../App";
 
     export default {
         name: 'TimeDropdown',
@@ -37,7 +38,8 @@
                     labelNoDateSelected: this.$t('weather.error.wrongDate'),
                 },
                 min: minDate,
-                max: maxDate
+                max: maxDate,
+                themeService
             }
         },
         methods: {

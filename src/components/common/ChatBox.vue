@@ -1,11 +1,12 @@
 <template>
-    <div class="chat-box" v-bind:class="$store.getters.activeTheme.themeName">
-        <div class="chat-box-top-border" v-bind:class="$store.getters.activeTheme.themeName"></div>
+    <div class="chat-box" v-bind:class="themeService.getActiveTheme().themeName">
+        <div class="chat-box-top-border" v-bind:class="themeService.getActiveTheme().themeName"></div>
         <ul class="messages-list">
             <li class="message"
                 v-for="(message, index) in messages"
                 v-bind:key="index"
-                v-bind:class="[message.author, $store.getters.activeTheme.themeName]" v-bind:data-with="message.author">
+                v-bind:class="[message.author, themeService.getActiveTheme().themeName]"
+                v-bind:data-with="message.author">
                 <div v-if="message.style === 'default'"><a>{{message.text}}</a></div>
                 <weather-message v-bind:data="message.data"
                                  v-else-if="message.style === 'weatherMessage'"></weather-message>
@@ -14,7 +15,7 @@
                 <JokesMessage v-bind:data="message.data" v-else-if="message.style === 'jokesMessage'"></JokesMessage>
                 <RestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'restaurantMessage'"/>
                 <p v-if="index === lastBotMessageIndex">
-                    <b-img class="bot-image" height="30" v-bind:src="$store.getters.activeTheme.imageSource"></b-img>
+                    <b-img class="bot-image" height="30" v-bind:src="themeService.getActiveTheme().imageSource"></b-img>
                 </p>
                 <p v-else-if="index === lastUserMessageIndex">
                     <b-img class="bot-image" height="30" :src="require('../../assets/user_icon.png')"></b-img>
@@ -25,7 +26,7 @@
             <Weather v-on:addMessage="addMessage($event)" v-if="activeCategory === 'weather'"
                      v-on:exitCategory="changeCategory(null)"/>
             <Jokes v-on:addMessage="addMessage($event)" v-if="activeCategory === 'jokes'"></Jokes>
-            <Restaurants v-on:addMessage="addMessage($event)" :botIconSource="$store.getters.activeTheme.imageSource"
+            <Restaurants v-on:addMessage="addMessage($event)" :botIconSource="themeService.getActiveTheme().imageSource"
                          v-if="activeCategory === 'restaurant'"/>
         </div>
     </div>
@@ -41,6 +42,8 @@
     import Restaurants from "../categories/restaurant/Restaurants";
     import RestaurantMessage from "../categories/restaurant/models/RestaurantMessage";
 
+    import {themeService} from "../../App";
+
     export default {
         name: "ChatBox",
         components: {
@@ -55,7 +58,8 @@
         data: function () {
             return {
                 messages: [],
-                activeCategory: null
+                activeCategory: null,
+                themeService
             }
         },
         methods: {

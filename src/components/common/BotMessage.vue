@@ -2,12 +2,13 @@
     <div>
         <ul>
             <li class="message">
-                <div v-bind:class="$store.getters.activeTheme.themeName">{{this.text}}</div>
+                <div v-bind:class="themeService.getActiveTheme().themeName">{{this.text}}</div>
             </li>
         </ul>
     </div>
 </template>
 <script>
+    import {themeService} from "../../App";
 
     export default {
         name: 'BotMessage',
@@ -15,10 +16,10 @@
         components: {},
         data() {
             return {
+                themeService
             }
         },
-        methods: {
-        },
+        methods: {},
 
     }
 </script>

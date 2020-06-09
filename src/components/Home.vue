@@ -1,21 +1,22 @@
 <template>
-    <div class="home" v-bind:class="$store.getters.activeTheme.themeName">
+    <div class="home" v-bind:class="themeService.getActiveTheme().themeName">
 
-        <b-navbar v-bind:class="$store.getters.activeTheme.themeName">
+        <b-navbar v-bind:class="themeService.getActiveTheme().themeName">
             <b-navbar-brand>
                 <b-img thumbnail center width="65" class="logo-image"
                        :src="require('../assets/app_logo.png')"></b-img>
             </b-navbar-brand>
             <b-navbar-nav class="ml-auto">
-                <b-nav-item v-for="(theme, index) in $store.getters.allThemes" :key="index" v-bind:activeTheme="theme.isActiveTheme"
-                            v-on:click="changeTheme(index)" v-bind:class="$store.getters.activeTheme.themeName">
+                <b-nav-item v-for="(theme, index) in themeService.getAllThemes()" :key="index"
+                            v-bind:activeTheme="theme.isActiveTheme"
+                            v-on:click="changeTheme(index)" v-bind:class="themeService.getActiveTheme().themeName">
                     <b-img height="40" v-bind:src="theme.imageSource"></b-img>
                 </b-nav-item>
             </b-navbar-nav>
         </b-navbar>
 
         <b-container>
-            <b-row v-bind:class="$store.getters.activeTheme.themeName" class="category-panel">
+            <b-row v-bind:class="themeService.getActiveTheme().themeName" class="category-panel">
                 <b-col cols="1"/>
                 <b-col>
                     <hello-message></hello-message>
@@ -40,18 +41,20 @@
     import ChatBox from "./common/ChatBox";
     import CategoriesChooser from "./common/CategoriesChooser";
     import HelloMessage from "./common/HelloMessage";
+    import {themeService} from "../App";
 
     export default {
         name: 'Home',
         components: {HelloMessage, CategoriesChooser, ChatBox},
         data: function () {
             return {
-                isChatBoxActive: false
+                isChatBoxActive: false,
+                themeService
             }
         },
         methods: {
             changeTheme: function (index) {
-                this.$store.commit('changeTheme',{themeIndex: index});
+                this.themeService.changeTheme(index);
             },
             activeChatBox: function () {
                 this.isChatBoxActive = true;

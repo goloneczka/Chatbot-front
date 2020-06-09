@@ -1,6 +1,6 @@
 <template>
     <div class="categories-chooser">
-        <b-button class="category-button" v-bind:class="$store.getters.activeTheme.themeName"
+        <b-button class="category-button" v-bind:class="themeService.getActiveTheme().themeName"
                   v-for="(category, index) in categories" v-bind:key="index"
                   v-on:click="chooseCategory(category.eventName)">
             {{category.categoryName}}
@@ -9,6 +9,7 @@
 </template>
 
 <script>
+    import {themeService} from "../../App";
 
     export default {
         name: "CategoriesChooser",
@@ -27,7 +28,8 @@
                         categoryName: this.$t('bot.categoryRestaurants'),
                         eventName: 'restaurant'
                     }
-                ]
+                ],
+                themeService
             }
         },
         methods: {
