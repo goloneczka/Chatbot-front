@@ -9,10 +9,12 @@
             </transition>
             <transition name="button-picker-slide">
                 <div class="weather-buttons" v-if="endOrDetailsButtons">
-                    <b-button id="endWeatherTalkButton" class="m-2" v-on:click="this.endWeatherTalk">
+                    <b-button id="endWeatherTalkButton" v-bind:class="themeService.getActiveTheme().themeName"
+                              class="m-2" v-on:click="this.endWeatherTalk">
                         {{$t('weather.user.thank')}}
                     </b-button>
-                    <b-button id="moreDetailsButton" class="m-2" v-on:click="this.showMoreDetailsMessage">
+                    <b-button id="moreDetailsButton" v-bind:class="themeService.getActiveTheme().themeName" class="m-2"
+                              v-on:click="this.showMoreDetailsMessage">
                         {{$t('weather.user.moreDetails')}}
                     </b-button>
                 </div>
@@ -23,8 +25,8 @@
 <script>
 
     import {weatherService} from "../../../App";
+    import {themeService} from "../../../App";
     import {setMessage} from "../../common/messages"
-
     import CityDropdown from "./models/CityDropdown";
     import TimeDropdown from "./models/TimeDropdown";
 
@@ -47,7 +49,8 @@
                     inMessage: this.$t('weather.bot.in'),
                     chooseCity: this.$t('weather.user.chooseCity'),
                     choiceTime: this.$t('weather.bot.choiceTime')
-                }
+                },
+                themeService
             }
         },
         created() {
@@ -118,9 +121,12 @@
 </script>
 <style scoped>
 
-
-
     .weather-buttons {
         text-align: right;
     }
+
+    button {
+        border-radius: 1.0rem;
+    }
+
 </style>

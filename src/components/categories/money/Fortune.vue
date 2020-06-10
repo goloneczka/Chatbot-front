@@ -2,8 +2,10 @@
     <div>
         <transition name="button-picker-slide">
             <div class="user-buttons" v-if=exchangeCurrencyButtons>
-                <b-button class="m-2" v-on:click="showExchange">{{$t('fortune.buttons.exchange')}}</b-button>
-                <b-button class="m-2" v-on:click="showCurrency">{{$t('fortune.buttons.currency')}}</b-button>
+                <b-button class="m-2" v-on:click="showExchange"
+                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.exchange')}}</b-button>
+                <b-button class="m-2" v-on:click="showCurrency"
+                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.currency')}}</b-button>
             </div>
         </transition>
         <transition name="button-dropdown-slide">
@@ -20,8 +22,10 @@
         </transition>
         <transition name="button-picker-slide">
             <div class="choice-date" v-if="choosePeriod">
-                <b-button class="m-2" v-on:click="showDayChoiceComponent">{{$t('fortune.buttons.day')}}</b-button>
-                <b-button class="m-2" v-on:click="showPeriodChoiceComponent">{{$t('fortune.buttons.period')}}</b-button>
+                <b-button class="m-2" v-on:click="showDayChoiceComponent"
+                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.day')}}</b-button>
+                <b-button class="m-2" v-on:click="showPeriodChoiceComponent"
+                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.period')}}</b-button>
             </div>
         </transition>
         <transition name="button-dropdown-slide">
@@ -48,8 +52,9 @@
     import HistoryData from "./models/HistoryData";
     import FutureData from "./models/FutureData";
     import {fortuneService} from "../../../App";
-    import {formatter} from "../../../App";
     import {setMessage} from "../../common/messages";
+    import {formatter} from  "../../../App";
+    import {themeService} from "../../../App";
 
     export default {
         name: 'Fortune',
@@ -73,7 +78,8 @@
                 showPeriodChooser: false,
                 showFutureDataComponent: false,
                 showHistoryDataComponent: false,
-                data: null
+                data: null,
+                themeService
 
             }
         },
@@ -220,8 +226,11 @@
     }
 </script>
 <style scoped>
-
     .user-buttons, .choice-date {
         text-align: right;
+    }
+
+    /deep/ button {
+        border-radius: 1.0rem;
     }
 </style>

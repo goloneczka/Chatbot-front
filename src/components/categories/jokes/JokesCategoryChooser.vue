@@ -1,6 +1,6 @@
 <template>
     <div class="category-chooser">
-        <b-dropdown v-bind:text="$t('jokes.user.categories')">
+        <b-dropdown v-bind:text="$t('jokes.user.categories')" v-bind:class="themeService.getActiveTheme().themeName">
             <b-dropdown-item v-for="category in categories" v-bind:key="category" v-on:click="chosenCategory(category)">
                 {{category}}
             </b-dropdown-item>
@@ -9,26 +9,28 @@
 </template>
 
 <script>
-    import { jokesService } from './../../../App'
+    import {jokesService} from './../../../App'
+    import {themeService} from "../../../App";
+
     export default {
         name: "JokesCategoryChooser",
-        data: function(){
-            return{
-                categories: []
+        data: function () {
+            return {
+                categories: [],
+                themeService
             }
         },
         mounted() {
             jokesService.getAllCategories().then((data) => {
-                if(data.errors){
-                    this.$root.$emit("showDanger",this.$t('jokes.errors.errorListOfCategories') + data.errors[0]);
-                }
-                else {
+                if (data.errors) {
+                    this.$root.$emit("showDanger", this.$t('jokes.errors.errorListOfCategories') + data.errors[0]);
+                } else {
                     this.categories = data
                 }
             })
         },
-        methods:{
-            chosenCategory(category){
+        methods: {
+            chosenCategory(category) {
                 this.$emit('chooseCategory', category)
             }
         }
@@ -36,7 +38,7 @@
 </script>
 
 <style scoped>
-    .dropdown{
+    .dropdown {
         margin-left: var(--jokes-button-left-margin);
         margin-right: var(--jokes-button-right-margin);
     }

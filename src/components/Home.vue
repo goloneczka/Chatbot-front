@@ -1,24 +1,25 @@
 <template>
-    <div class="home" v-bind:class="themes[themeIndex].themeName">
+    <div class="home" v-bind:class="themeService.getActiveTheme().themeName">
 
-        <b-navbar>
+        <b-navbar v-bind:class="themeService.getActiveTheme().themeName">
             <b-navbar-brand>
-                <b-img thumbnail center width="50" class="logo-image"
-                       :src="require('../assets/botLogo.png')"></b-img>
+                <b-img thumbnail center width="65" class="logo-image"
+                       :src="require('../assets/app_logo.png')"></b-img>
             </b-navbar-brand>
             <b-navbar-nav class="ml-auto">
-                <b-nav-item v-for="(theme, index) in themes" :key="index" v-bind:activeTheme="theme.activeTheme"
-                            v-on:click="changeTheme(index)">
+                <b-nav-item v-for="(theme, index) in themeService.getAllThemes()" :key="index"
+                            v-bind:activeTheme="theme.isActiveTheme"
+                            v-on:click="changeTheme(index)" v-bind:class="themeService.getActiveTheme().themeName">
                     <b-img height="40" v-bind:src="theme.imageSource"></b-img>
                 </b-nav-item>
             </b-navbar-nav>
         </b-navbar>
 
         <b-container>
-            <b-row v-bind:class="themes[themeIndex].themeName" class="category-panel">
+            <b-row v-bind:class="themeService.getActiveTheme().themeName" class="category-panel">
                 <b-col cols="1"/>
                 <b-col>
-                    <hello-message v-bind:bot-icon-source="themes[themeIndex].imageSource"></hello-message>
+                    <hello-message></hello-message>
                     <categories-chooser v-on:activeChatBox="activeChatBox"/>
                 </b-col>
                 <b-col cols="1"/>
@@ -27,7 +28,7 @@
             <b-row v-show="isChatBoxActive">
                 <b-col cols="2"></b-col>
                 <b-col cols="8">
-                    <chat-box v-bind:bot-icon-source="themes[themeIndex].imageSource"></chat-box>
+                    <chat-box></chat-box>
                 </b-col>
                 <b-col cols="2">
                 </b-col>
@@ -40,33 +41,20 @@
     import ChatBox from "./common/ChatBox";
     import CategoriesChooser from "./common/CategoriesChooser";
     import HelloMessage from "./common/HelloMessage";
+    import {themeService} from "../App";
 
     export default {
         name: 'Home',
         components: {HelloMessage, CategoriesChooser, ChatBox},
         data: function () {
             return {
-                themeIndex: 0,
-                themes: [{
-                    themeName: "light",
-                    imageSource: require('../assets/light_bot.png'),
-                    activeTheme: true
-                }, {
-                    themeName: "dark",
-                    imageSource: require('../assets/dark_bot.png'),
-                    activeTheme: false
-                }
-                ],
-                isChatBoxActive: false
+                isChatBoxActive: false,
+                themeService
             }
         },
         methods: {
             changeTheme: function (index) {
-                this.themeIndex = index;
-                for (let theme of this.themes) {
-                    theme.activeTheme = false;
-                }
-                this.themes[index].activeTheme = true;
+                this.themeService.changeTheme(index);
             },
             activeChatBox: function () {
                 this.isChatBoxActive = true;
@@ -82,17 +70,35 @@
         margin: 0 !important;
     }
 
-    nav {
-        background: var(--home-nav-bg-color);
-        border-bottom: var(--home-nav-border);
-        margin-bottom: 30px;
+    .logo-image {
+        padding: 0;
+        border: none;
+    }
 
+    nav {
+        margin-bottom: 30px;
+    }
+
+    nav.light {
+        background: var(--home-nav-light-theme-bg-color);
+    }
+
+    nav.dark {
+        background: var(--home-nav-dark-theme-bg-color);
+    }
+
+    nav.blue {
+        background: var(--home-nav-blue-theme-bg-color);
+    }
+
+    .nav-item > * {
+        outline: none;
     }
 
     .nav-item {
         border-radius: 50%;
         margin: 5px;
-        border: var(--home-nav-item-border) var(--home-nav-bg-color);
+        border: var(--home-nav-item-border) transparent;
 
     }
 
@@ -117,6 +123,10 @@
         background: var(--home-dark-theme-bg-color);
     }
 
+    .home.blue {
+        background: var(--home-blue-theme-bg-color);
+    }
+
     .category-panel {
         position: sticky;
         top: 0;
@@ -131,4 +141,9 @@
     .category-panel.dark {
         background: var(--home-dark-theme-bg-color);
     }
+
+    .category-panel.blue {
+        background: var(--home-blue-theme-bg-color);
+    }
+
 </style>

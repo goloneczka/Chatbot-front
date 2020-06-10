@@ -6,13 +6,16 @@
         </transition>
         <transition name="button-picker-slide">
             <div class="right-align" v-if="moreDetails" >
-                <b-button class="m-2" v-on:click="showNewCategoryMessage">
+                <b-button class="m-2" v-on:click="showNewCategoryMessage"
+                          v-bind:class="themeService.getActiveTheme().themeName">
                     {{$t('food.user.choiceNewCategory')}}
                 </b-button>
-                <b-button class="m-2" v-on:click="showAnotherRestaurantMessage">
+                <b-button class="m-2" v-on:click="showAnotherRestaurantMessage"
+                          v-bind:class="themeService.getActiveTheme().themeName">
                     {{$t('food.user.choiceAnotherRestaurant')}}
                 </b-button>
-                <b-button class="m-2" v-on:click="showRatingMessage">
+                <b-button class="m-2" v-on:click="showRatingMessage"
+                          v-bind:class="themeService.getActiveTheme().themeName">
                     {{$t('food.user.rateRestaurationChoice')}}
                 </b-button>
             </div>
@@ -25,6 +28,7 @@
 </template>
 <script>
 
+    import {themeService} from "../../../../App";
     import {restaurantService} from "../../../../App";
     import CategoryDropdown from "./CategoryDropdown";
     import RatingRestaurant from "./RatingRestaurant";
@@ -46,6 +50,7 @@
                 menuData: '',
                 moreDetails: false,
                 rate: false,
+                themeService
             }
         },
         mounted() {
@@ -118,10 +123,7 @@
     }
 </script>
 <style scoped>
-
-
     .right-align {
         text-align: right;
     }
-
 </style>

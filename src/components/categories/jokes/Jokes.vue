@@ -2,7 +2,7 @@
     <div class="jokes-component">
         <transition name="button-dropdown-slide">
             <div v-if="showCategories" class="categoryChooser">
-                <b-button v-on:click="showJoke(null)">
+                <b-button v-on:click="showJoke(null)" v-bind:class="themeService.getActiveTheme().themeName">
                     {{$t('jokes.user.randomCategoryChosen')}}
                 </b-button>
                 <JokesCategoryChooser v-on:chooseCategory="showJoke($event)"></JokesCategoryChooser>
@@ -10,11 +10,14 @@
         </transition>
         <transition name="button-picker-slide">
             <div v-if="showNextSteps">
-                <b-button v-if="showRatingJokesBtn" v-on:click="showRatingComponent()">{{$t('jokes.user.rateJokeBtn')}}
+                <b-button v-if="showRatingJokesBtn" v-on:click="showRatingComponent()"
+                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('jokes.user.rateJokeBtn')}}
                 </b-button>
-                <b-button v-if="showCategoriesBtn" v-on:click="showAnotherJoke()">{{$t('jokes.user.choiceJokes')}}
+                <b-button v-if="showCategoriesBtn" v-on:click="showAnotherJoke()"
+                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('jokes.user.choiceJokes')}}
                 </b-button>
-                <b-button v-if="showNewJokeBtn" v-on:click="showNewJoke()">{{$t('jokes.user.tellJokeBtn')}}
+                <b-button v-if="showNewJokeBtn" v-on:click="showNewJoke()"
+                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('jokes.user.tellJokeBtn')}}
                 </b-button>
             </div>
         </transition>
@@ -31,6 +34,7 @@
     import {formatter} from "../../../App";
     import RatingJoke from "./RatingJoke";
     import TellJokeForm from "./TellJokeForm";
+    import {themeService} from "../../../App";
     import {setMessage} from "../../common/messages";
 
     export default {
@@ -47,7 +51,8 @@
                 showNextSteps: false,
                 shownJoke: null,
                 maxRate: 5,
-                error: ''
+                error: '',
+                themeService
             }
         },
         created() {
@@ -189,8 +194,6 @@
 </script>
 
 <style scoped>
-
-
     .jokes-component {
         text-align: right;
     }
@@ -203,6 +206,10 @@
     button {
         margin-left: var(--jokes-button-left-margin);
         margin-right: var(--jokes-button-right-margin);
+    }
+
+    /deep/ button {
+        border-radius: 1.0rem;
     }
 
 </style>

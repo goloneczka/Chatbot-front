@@ -14,7 +14,9 @@
     import RestaurantsService from "./core/service/RestaurantsService";
     import JokesService from "./core/service/JokesService";
     import Formatter from "./core/functions/Formatter";
+    import ThemeService from "./core/service/ThemeService";
     import FortuneService from "./core/service/FortuneService";
+
 
     const baseUrl = process.env.VUE_APP_BASE_URL;
 
@@ -27,6 +29,8 @@
     export const restaurantService = new RestaurantsService(httpRequest);
     export const jokesService = new JokesService(httpRequest);
     export const fortuneService = new FortuneService(httpRequest);
+
+    export const themeService = new ThemeService();
 
     export default {
         name: 'App',

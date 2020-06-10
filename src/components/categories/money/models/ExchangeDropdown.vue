@@ -1,6 +1,7 @@
 <template>
     <div class="exchange-chooser">
-        <b-dropdown v-bind:text="$t('fortune.buttons.choiceExchange')">
+        <b-dropdown v-bind:text="$t('fortune.buttons.choiceExchange')"
+                    v-bind:class="themeService.getActiveTheme().themeName">
             <b-dropdown-item v-for="exchange in exchanges" v-bind:key="exchange" v-on:click="chooseExchange(exchange)">
                 {{exchange.name}}
             </b-dropdown-item>
@@ -11,21 +12,20 @@
 <script>
 
 
-
     import {fortuneService} from "../../../../App";
 
     export default {
         name: "ExchangeDropdown",
-        data: function(){
-            return{
+        data: function () {
+            return {
                 exchanges: []
             }
         },
         mounted() {
             fortuneService.getAllCompanies().then(result => this.exchanges = result);
         },
-        methods:{
-            chooseExchange(exchange){
+        methods: {
+            chooseExchange(exchange) {
                 this.$root.$emit('chooseExchange', exchange)
             }
         }

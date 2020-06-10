@@ -42,7 +42,7 @@
                 }
                 jokesService.createJoke(this.joke, this.category).then((data) => {
                     if (data.errors) {
-                        this.$root.$emit("showDanger",this.$t('jokes.errors.errorCreatingJoke') + data.errors[0]);
+                        this.$root.$emit("showDanger", this.$t('jokes.errors.errorCreatingJoke') + data.errors[0]);
                     }
                 });
                 this.$emit('tellJoke', this.joke);

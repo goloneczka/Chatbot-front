@@ -52,7 +52,6 @@
                     this.$emit('addMessage', message)
                 });
             },
-
             cityDropdownOnClick(value) {
                 this.showCityDropdown = false;
                 this.city = value;
@@ -67,5 +66,8 @@
 </script>
 <style scoped>
 
+    /deep/ button {
+        border-radius: 1.0rem;
+    }
 
 </style>
