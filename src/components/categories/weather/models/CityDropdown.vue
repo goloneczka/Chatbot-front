@@ -1,6 +1,6 @@
 <template>
     <div id="dropdown-button">
-        <b-dropdown :text="$t('user.city')" class="m-2">
+        <b-dropdown v-bind:class="themeService.getActiveTheme().themeName" :text="$t('user.city')" class="m-2">
             <b-dropdown-item v-for="city in cities" :key="city" v-on:click="cityDropdownOnClick(city)">{{city}}
             </b-dropdown-item>
         </b-dropdown>
@@ -8,7 +8,8 @@
 </template>
 <script>
 
-    import { weatherService } from '../../../../App'
+    import {weatherService} from '../../../../App'
+    import {themeService} from "../../../../App";
 
     export default {
         name: 'CityDropdown',
@@ -16,10 +17,11 @@
         data() {
             return {
                 cities: [],
+                themeService
             }
         },
         created() {
-            weatherService.getAllCities().then( data => this.cities = data);
+            weatherService.getAllCities().then(data => this.cities = data);
         },
         methods: {
             cityDropdownOnClick(city) {
@@ -31,5 +33,9 @@
 <style scoped>
     #dropdown-button {
         text-align: right;
+    }
+
+    /deep/ button {
+        border-radius: 1.0rem;
     }
 </style>

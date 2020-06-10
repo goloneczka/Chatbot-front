@@ -49,14 +49,14 @@
                     style: 'default'
                 })
             },
-            sendData(author, text,style) {
+            sendData(author, text, style) {
                 this.$emit('addMessage', {
                     author: author,
                     data: text,
                     style: style
                 })
             },
-            sendDataToChange(author, text,style) {
+            sendDataToChange(author, text, style) {
                 this.$emit('changeMessage', {
                     author: author,
                     data: text,
@@ -70,7 +70,7 @@
                 this.showCategoryDropdown1.pop();
                 this.showCategoryDropdown1.push(false);
             },
-            cityDropdownOnClick(value){
+            cityDropdownOnClick(value) {
                 this.showCityDropdown = false;
                 this.city = value;
                 this.sendMessage("user", `${this.$t('weather.user.chooseCity')} ${this.city.city}`);
@@ -83,4 +83,9 @@
     }
 </script>
 <style scoped>
+
+    /deep/ button {
+        border-radius: 1.0rem;
+    }
+
 </style>

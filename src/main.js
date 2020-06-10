@@ -12,7 +12,6 @@ import {authorizationStorage} from "./App";
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
-
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
@@ -25,6 +24,7 @@ router.beforeEach((to, from, next) => {
         next(false);
     }
 });
+
 
 new Vue({
     render: h => h(App),

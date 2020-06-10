@@ -1,17 +1,20 @@
 <template>
     <div class="jokes-component">
         <div v-if="showCategories" class="categoryChooser">
-            <b-button v-on:click="showJoke(null)">
+            <b-button v-on:click="showJoke(null)" v-bind:class="themeService.getActiveTheme().themeName">
                 {{$t('jokes.user.randomCategoryChosen')}}
             </b-button>
             <JokesCategoryChooser v-on:chooseCategory="showJoke($event)"></JokesCategoryChooser>
         </div>
         <div v-if="showNextSteps">
-            <b-button v-if="showRatingJokesBtn" v-on:click="showRatingComponent()">{{$t('jokes.user.rateJokeBtn')}}
+            <b-button v-if="showRatingJokesBtn" v-on:click="showRatingComponent()"
+                      v-bind:class="themeService.getActiveTheme().themeName">{{$t('jokes.user.rateJokeBtn')}}
             </b-button>
-            <b-button v-if="showCategoriesBtn" v-on:click="showAnotherJoke()">{{$t('jokes.user.choiceJokes')}}
+            <b-button v-if="showCategoriesBtn" v-on:click="showAnotherJoke()"
+                      v-bind:class="themeService.getActiveTheme().themeName">{{$t('jokes.user.choiceJokes')}}
             </b-button>
-            <b-button v-if="showNewJokeBtn" v-on:click="showNewJoke()">{{$t('jokes.user.tellJokeBtn')}}
+            <b-button v-if="showNewJokeBtn" v-on:click="showNewJoke()"
+                      v-bind:class="themeService.getActiveTheme().themeName">{{$t('jokes.user.tellJokeBtn')}}
             </b-button>
         </div>
         <RatingJoke v-bind:joke-id="shownJoke.id" v-if="showRatingJokesComponent"
@@ -27,6 +30,7 @@
     import {formatter} from "../../../App";
     import RatingJoke from "./RatingJoke";
     import TellJokeForm from "./TellJokeForm";
+    import {themeService} from "../../../App";
 
     export default {
         name: "Jokes",
@@ -42,7 +46,8 @@
                 showNextSteps: false,
                 shownJoke: null,
                 maxRate: 5,
-                error: ''
+                error: '',
+                themeService
             }
         },
         created() {
@@ -72,7 +77,7 @@
                     jokesService.getRandomJoke().then(
                         (data) => {
                             if (data.errors) {
-                                this.$root.$emit("showDanger",this.$t('jokes.errors.errorGetJoke') + data.errors[0])
+                                this.$root.$emit("showDanger", this.$t('jokes.errors.errorGetJoke') + data.errors[0])
                             } else {
                                 this.shownJoke = data;
                                 this.sendMessageFromBot(this.shownJoke.joke,);
@@ -171,4 +176,9 @@
         margin-left: var(--jokes-button-left-margin);
         margin-right: var(--jokes-button-right-margin);
     }
+
+    /deep/ button {
+        border-radius: 1.0rem;
+    }
+
 </style>

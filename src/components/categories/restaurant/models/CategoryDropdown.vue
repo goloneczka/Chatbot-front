@@ -1,9 +1,11 @@
 <template>
     <div id="dropdown-button">
-        <b-dropdown :text="$t('food.user.restaurant')" class="m-2">
+        <b-dropdown :text="$t('food.user.restaurant')" class="m-2"
+                    v-bind:class="themeService.getActiveTheme().themeName">
             <div class="enable-scroll">
-            <b-dropdown-item v-for="category in categories" :key="category"
-                             v-on:click="categoryDropdownOnClick(category)" >{{category}} </b-dropdown-item>
+                <b-dropdown-item v-for="category in categories" :key="category"
+                                 v-on:click="categoryDropdownOnClick(category)">{{category}}
+                </b-dropdown-item>
             </div>
         </b-dropdown>
     </div>
@@ -11,6 +13,7 @@
 <script>
 
     import {restaurantService} from '../../../../App'
+    import {themeService} from "../../../../App";
 
     export default {
         name: 'CityDropdown',
@@ -18,6 +21,7 @@
         data() {
             return {
                 categories: [],
+                themeService
             }
         },
         props: ['cityId'],
@@ -41,7 +45,8 @@
     #dropdown-button {
         margin-left: 85%;
     }
-    .enable-scroll  {
+
+    .enable-scroll {
         height: 150px;
         overflow-y: auto;
     }
