@@ -91,6 +91,10 @@
         background: var(--home-nav-blue-theme-bg-color);
     }
 
+    .nav-item > * {
+        outline: none;
+    }
+
     .nav-item {
         border-radius: 50%;
         margin: 5px;

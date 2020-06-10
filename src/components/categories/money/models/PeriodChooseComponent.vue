@@ -5,7 +5,8 @@
             <b-button
                     size="sm"
                     class="m-2"
-                    @click="setPeriod">
+                    @click="setPeriod"
+                    v-bind:class="themeService.getActiveTheme().themeName">
                 {{$t('fortune.buttons.choicePeriod')}}
             </b-button>
         </div>
@@ -16,6 +17,7 @@
 
     import DatePicker from 'vue2-datepicker';
     import 'vue2-datepicker/index.css';
+    import {themeService} from "../../../../App";
 
     export default {
         name: "PeriodChooseComponent",
@@ -23,6 +25,7 @@
         data: function () {
             return {
                 timePeriod: null,
+                themeService
             }
         },
         mounted() {

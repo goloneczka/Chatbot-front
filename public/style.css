@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
 :root {
     --main-bg-color: #9933ff;
@@ -146,8 +147,12 @@ html, body {
 
 #app {
     height: 100%;
-    font-family: 'Spartan';
 }
+
+* {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
  button.light, .light button {
     background: var(--chat-button-light-theme-bg-color) !important;
     color: var(--chat-button-light-theme-text-color) !important;
