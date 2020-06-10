@@ -46,19 +46,14 @@
             });
         },
         methods: {
-            sendMessage(author, text, style = 'default') {
+            sendMessage(author, text, style ) {
                 return new Promise((resolve) => {
                     const message = setMessage(author, text, style, resolve)
                     this.$emit('addMessage', message)
                 });
             },
             sendNestedMessage(message) {
-                return new Promise((resolveNested) => {
-                    this.$emit('addMessage', {
-                        ...message,
-                        resolve: resolveNested
-                    })
-                }).then(() => message.resolve());
+                return this.$emit('addMessage', message)
             },
             cityDropdownOnClick(value) {
                 this.showCityDropdown = false;
@@ -73,6 +68,6 @@
     }
 </script>
 <style scoped>
-    @import "../../../../src/assets/buttonDropdownAnimate.css";
+
 
 </style>

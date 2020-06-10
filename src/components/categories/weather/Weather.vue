@@ -51,14 +51,14 @@
             }
         },
         created() {
-            this.sendMessage("user", this.$t('weather.user.choiceWeather'), "default").then(() => {
-                this.sendMessage("bot", this.$t('weather.bot.introduction'), "default").then(() => {
+            this.sendMessage("user", this.$t('weather.user.choiceWeather') ).then(() => {
+                this.sendMessage("bot", this.$t('weather.bot.introduction') ).then(() => {
                     this.showCityDropdown = true;
                 })
             })
         },
         methods: {
-            sendMessage(author, text, style = 'default') {
+            sendMessage(author, text, style) {
                 return new Promise((resolve) => {
                     const message = setMessage(author, text, style, resolve)
                     this.$emit('addMessage', message);
@@ -67,8 +67,8 @@
             cityDropdownOnClick(value) {
                 this.showCityDropdown = false;
                 this.city = value;
-                this.sendMessage("user", this.messages.chooseCity + value, "default").then(() => {
-                    this.sendMessage("bot", this.messages.choiceTime, "default").then(() => {
+                this.sendMessage("user", this.messages.chooseCity + value ).then(() => {
+                    this.sendMessage("bot", this.messages.choiceTime ).then(() => {
                         this.showTimeDropdown = true;
                     })
                 })
@@ -81,8 +81,8 @@
                     weatherData.city = this.city;
                     weatherData.time = this.time;
                     this.weatherData = weatherData;
-                    this.sendMessage("user", this.messages.myChoice + this.userTime, "default").then(() => {
-                        this.sendMessage("bot", this.messages.myPredictions + this.city + this.messages.inMessage + this.userTime + '....', "default").then(() => {
+                    this.sendMessage("user", this.messages.myChoice + this.userTime ).then(() => {
+                        this.sendMessage("bot", this.messages.myPredictions + this.city + this.messages.inMessage + this.userTime + '....' ).then(() => {
                             this.sendMessage("bot", this.weatherData, "weatherMessage").then(() => {
                                 this.endOrDetailsButtons = true;
                             })
@@ -96,16 +96,16 @@
             },
             showMoreDetailsMessage() {
                 this.endOrDetailsButtons = false;
-                this.sendMessage("user", this.$t('weather.user.moreDetails'), "default").then(() => {
+                this.sendMessage("user", this.$t('weather.user.moreDetails') ).then(() => {
                     this.sendMessage("bot", this.weatherData, "weatherDetailsMessage").then(() => {
                         this.endTalk();
                     })
                 })
             },
             endTalk() {
-                this.sendMessage("user", this.$t('weather.user.thank'), "default").then(() => {
-                    this.sendMessage("bot", this.$t('weather.bot.couldHelp'), "default").then(() => {
-                        this.sendMessage("bot", this.$t('weather.bot.anythingToDo'), "default").then(() => {
+                this.sendMessage("user", this.$t('weather.user.thank') ).then(() => {
+                    this.sendMessage("bot", this.$t('weather.bot.couldHelp') ).then(() => {
+                        this.sendMessage("bot", this.$t('weather.bot.anythingToDo') ).then(() => {
                             this.showCityDropdown = true;
                             this.$emit('exitCategory');
                         })
@@ -117,8 +117,8 @@
     }
 </script>
 <style scoped>
-    @import "../../../../src/assets/buttonAnimate.css";
-    @import "../../../../src/assets/buttonDropdownAnimate.css";
+
+
 
     .weather-buttons {
         text-align: right;

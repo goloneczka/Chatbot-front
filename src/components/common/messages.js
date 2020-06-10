@@ -1,12 +1,13 @@
 
-export function setMessage(author, text, style, resolve) {
+const DEFAULT = "default";
+export function setMessage(author, text, style = DEFAULT, resolve) {
     const basicMessage = {
         author: author,
         style: style,
         resolve: resolve
     };
     let message;
-    if (style === 'default')
+    if (style === DEFAULT)
         message = {
             ...basicMessage,
             text: text

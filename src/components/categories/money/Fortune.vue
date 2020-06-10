@@ -30,10 +30,12 @@
         <transition name="button-dropdown-slide">
             <PeriodChooseComponent v-if="showPeriodChooser"/>
         </transition>
-        <div>
-            <HistoryData :stocks="this.data" v-if="showHistoryDataComponent"/>
-            <FutureData :stocks="this.data" v-if="showFutureDataComponent"/>
-        </div>
+        <transition name="button-picker-slide">
+            <div>
+                <HistoryData :stocks="this.data" v-if="showHistoryDataComponent"/>
+                <FutureData :stocks="this.data" v-if="showFutureDataComponent"/>
+            </div>
+        </transition>
     </div>
 </template>
 <script>
@@ -76,8 +78,8 @@
             }
         },
         created() {
-            this.sendMessage("user", this.$t('fortune.user.entrance'), "default").then(() => {
-                this.sendMessage("bot", this.$t('fortune.bot.entrance'), "default").then(() => {
+            this.sendMessage("user", this.$t('fortune.user.entrance') ).then(() => {
+                this.sendMessage("bot", this.$t('fortune.bot.entrance') ).then(() => {
                     this.exchangeCurrencyButtons = true;
                 })
             })
@@ -90,7 +92,7 @@
             this.$root.$on('showPeriodHistory', (data) => this.showHistoryDataForPeriod(data));
         },
         methods: {
-            sendMessage(author, text, style = 'default') {
+            sendMessage(author, text, style) {
                 return new Promise((resolve) => {
                     const message = setMessage(author, text, style, resolve)
                     this.$emit('addMessage', message);
@@ -98,8 +100,8 @@
             },
             showExchange() {
                 this.exchangeCurrencyButtons = false;
-                this.sendMessage("user", this.$t('fortune.user.exchange'), "default").then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.exchange'), "default").then(() => {
+                this.sendMessage("user", this.$t('fortune.user.exchange') ).then(() => {
+                    this.sendMessage("bot", this.$t('fortune.bot.exchange') ).then(() => {
                         this.showExchanges = true;
                     })
                 })
@@ -107,8 +109,8 @@
             showCurrency() {
                 this.isCurrency = true;
                 this.exchangeCurrencyButtons = false;
-                this.sendMessage("user", this.$t('fortune.user.currency'), "default").then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.currency'), "default").then(() => {
+                this.sendMessage("user", this.$t('fortune.user.currency') ).then(() => {
+                    this.sendMessage("bot", this.$t('fortune.bot.currency') ).then(() => {
                         this.showCurrencies = true;
                     })
                 })
@@ -118,8 +120,8 @@
                     this.symbol = currency.symbol;
                     this.showCurrencies = false;
                     this.sendMessage("user",
-                        `${this.$t('fortune.user.chosenCurrency')} ${currency.name}`, "default").then(() => {
-                        this.sendMessage("bot", this.$t('fortune.bot.anotherCurrency'), "default").then(() => {
+                        `${this.$t('fortune.user.chosenCurrency')} ${currency.name}` ).then(() => {
+                        this.sendMessage("bot", this.$t('fortune.bot.anotherCurrency') ).then(() => {
                             this.showAnotherCurrencies = true;
                         })
                     })
@@ -127,8 +129,8 @@
                     this.showAnotherCurrencies = false;
                     this.symbol = `${this.symbol}=${currency.symbol}`;
                     this.sendMessage("user",
-                        `${this.$t('fortune.user.chosenCurrency')} ${currency.name}`, "default").then(() => {
-                        this.sendMessage("bot", this.$t('fortune.bot.chooseTime'), "default").then(() => {
+                        `${this.$t('fortune.user.chosenCurrency')} ${currency.name}` ).then(() => {
+                        this.sendMessage("bot", this.$t('fortune.bot.chooseTime') ).then(() => {
                             this.showTimeButtons = true;
                         })
                     })
@@ -137,52 +139,52 @@
             showExchangeAndButtons(exchange) {
                 this.showExchanges = false;
                 this.symbol = exchange.symbol;
-                this.sendMessage("user", `${this.$t('fortune.user.chosenExchange')} ${exchange.name}`, "default").then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.chooseTime'), "default").then(() => {
+                this.sendMessage("user", `${this.$t('fortune.user.chosenExchange')} ${exchange.name}` ).then(() => {
+                    this.sendMessage("bot", this.$t('fortune.bot.chooseTime') ).then(() => {
                         this.showTimeButtons = true;
                     })
                 })
             },
             showHistoryData() {
                 this.showTimeButtons = false;
-                this.sendMessage("user", `${this.$t('fortune.user.chosenHistory')}`, "default").then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.historyChoice'), "default").then(() => {
+                this.sendMessage("user", `${this.$t('fortune.user.chosenHistory')}` ).then(() => {
+                    this.sendMessage("bot", this.$t('fortune.bot.historyChoice') ).then(() => {
                         this.choosePeriod = true;
                     });
                 })
             },
             showDayChoiceComponent() {
                 this.choosePeriod = false;
-                this.sendMessage("user", `${this.$t('fortune.user.chosenDay')}`, "default").then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.dayChoice'), "default").then(() => {
+                this.sendMessage("user", `${this.$t('fortune.user.chosenDay')}` ).then(() => {
+                    this.sendMessage("bot", this.$t('fortune.bot.dayChoice') ).then(() => {
                         this.showDayChooser = true;
                     });
                 })
             },
             showPeriodChoiceComponent() {
                 this.choosePeriod = false;
-                this.sendMessage("user", `${this.$t('fortune.user.chosenPeriod')}`, "default").then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.periodChoice'), "default").then(() => {
+                this.sendMessage("user", `${this.$t('fortune.user.chosenPeriod')}` ).then(() => {
+                    this.sendMessage("bot", this.$t('fortune.bot.periodChoice') ).then(() => {
                         this.showPeriodChooser = true;
                     });
                 })
             },
             showActualData() {
                 this.showTimeButtons = false;
-                this.sendMessage("user", `${this.$t('fortune.user.chosenActual')}`, "default").then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.actualData'), "default").then(() => {
+                this.sendMessage("user", `${this.$t('fortune.user.chosenActual')}` ).then(() => {
+                    this.sendMessage("bot", this.$t('fortune.bot.actualData') ).then(() => {
                         fortuneService.getActualDataForSymbol(this.symbol, formatter.formatDate(Date.now()))
                             .then(response => {
                                 this.sendMessage("bot",
-                                    `${this.$t('fortune.bot.valueStockToday')} ${this.$t('fortune.bot.isValue')} ${response.value}`, "default")
+                                    `${this.$t('fortune.bot.valueStockToday')} ${this.$t('fortune.bot.isValue')} ${response.value}` )
                             })
                     });
                 })
             },
             showFutureData() {
                 this.showTimeButtons = false;
-                this.sendMessage("user", `${this.$t('fortune.user.chosenFuture')}`, "default").then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.futureData'), "default").then(() => {
+                this.sendMessage("user", `${this.$t('fortune.user.chosenFuture')}` ).then(() => {
+                    this.sendMessage("bot", this.$t('fortune.bot.futureData') ).then(() => {
                         this.showFutureDataComponent = true;
                         fortuneService.getFutureDataForSymbol(this.symbol).then(response => {
                             this.data = response;
@@ -193,10 +195,10 @@
             },
             showHistoryDataForDay(data) {
                 this.showDayChooser = false;
-                this.sendMessage("user", `${this.$t('fortune.user.myChoice')} ${data[0]}`, "default").then(() => {
+                this.sendMessage("user", `${this.$t('fortune.user.myChoice')} ${data[0]}` ).then(() => {
                     fortuneService.getHistoryDataForSymbol(this.symbol, formatter).then(response => {
                         this.sendMessage("bot",
-                            `${this.$t('fortune.bot.valueStockInDay')} ${data[0]} ${this.$t('fortune.bot.value')} ${response.value}`, "default")
+                            `${this.$t('fortune.bot.valueStockInDay')} ${data[0]} ${this.$t('fortune.bot.value')} ${response.value}` )
                     })
                 });
             },
@@ -204,8 +206,8 @@
                 this.showPeriodChooser = false;
                 this.sendMessage("user",
                     `${this.$t('fortune.user.myChoice')} ${new Date(data[0]).toLocaleDateString()} ${this.$t('fortune.user.to')} ${new Date(data[1]).toLocaleDateString()}`,
-                    "default").then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.historyData'), "default").then(() => {
+                     ).then(() => {
+                    this.sendMessage("bot", this.$t('fortune.bot.historyData') ).then(() => {
                         fortuneService.getHistoryDataForSymbolForPeriod(this.symbol, formatter.formatDate(data[0]), formatter.formatDate(data[1]))
                             .then(response => {
                                 this.data = response;
@@ -218,8 +220,6 @@
     }
 </script>
 <style scoped>
-    @import "../../../../src/assets/buttonAnimate.css";
-    @import "../../../../src/assets/buttonDropdownAnimate.css";
 
     .user-buttons, .choice-date {
         text-align: right;

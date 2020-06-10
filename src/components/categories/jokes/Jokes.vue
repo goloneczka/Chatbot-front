@@ -51,10 +51,10 @@
             }
         },
         created() {
-            this.sendMessage("user", this.$t('jokes.user.choiceJokes'), "default").then(() => {
-                this.sendMessage("bot", this.$t('jokes.bot.cheeringUp'), "default").then(() => {
-                    this.sendMessage("bot", this.$t('jokes.bot.greatJokes'), "default").then(() => {
-                        this.sendMessage("bot", this.$t('jokes.bot.kindOfJokes'), "default").then(() => {
+            this.sendMessage("user", this.$t('jokes.user.choiceJokes')).then(() => {
+                this.sendMessage("bot", this.$t('jokes.bot.cheeringUp')).then(() => {
+                    this.sendMessage("bot", this.$t('jokes.bot.greatJokes')).then(() => {
+                        this.sendMessage("bot", this.$t('jokes.bot.kindOfJokes')).then(() => {
                             this.showCategories = true;
                         })
                     })
@@ -62,7 +62,7 @@
             });
         },
         methods: {
-            sendMessage(author, text, style = 'default') {
+            sendMessage(author, text, style) {
                 return new Promise((resolve) => {
                     const message = setMessage(author, text, style, resolve)
                     this.$emit('addMessage', message)
@@ -70,9 +70,9 @@
             },
             sendMessageFromBot(text) {
                 const jokesLines = formatter.asLines(text);
-                let p = Promise.resolve();
-                jokesLines.forEach(message => p = p.then(() => this.sendMessage("bot", message)));
-                return p;
+                let concatenatedPromise = Promise.resolve();
+                jokesLines.forEach(message => concatenatedPromise = concatenatedPromise.then(() => this.sendMessage("bot", message)));
+                return concatenatedPromise;
             },
             sendMessageFromUser(text) {
                 return this.sendMessage("user", text)
@@ -120,7 +120,7 @@
                 this.showNextSteps = false;
                 this.sendMessageFromUser(this.$t('jokes.user.rateJoke')).then(() => {
                     this.sendMessageFromBot(this.$t('jokes.bot.great')).then(() => {
-                        this.sendMessageFromBot(this.$t('jokes.bot.rateJokeResponse2')).then(() =>{
+                        this.sendMessageFromBot(this.$t('jokes.bot.rateJokeResponse2')).then(() => {
                             this.showRatingJokesComponent = true;
                         })
                     })
@@ -131,20 +131,26 @@
                 this.showRatingJokesComponent = false;
                 this.showRatingJokesBtn = false;
                 this.sendMessageFromUser(rating + this.$t('jokes.user.outOf') + this.maxRate).then(() => {
-                    new Promise(resolve => {
-                        if (rating <= 2.5)
-                            this.sendMessageFromBot(this.$t('jokes.bot.lowRate')).then(() => resolve())
-                         else
-                            this.sendMessageFromBot(this.$t('jokes.bot.highRate')).then(() => resolve())
-                    }).then(() => {
-                        this.sendMessage("bot", this.shownJoke.id, "jokesMessage").then(() =>{
-                            this.sendMessageFromBot(this.$t('jokes.bot.nextStep')).then(() => {
-                                this.showNewJokeBtn = true;
-                                this.showCategoriesBtn = true;
-                                this.showNextSteps = true;
+                    if (rating <= 2.5)
+                        this.sendMessageFromBot(this.$t('jokes.bot.lowRate')).then(() => {
+                            this.sendMessage("bot", this.shownJoke.id, "jokesMessage").then(() => {
+                                this.sendMessageFromBot(this.$t('jokes.bot.nextStep')).then(() => {
+                                    this.showNewJokeBtn = true;
+                                    this.showCategoriesBtn = true;
+                                    this.showNextSteps = true;
+                                })
                             })
                         })
-                    })
+                    else
+                        this.sendMessageFromBot(this.$t('jokes.bot.highRate')).then(() => {
+                            this.sendMessage("bot", this.shownJoke.id, "jokesMessage").then(() => {
+                                this.sendMessageFromBot(this.$t('jokes.bot.nextStep')).then(() => {
+                                    this.showNewJokeBtn = true;
+                                    this.showCategoriesBtn = true;
+                                    this.showNextSteps = true;
+                                })
+                            })
+                        })
                 });
             },
             showNewJoke() {
@@ -183,8 +189,6 @@
 </script>
 
 <style scoped>
-    @import "../../../../src/assets/buttonAnimate.css";
-    @import "../../../../src/assets/buttonDropdownAnimate.css";
 
 
     .jokes-component {

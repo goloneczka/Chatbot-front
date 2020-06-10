@@ -72,6 +72,7 @@
         },
         methods: {
             addMessage: function (message) {
+                console.log("odbieram!")
                 this.messageAnimate = true;
                 this.messages.push({author: message.author})
                 this.$nextTick(() => {
@@ -171,23 +172,18 @@
     }
 
     .animate-bot-message {
-        padding: 10px;
-        margin-bottom: 15px;
+        margin-bottom: var(--main-min-padding-margin);
         background: var(--chat-box-mesaage-bg-bot-color);
         color: white;
         display: block;
-        max-width: 70px;
+        max-width: var(--main-max-padding-margin);
         border: var(--chat-box-meassage-border);
     }
     .animate-bot-message[data-with="user"] {
         margin-right:auto;
         margin-left:0;
-        padding: 10px;
-        margin-bottom: 15px;
-        background: var(--chat-box-mesaage-bg-bot-color);
-        color: white;
+        background: var(--chat-box-mesaage-bg-user-color);
         display: inline-block;
-        border: var(--chat-box-meassage-border);
     }
 
     .bot div {

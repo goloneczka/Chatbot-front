@@ -1,8 +1,0 @@
-
-.button-dropdown-slide-enter-active{
-    transition: all .5s ease-in;
-}
-.button-dropdown-slide-enter{
-    transform: translateX(10px);
-    opacity: 0;
-}

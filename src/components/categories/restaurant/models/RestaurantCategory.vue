@@ -1,11 +1,11 @@
 <template>
     <div>
         <transition name="button-dropdown-slide">
-            <CategoryDropdown v-if="showCategoryDropdown" :city-id="city.id"
+            <CategoryDropdown class="right-align" v-if="showCategoryDropdown" :city-id="city.id"
                               @categoryDropdownOnClick="categoryDropdownOnClick" />
         </transition>
         <transition name="button-picker-slide">
-            <div id="more-details" v-if="moreDetails" >
+            <div class="right-align" v-if="moreDetails" >
                 <b-button class="m-2" v-on:click="showNewCategoryMessage">
                     {{$t('food.user.choiceNewCategory')}}
                 </b-button>
@@ -52,7 +52,7 @@
             this.showCategoryDropdown = true;
         },
         methods: {
-            sendNestedMessage(author, text, style = 'default') {
+            sendNestedMessage(author, text, style ) {
                 return new Promise((resolve) => {
                     const message = setMessage(author, text, style, resolve)
                     this.$root.$emit('addNestedMessage', message)
@@ -103,24 +103,24 @@
                     })
                 })
             },
-            sendRatedMessage() {
+            sendRatedMessage(rating) {
                 this.rate = false;
-                this.sendNestedMessage( "bot", this.$t('food.bot.ratedRestaurant')).then(() => {
-                    this.sendNestedMessage( "bot", this.$t('weather.bot.anythingToDo')).then(() => {
-                        this.$root.$emit('exitCategory');
-                    })
-                });
+                this.sendNestedMessage('user', `${rating} ${this.$t('food.user.maxRate')}`).then(() => {
+                    this.sendNestedMessage("bot", this.$t('food.bot.ratedRestaurant')).then(() => {
+                        this.sendNestedMessage("bot", this.$t('weather.bot.anythingToDo')).then(() => {
+                            this.$root.$emit('exitCategory');
+                        })
+                    });
+                })
             },
         },
 
     }
 </script>
 <style scoped>
-    @import "../../../../../src/assets/buttonAnimate.css";
-    @import "../../../../../src/assets/buttonDropdownAnimate.css";
 
 
-    #more-details {
+    .right-align {
         text-align: right;
     }
 
