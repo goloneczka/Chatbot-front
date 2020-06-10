@@ -72,7 +72,6 @@
         },
         methods: {
             addMessage: function (message) {
-                console.log("odbieram!")
                 this.messageAnimate = true;
                 this.messages.push({author: message.author})
                 this.$nextTick(() => {
@@ -80,7 +79,6 @@
                         this.$root.$emit('messageAnimate', message.author, resolve);
                     }).then(() => {
                         this.modifyLastMessage(message);
-                        this.$root.$emit('scrollAnimate');
                         message.resolve();
                         this.messageAnimate = false;
                     })

@@ -21,22 +21,24 @@
         },
         methods: {
             scrollDown: function () {
-                window.scrollBy({top: document.body.scrollHeight, behavior: 'smooth'});
+                this.$nextTick(() => {
+                    window.scrollBy({top: document.body.scrollHeight, behavior: 'smooth'});
+                })
             }
         },
         mounted() {
+            const style = getComputedStyle(document.documentElement)
             this.$root.$on('messageAnimate', (author, resolve) => {
-                const t = author === 'bot' ? 2000 : 1200;
+                const t = author === 'bot' ? style.getPropertyValue('--chat-box-animate-long-delay')
+                    : style.getPropertyValue('--chat-box-animate-short-delay');
                 this.loading = true;
                 this.scrollDown();
                 setTimeout(() => {
                     this.loading = false
                     resolve()
-                }, t)
+                    this.scrollDown();
+                }, parseInt(t))
             });
-            this.$root.$on('scrollAnimate', () => {
-                this.scrollDown();
-            })
         }
     }
 </script>

@@ -41,8 +41,8 @@
             this.$root.$on('addNewCategoryMessage', () => {
                 this.choosenCategories.push(true)
             });
-            this.$root.$on('addNestedMessage', (auth, text, style) => {
-                this.sendNestedMessage(auth, text, style);
+            this.$root.$on('addNestedMessage', message => {
+                return this.$emit('addMessage', message)
             });
         },
         methods: {
@@ -52,9 +52,7 @@
                     this.$emit('addMessage', message)
                 });
             },
-            sendNestedMessage(message) {
-                return this.$emit('addMessage', message)
-            },
+
             cityDropdownOnClick(value) {
                 this.showCityDropdown = false;
                 this.city = value;

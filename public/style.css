@@ -33,6 +33,9 @@
     --chat-box-category-button-hover-text-shadow: 0 0 6px rgba(255, 255, 255, 1);
     --chat-box-category-button-hover-box-shadow: 0 5px 40px -10px rgba(0, 0, 0, 0.60);
 
+    --chat-box-animate-long-delay: 2000;
+    --chat-box-animate-short-delay: 1200;
+
     --admin-joke-item-bg-color: #fff;
     --admin-joke-item-color: #373737;
     --admin-joke-item-box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
