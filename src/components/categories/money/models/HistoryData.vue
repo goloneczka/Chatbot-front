@@ -1,20 +1,72 @@
 <template>
     <div class="history-data-component">
+        <chart :chartdata=this.chartdata :options=this.options></chart>
     </div>
 </template>
 
 <script>
+    import Chart from './Chart'
+    import FortuneService from '../../../../core/service/FortuneService'
+
+    const service = new FortuneService()
+
     export default {
         name: "HistoryData",
         props: ['stocks'],
-        data: function(){
-            return{
+        components: {
+            Chart
+        },
+        data() {
+            return {
+                chartdata: {},
 
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            type: 'time',
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 20
+                            }
+                        }]
+                    }
+                }
             }
         },
-        mounted() {
+        created: function() {
+            // const test = []
+            // let year = 2000
+            // let month = 1
+            // let day = 24
+
+            // for (let i = 1; i < 1000; i++) {
+            //     day++
+
+            //     if (day > 30) {
+            //         day = 1
+            //         month++
+
+            //         if (month > 12) {
+            //             month = 1
+            //             year++
+            //         }
+            //     }
+
+            //     test.push({
+            //         symbol: 'UGABUGA',
+            //         value: Math.random(),
+            //         date: '' + year + '-' + month + '-' + day
+            //     })
+            // }
+
+            this.chartdata = service.extractChartData(this.stocks)
         },
-        methods:{
+        mounted() {
+
+        },
+        methods: {
         }
     }
 </script>
