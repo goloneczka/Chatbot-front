@@ -30,8 +30,7 @@
                     if (data.errors)
                         this.$root.$emit("showDanger", this.$t('food.errors.errorRateRestaurant') + data.errors[0]);
                     else {
-                        this.$root.$emit('sendNestedMessage', 'user', `${rating} ${this.$t('food.user.maxRate')}`);
-                        this.$emit("onRatedRestaurant");
+                        this.$emit("onRatedRestaurant", rating);
                     }
                 });
             },

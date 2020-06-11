@@ -14,6 +14,8 @@
                                          v-else-if="message.style === 'weatherDetailsMessage'"></weather-details-message>
                 <JokesMessage v-bind:data="message.data" v-else-if="message.style === 'jokesMessage'"></JokesMessage>
                 <RestaurantMessage v-bind:data="message.data" v-else-if="message.style === 'restaurantMessage'"/>
+                <ChatBoxAnimation  v-bind:data-with="message.author"
+                                  v-if="index === lastMessageIndex && messageAnimate" />
                 <p v-if="index === lastBotMessageIndex">
                     <b-img class="bot-image" height="30" v-bind:src="themeService.getActiveTheme().imageSource"></b-img>
                 </p>
@@ -26,11 +28,8 @@
             <Weather v-on:addMessage="addMessage($event)" v-if="activeCategory === 'weather'"
                      v-on:exitCategory="changeCategory(null)"/>
             <Jokes v-on:addMessage="addMessage($event)" v-if="activeCategory === 'jokes'"></Jokes>
-            <Restaurants v-on:addMessage="addMessage($event)" :botIconSource="themeService.getActiveTheme().imageSource"
-                         v-if="activeCategory === 'restaurant'"/>
-            <Fortune v-on:addMessage="addMessage($event)" :botIconSource="themeService.getActiveTheme().imageSource"
-                   v-if="activeCategory === 'fortune'" />
-
+            <Fortune v-on:addMessage="addMessage($event)" v-if="activeCategory === 'fortune'" />
+            <Restaurants v-on:addMessage="addMessage($event)" v-if="activeCategory === 'restaurant'"/>
         </div>
     </div>
 </template>
@@ -44,6 +43,7 @@
     import JokesMessage from "../categories/jokes/JokesMessage";
     import Restaurants from "../categories/restaurant/Restaurants";
     import RestaurantMessage from "../categories/restaurant/models/RestaurantMessage";
+    import ChatBoxAnimation from "./ChatBoxAnimation";
     import Fortune from "../categories/money/Fortune";
 
     import {themeService} from "../../App";
@@ -58,19 +58,31 @@
             WeatherDetailsMessage,
             WeatherMessage,
             Weather,
+            ChatBoxAnimation,
             Fortune
         },
         data: function () {
             return {
                 messages: [],
                 activeCategory: null,
+                messageAnimate: false,
                 themeService
+
             }
         },
         methods: {
             addMessage: function (message) {
-                this.messages.push(message);
-                this.scrollDown();
+                this.messageAnimate = true;
+                this.messages.push({author: message.author})
+                this.$nextTick(() => {
+                    new Promise((resolve) => {
+                        this.$root.$emit('messageAnimate', message.author, resolve);
+                    }).then(() => {
+                        this.modifyLastMessage(message);
+                        message.resolve();
+                        this.messageAnimate = false;
+                    })
+                });
             },
             changeCategory: function (category) {
                 this.activeCategory = null;
@@ -78,10 +90,9 @@
                     this.activeCategory = category;
                 });
             },
-            scrollDown: function () {
-                this.$nextTick(() => {
-                    window.scrollBy({top: document.body.scrollHeight, behavior: 'smooth'});
-                })
+            modifyLastMessage: function (message) {
+                this.messages.pop();
+                this.messages.push(message);
             }
         },
         computed: {
@@ -102,7 +113,10 @@
                     }
                 }
                 return null;
-            }
+            },
+            lastMessageIndex: function () {
+                return this.messages.length - 1;
+            },
         },
         mounted() {
             this.$root.$on('activeCategory', (category) => {

@@ -114,6 +114,9 @@
     --chat-button-active-dark-theme-border-color: #000000;
     --chat-button-active-blue-theme-border-color: #00e6b8;
 
+    --chat-box-animate-long-delay: 2000;
+    --chat-box-animate-short-delay: 1200;
+
     --admin-joke-item-bg-color: #fff;
     --admin-joke-item-color: #373737;
     --admin-joke-item-box-shadow: 0 2px 3px rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .1);
@@ -219,4 +222,24 @@ html, body {
     color: var(--chat-button-active-blue-theme-text-color) !important;
     border: var(--button-border-style) var(--chat-button-active-blue-theme-border-color) !important;
     box-shadow: none !important;
+}
+
+.button-picker-slide-enter-active{
+    transition: all .5s ease-in;
+}
+.button-picker-slide-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.button-picker-slide-enter, .button-picker-slide-leave-to {
+    transform: translateX(10px);
+    opacity: 0;
+}
+
+
+.button-dropdown-slide-enter-active{
+    transition: all .5s ease-in;
+}
+.button-dropdown-slide-enter{
+    transform: translateX(10px);
+    opacity: 0;
 }
