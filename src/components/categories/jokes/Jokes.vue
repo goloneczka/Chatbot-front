@@ -35,7 +35,7 @@
     import RatingJoke from "./RatingJoke";
     import TellJokeForm from "./TellJokeForm";
     import {themeService} from "../../../App";
-    import {setMessage} from "../../common/messages";
+    import {sendMessage} from "../../common/messages";
 
     export default {
         name: "Jokes",
@@ -56,10 +56,10 @@
             }
         },
         created() {
-            this.sendMessage("user", this.$t('jokes.user.choiceJokes')).then(() => {
-                this.sendMessage("bot", this.$t('jokes.bot.cheeringUp')).then(() => {
-                    this.sendMessage("bot", this.$t('jokes.bot.greatJokes')).then(() => {
-                        this.sendMessage("bot", this.$t('jokes.bot.kindOfJokes')).then(() => {
+           sendMessage( this, "user", this.$t('jokes.user.choiceJokes')).then(() => {
+               sendMessage( this, "bot", this.$t('jokes.bot.cheeringUp')).then(() => {
+                   sendMessage( this, "bot", this.$t('jokes.bot.greatJokes')).then(() => {
+                       sendMessage( this, "bot", this.$t('jokes.bot.kindOfJokes')).then(() => {
                             this.showCategories = true;
                         })
                     })
@@ -67,20 +67,14 @@
             });
         },
         methods: {
-            sendMessage(author, text, style) {
-                return new Promise((resolve) => {
-                    const message = setMessage(author, text, style, resolve)
-                    this.$emit('addMessage', message)
-                })
-            },
             sendMessageFromBot(text) {
                 const jokesLines = formatter.asLines(text);
                 let concatenatedPromise = Promise.resolve();
-                jokesLines.forEach(message => concatenatedPromise = concatenatedPromise.then(() => this.sendMessage("bot", message)));
+                jokesLines.forEach(message => concatenatedPromise = concatenatedPromise.then(() => sendMessage( this, "bot", message)));
                 return concatenatedPromise;
             },
             sendMessageFromUser(text) {
-                return this.sendMessage("user", text)
+                return sendMessage( this, "user", text)
             },
             showJoke(category) {
                 this.showCategories = false;
@@ -138,7 +132,7 @@
                 this.sendMessageFromUser(rating + this.$t('jokes.user.outOf') + this.maxRate).then(() => {
                     if (rating <= 2.5)
                         this.sendMessageFromBot(this.$t('jokes.bot.lowRate')).then(() => {
-                            this.sendMessage("bot", this.shownJoke.id, "jokesMessage").then(() => {
+                           sendMessage( this, "bot", this.shownJoke.id, "jokesMessage").then(() => {
                                 this.sendMessageFromBot(this.$t('jokes.bot.nextStep')).then(() => {
                                     this.showNewJokeBtn = true;
                                     this.showCategoriesBtn = true;
@@ -148,7 +142,7 @@
                         })
                     else
                         this.sendMessageFromBot(this.$t('jokes.bot.highRate')).then(() => {
-                            this.sendMessage("bot", this.shownJoke.id, "jokesMessage").then(() => {
+                           sendMessage( this, "bot", this.shownJoke.id, "jokesMessage").then(() => {
                                 this.sendMessageFromBot(this.$t('jokes.bot.nextStep')).then(() => {
                                     this.showNewJokeBtn = true;
                                     this.showCategoriesBtn = true;

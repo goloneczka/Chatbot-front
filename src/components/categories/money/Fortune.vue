@@ -3,9 +3,11 @@
         <transition name="button-picker-slide">
             <div class="user-buttons" v-if=exchangeCurrencyButtons>
                 <b-button class="m-2" v-on:click="showExchange"
-                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.exchange')}}</b-button>
+                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.exchange')}}
+                </b-button>
                 <b-button class="m-2" v-on:click="showCurrency"
-                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.currency')}}</b-button>
+                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.currency')}}
+                </b-button>
             </div>
         </transition>
         <transition name="button-dropdown-slide">
@@ -23,9 +25,11 @@
         <transition name="button-picker-slide">
             <div class="choice-date" v-if="choosePeriod">
                 <b-button class="m-2" v-on:click="showDayChoiceComponent"
-                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.day')}}</b-button>
+                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.day')}}
+                </b-button>
                 <b-button class="m-2" v-on:click="showPeriodChoiceComponent"
-                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.period')}}</b-button>
+                          v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.period')}}
+                </b-button>
             </div>
         </transition>
         <transition name="button-dropdown-slide">
@@ -52,8 +56,8 @@
     import HistoryData from "./models/HistoryData";
     import FutureData from "./models/FutureData";
     import {fortuneService} from "../../../App";
-    import {setMessage} from "../../common/messages";
-    import {formatter} from  "../../../App";
+    import {sendMessage} from "../../common/messages";
+    import {formatter} from "../../../App";
     import {themeService} from "../../../App";
 
     export default {
@@ -84,8 +88,8 @@
             }
         },
         created() {
-            this.sendMessage("user", this.$t('fortune.user.entrance') ).then(() => {
-                this.sendMessage("bot", this.$t('fortune.bot.entrance') ).then(() => {
+            sendMessage(this, "user", this.$t('fortune.user.entrance')).then(() => {
+                sendMessage(this, "bot", this.$t('fortune.bot.entrance')).then(() => {
                     this.exchangeCurrencyButtons = true;
                 })
             })
@@ -98,16 +102,10 @@
             this.$root.$on('showPeriodHistory', (data) => this.showHistoryDataForPeriod(data));
         },
         methods: {
-            sendMessage(author, text, style) {
-                return new Promise((resolve) => {
-                    const message = setMessage(author, text, style, resolve)
-                    this.$emit('addMessage', message);
-                });
-            },
             showExchange() {
                 this.exchangeCurrencyButtons = false;
-                this.sendMessage("user", this.$t('fortune.user.exchange') ).then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.exchange') ).then(() => {
+                sendMessage(this, "user", this.$t('fortune.user.exchange')).then(() => {
+                    sendMessage(this, "bot", this.$t('fortune.bot.exchange')).then(() => {
                         this.showExchanges = true;
                     })
                 })
@@ -115,8 +113,8 @@
             showCurrency() {
                 this.isCurrency = true;
                 this.exchangeCurrencyButtons = false;
-                this.sendMessage("user", this.$t('fortune.user.currency') ).then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.currency') ).then(() => {
+                sendMessage(this, "user", this.$t('fortune.user.currency')).then(() => {
+                    sendMessage(this, "bot", this.$t('fortune.bot.currency')).then(() => {
                         this.showCurrencies = true;
                     })
                 })
@@ -125,18 +123,18 @@
                 if (this.symbol === null) {
                     this.symbol = currency.symbol;
                     this.showCurrencies = false;
-                    this.sendMessage("user",
-                        `${this.$t('fortune.user.chosenCurrency')} ${currency.name}` ).then(() => {
-                        this.sendMessage("bot", this.$t('fortune.bot.anotherCurrency') ).then(() => {
+                    sendMessage(this, "user",
+                        `${this.$t('fortune.user.chosenCurrency')} ${currency.name}`).then(() => {
+                        sendMessage(this, "bot", this.$t('fortune.bot.anotherCurrency')).then(() => {
                             this.showAnotherCurrencies = true;
                         })
                     })
                 } else {
                     this.showAnotherCurrencies = false;
                     this.symbol = `${this.symbol}=${currency.symbol}`;
-                    this.sendMessage("user",
-                        `${this.$t('fortune.user.chosenCurrency')} ${currency.name}` ).then(() => {
-                        this.sendMessage("bot", this.$t('fortune.bot.chooseTime') ).then(() => {
+                    sendMessage(this, "user",
+                        `${this.$t('fortune.user.chosenCurrency')} ${currency.name}`).then(() => {
+                        sendMessage(this, "bot", this.$t('fortune.bot.chooseTime')).then(() => {
                             this.showTimeButtons = true;
                         })
                     })
@@ -145,52 +143,52 @@
             showExchangeAndButtons(exchange) {
                 this.showExchanges = false;
                 this.symbol = exchange.symbol;
-                this.sendMessage("user", `${this.$t('fortune.user.chosenExchange')} ${exchange.name}` ).then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.chooseTime') ).then(() => {
+                sendMessage(this, "user", `${this.$t('fortune.user.chosenExchange')} ${exchange.name}`).then(() => {
+                    sendMessage(this, "bot", this.$t('fortune.bot.chooseTime')).then(() => {
                         this.showTimeButtons = true;
                     })
                 })
             },
             showHistoryData() {
                 this.showTimeButtons = false;
-                this.sendMessage("user", `${this.$t('fortune.user.chosenHistory')}` ).then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.historyChoice') ).then(() => {
+                sendMessage(this, "user", `${this.$t('fortune.user.chosenHistory')}`).then(() => {
+                    sendMessage(this, "bot", this.$t('fortune.bot.historyChoice')).then(() => {
                         this.choosePeriod = true;
                     });
                 })
             },
             showDayChoiceComponent() {
                 this.choosePeriod = false;
-                this.sendMessage("user", `${this.$t('fortune.user.chosenDay')}` ).then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.dayChoice') ).then(() => {
+                sendMessage(this, "user", `${this.$t('fortune.user.chosenDay')}`).then(() => {
+                    sendMessage(this, "bot", this.$t('fortune.bot.dayChoice')).then(() => {
                         this.showDayChooser = true;
                     });
                 })
             },
             showPeriodChoiceComponent() {
                 this.choosePeriod = false;
-                this.sendMessage("user", `${this.$t('fortune.user.chosenPeriod')}` ).then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.periodChoice') ).then(() => {
+                sendMessage(this, "user", `${this.$t('fortune.user.chosenPeriod')}`).then(() => {
+                    sendMessage(this, "bot", this.$t('fortune.bot.periodChoice')).then(() => {
                         this.showPeriodChooser = true;
                     });
                 })
             },
             showActualData() {
                 this.showTimeButtons = false;
-                this.sendMessage("user", `${this.$t('fortune.user.chosenActual')}` ).then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.actualData') ).then(() => {
+                sendMessage(this, "user", `${this.$t('fortune.user.chosenActual')}`).then(() => {
+                    sendMessage(this, "bot", this.$t('fortune.bot.actualData')).then(() => {
                         fortuneService.getActualDataForSymbol(this.symbol, formatter.formatDate(Date.now()))
                             .then(response => {
-                                this.sendMessage("bot",
-                                    `${this.$t('fortune.bot.valueStockToday')} ${this.$t('fortune.bot.isValue')} ${response.value}` )
+                                sendMessage(this, "bot",
+                                    `${this.$t('fortune.bot.valueStockToday')} ${this.$t('fortune.bot.isValue')} ${response.value}`)
                             })
                     });
                 })
             },
             showFutureData() {
                 this.showTimeButtons = false;
-                this.sendMessage("user", `${this.$t('fortune.user.chosenFuture')}` ).then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.futureData') ).then(() => {
+                sendMessage(this, "user", `${this.$t('fortune.user.chosenFuture')}`).then(() => {
+                    sendMessage(this, "bot", this.$t('fortune.bot.futureData')).then(() => {
                         this.showFutureDataComponent = true;
                         fortuneService.getFutureDataForSymbol(this.symbol).then(response => {
                             this.data = response;
@@ -201,19 +199,19 @@
             },
             showHistoryDataForDay(data) {
                 this.showDayChooser = false;
-                this.sendMessage("user", `${this.$t('fortune.user.myChoice')} ${data[0]}` ).then(() => {
+                sendMessage(this, "user", `${this.$t('fortune.user.myChoice')} ${data[0]}`).then(() => {
                     fortuneService.getHistoryDataForSymbol(this.symbol, formatter).then(response => {
-                        this.sendMessage("bot",
-                            `${this.$t('fortune.bot.valueStockInDay')} ${data[0]} ${this.$t('fortune.bot.value')} ${response.value}` )
+                        sendMessage(this, "bot",
+                            `${this.$t('fortune.bot.valueStockInDay')} ${data[0]} ${this.$t('fortune.bot.value')} ${response.value}`)
                     })
                 });
             },
             showHistoryDataForPeriod(data) {
                 this.showPeriodChooser = false;
-                this.sendMessage("user",
+                sendMessage(this, "user",
                     `${this.$t('fortune.user.myChoice')} ${new Date(data[0]).toLocaleDateString()} ${this.$t('fortune.user.to')} ${new Date(data[1]).toLocaleDateString()}`,
-                     ).then(() => {
-                    this.sendMessage("bot", this.$t('fortune.bot.historyData') ).then(() => {
+                ).then(() => {
+                    sendMessage(this, "bot", this.$t('fortune.bot.historyData')).then(() => {
                         fortuneService.getHistoryDataForSymbolForPeriod(this.symbol, formatter.formatDate(data[0]), formatter.formatDate(data[1]))
                             .then(response => {
                                 this.data = response;

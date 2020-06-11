@@ -26,7 +26,7 @@
 
     import {weatherService} from "../../../App";
     import {themeService} from "../../../App";
-    import {setMessage} from "../../common/messages"
+    import {sendMessage} from "../../common/messages"
     import CityDropdown from "./models/CityDropdown";
     import TimeDropdown from "./models/TimeDropdown";
 
@@ -54,24 +54,18 @@
             }
         },
         created() {
-            this.sendMessage("user", this.$t('weather.user.choiceWeather') ).then(() => {
-                this.sendMessage("bot", this.$t('weather.bot.introduction') ).then(() => {
+           sendMessage( this, "user", this.$t('weather.user.choiceWeather') ).then(() => {
+               sendMessage( this, "bot", this.$t('weather.bot.introduction') ).then(() => {
                     this.showCityDropdown = true;
                 })
             })
         },
         methods: {
-            sendMessage(author, text, style) {
-                return new Promise((resolve) => {
-                    const message = setMessage(author, text, style, resolve)
-                    this.$emit('addMessage', message);
-                });
-            },
             cityDropdownOnClick(value) {
                 this.showCityDropdown = false;
                 this.city = value;
-                this.sendMessage("user", this.messages.chooseCity + value ).then(() => {
-                    this.sendMessage("bot", this.messages.choiceTime ).then(() => {
+               sendMessage( this, "user", this.messages.chooseCity + value ).then(() => {
+                   sendMessage( this, "bot", this.messages.choiceTime ).then(() => {
                         this.showTimeDropdown = true;
                     })
                 })
@@ -84,9 +78,9 @@
                     weatherData.city = this.city;
                     weatherData.time = this.time;
                     this.weatherData = weatherData;
-                    this.sendMessage("user", this.messages.myChoice + this.userTime ).then(() => {
-                        this.sendMessage("bot", this.messages.myPredictions + this.city + this.messages.inMessage + this.userTime + '....' ).then(() => {
-                            this.sendMessage("bot", this.weatherData, "weatherMessage").then(() => {
+                   sendMessage( this, "user", this.messages.myChoice + this.userTime ).then(() => {
+                       sendMessage( this, "bot", this.messages.myPredictions + this.city + this.messages.inMessage + this.userTime + '....' ).then(() => {
+                           sendMessage( this, "bot", this.weatherData, "weatherMessage").then(() => {
                                 this.endOrDetailsButtons = true;
                             })
                         })
@@ -99,16 +93,16 @@
             },
             showMoreDetailsMessage() {
                 this.endOrDetailsButtons = false;
-                this.sendMessage("user", this.$t('weather.user.moreDetails') ).then(() => {
-                    this.sendMessage("bot", this.weatherData, "weatherDetailsMessage").then(() => {
+               sendMessage( this, "user", this.$t('weather.user.moreDetails') ).then(() => {
+                   sendMessage( this, "bot", this.weatherData, "weatherDetailsMessage").then(() => {
                         this.endTalk();
                     })
                 })
             },
             endTalk() {
-                this.sendMessage("user", this.$t('weather.user.thank') ).then(() => {
-                    this.sendMessage("bot", this.$t('weather.bot.couldHelp') ).then(() => {
-                        this.sendMessage("bot", this.$t('weather.bot.anythingToDo') ).then(() => {
+               sendMessage( this, "user", this.$t('weather.user.thank') ).then(() => {
+                   sendMessage( this, "bot", this.$t('weather.bot.couldHelp') ).then(() => {
+                       sendMessage( this, "bot", this.$t('weather.bot.anythingToDo') ).then(() => {
                             this.showCityDropdown = true;
                             this.$emit('exitCategory');
                         })

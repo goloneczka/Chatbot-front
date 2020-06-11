@@ -14,7 +14,7 @@
 
     import CityDropdown from "./models/CityDropdown";
     import RestaurantCategory from "./models/RestaurantCategory";
-    import {setMessage} from "../../common/messages";
+    import {sendMessage} from "../../common/messages";
 
     export default {
         name: 'Restaurants',
@@ -31,8 +31,8 @@
             }
         },
         created() {
-            this.sendMessage("user", this.$t('food.user.choiceRestaurant')).then(() => {
-                this.sendMessage("bot", this.$t('weather.bot.introduction')).then(() => {
+           sendMessage( this, "user", this.$t('food.user.choiceRestaurant')).then(() => {
+               sendMessage( this, "bot", this.$t('weather.bot.introduction')).then(() => {
                     this.showCityDropdown = true;
                 })
             });
@@ -41,22 +41,18 @@
             this.$root.$on('addNewCategoryMessage', () => {
                 this.choosenCategories.push(true)
             });
-            this.$root.$on('addNestedMessage', message => {
-                return this.$emit('addMessage', message)
+            this.$root.$on('addNestedMessage', (author, text, style, resolve)  => {
+                return sendMessage(this, author, text, style).then(() => {
+                    resolve()
+                })
             });
         },
         methods: {
-            sendMessage(author, text, style ) {
-                return new Promise((resolve) => {
-                    const message = setMessage(author, text, style, resolve)
-                    this.$emit('addMessage', message)
-                });
-            },
             cityDropdownOnClick(value) {
                 this.showCityDropdown = false;
                 this.city = value;
-                this.sendMessage("user", `${this.$t('weather.user.chooseCity')} ${this.city.city}`).then(() => {
-                    this.sendMessage("bot", this.$t('food.bot.foodCategory')).then(() => {
+               sendMessage( this, "user", `${this.$t('weather.user.chooseCity')} ${this.city.city}`).then(() => {
+                   sendMessage( this, "bot", this.$t('food.bot.foodCategory')).then(() => {
                         this.choosenCategories.push(true);
                     })
                 });
