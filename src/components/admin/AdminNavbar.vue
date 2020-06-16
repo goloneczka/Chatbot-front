@@ -5,9 +5,6 @@
             <div class="dropdown">
                 <button class="dropbtn">{{ $t('adminHome.menu')}}</button>
                 <div class="dropdown-content">
-                    <a href="#">{{ $t('adminHome.users')}}</a>
-                    <a href="#">{{ $t('adminHome.settings')}}</a>
-                    <a href="#">{{ $t('adminHome.information')}}</a>
                     <a v-on:click="logOut">{{ $t('adminHome.logOut')}}</a>
                 </div>
             </div>
