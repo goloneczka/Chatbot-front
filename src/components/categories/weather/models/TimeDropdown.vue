@@ -53,9 +53,10 @@
                 }
             },
             onContext(ctx) {
-                this.context = ctx
+                this.context = ctx;
+                this.labels.labelNoDateSelected = this.context.activeFormatted
             }
-        }
+        },
     }
 </script>
 <style scoped>
