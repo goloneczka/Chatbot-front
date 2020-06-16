@@ -28,8 +28,7 @@
 </template>
 <script>
 
-    import {themeService} from "../../../../App";
-    import {restaurantService} from "../../../../App";
+    import {restaurantService, themeService} from "../../../../App";
     import CategoryDropdown from "./CategoryDropdown";
     import RatingRestaurant from "./RatingRestaurant";
 
@@ -58,7 +57,7 @@
         methods: {
             sendNestedMessage(author, text, style) {
                 return new Promise(resolve =>
-                     this.$root.$emit('addNestedMessage', author, text, style, resolve)
+                    this.$root.$emit('addNestedMessage', author, text, style, resolve)
                 )
             },
             categoryDropdownOnClick(value) {
@@ -94,7 +93,9 @@
                         this.$root.$emit("showDanger", this.$t('food.errors.errorGetRestaurantData') + restaurantData.errors[0]);
                     else {
                         this.restaurantData = restaurantData;
-                        this.sendNestedMessage('bot', this.restaurantData, 'restaurantMessage');
+                        this.sendNestedMessage("user", this.$t('food.user.chooseOtherRestaurant')).then(() => {
+                            this.sendNestedMessage('bot', this.restaurantData, 'restaurantMessage');
+                        });
                     }
                 });
             },
