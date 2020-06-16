@@ -1,3 +1,5 @@
+import { themeService } from "../../App.vue";
+
 export default class FortuneService {
     constructor(httpRequest) {
         this.httpRequest = httpRequest;
@@ -32,9 +34,12 @@ export default class FortuneService {
         let axisY = []
 
         for (let stock of stocks) {
+            let value = Math.round(stock.value * 100) / 100
             axisX.push(stock.date)
-            axisY.push(stock.value)
+            axisY.push(value)
         }
+
+        let fontColor = (themeService.getActiveTheme().themeName === 'dark') ? 'white' : 'black'
 
         return {
             labels: axisX,
@@ -43,6 +48,7 @@ export default class FortuneService {
                 label: stocks[0].symbol,
                 borderColor: '#2cc3ed',
                 fill: false,
+                legend: {labels: {fontColor: fontColor}},
                 data: axisY
             }]
         }

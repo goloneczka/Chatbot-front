@@ -249,7 +249,7 @@
       "chooseTime": "Z jakiego okresu chcesz dane?",
       "actualData": "Oto aktualne ceny akcji: ",
       "futureData": "Oto prognoza cen akcji: ",
-      "historyData": "Oto historyczne ceny akcji dla wybranego okresu: ",
+      "historyData": "Oto historyczne ceny akcji dla okresu ",
       "historyDataDay": "Oto historyczne dane cen akcji dla wybranego dnia: ",
       "historyChoice": "Wybierasz dzień czy okres?",
       "dayChoice": "A z jakiego konretnie?",
