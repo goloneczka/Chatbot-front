@@ -3,7 +3,7 @@
         <b-dropdown v-bind:text="$t('fortune.buttons.choiceCurrency')"
                     v-bind:class="themeService.getActiveTheme().themeName">
             <b-dropdown-item v-for="currency in curriences" v-bind:key="currency" v-on:click="chosenCategory(currency)">
-                {{currency.name}}
+                {{currency}}
             </b-dropdown-item>
         </b-dropdown>
     </div>

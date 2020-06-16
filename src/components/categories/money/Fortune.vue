@@ -121,19 +121,19 @@
             },
             showAnotherCurrency(currency) {
                 if (this.symbol === null) {
-                    this.symbol = currency.symbol;
+                    this.symbol = currency;
                     this.showCurrencies = false;
                     sendMessage(this, "user",
-                        `${this.$t('fortune.user.chosenCurrency')} ${currency.name}`).then(() => {
+                        `${this.$t('fortune.user.chosenCurrency')} ${currency}`).then(() => {
                         sendMessage(this, "bot", this.$t('fortune.bot.anotherCurrency')).then(() => {
                             this.showAnotherCurrencies = true;
                         })
                     })
                 } else {
                     this.showAnotherCurrencies = false;
-                    this.symbol = `${this.symbol}=${currency.symbol}`;
+                    this.symbol = `${this.symbol}/${currency}`;
                     sendMessage(this, "user",
-                        `${this.$t('fortune.user.chosenCurrency')} ${currency.name}`).then(() => {
+                        `${this.$t('fortune.user.chosenCurrency')} ${currency}`).then(() => {
                         sendMessage(this, "bot", this.$t('fortune.bot.chooseTime')).then(() => {
                             this.showTimeButtons = true;
                         })

@@ -5,7 +5,7 @@ export default class FortuneService {
     }
 
     getAllCurrencies(){
-        return this.httpRequest.get("symbols/currencies");
+        return this.httpRequest.get("currencies");
     }
 
     getAllCompanies(){
