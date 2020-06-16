@@ -97,7 +97,8 @@
       "restaurant": "kategorie",
       "rateRestauration": "Chciałbym ocenić restauracje",
       "rateRestaurationChoice": "Oceń restauracje",
-      "maxRate": "na 5"
+      "maxRate": "na 5",
+      "chooseOtherRestaurant": "Chciałbym jednak zobaczyć inną restaurację"
     },
     "errors": {
       "errorListOfCategories": "Nie można pobrać kategorii. \n Błąd: ",
