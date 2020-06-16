@@ -212,7 +212,9 @@
                 sendMessage(this, "user",
                     `${this.$t('fortune.user.myChoice')} ${new Date(data[0]).toLocaleDateString()} ${this.$t('fortune.user.to')} ${new Date(data[1]).toLocaleDateString()}`,
                 ).then(() => {
-                    sendMessage(this, "bot", this.$t('fortune.bot.historyData')).then(() => {
+                    sendMessage(this, "bot", 
+                        `${this.$t('fortune.bot.historyData')} ${new Date(data[0]).toLocaleDateString()} ${this.$t('fortune.user.to')} ${new Date(data[1]).toLocaleDateString()}`
+                    ).then(() => {
                         fortuneService.getHistoryDataForSymbolForPeriod(this.symbol, formatter.formatDate(data[0]), formatter.formatDate(data[1]))
                             .then(response => {
                                 this.data = response;
