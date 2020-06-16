@@ -168,6 +168,8 @@
                     this.sendMessageFromBot(this.$t('jokes.bot.savingJoke')).then(() => {
                         this.sendMessageFromBot(this.$t('jokes.bot.nextStep')).then(() => {
                             this.showNextSteps = true;
+                            this.showCategoriesBtn = true;
+                            this.showNewJokeBtn = true
                         })
                     });
                 })
