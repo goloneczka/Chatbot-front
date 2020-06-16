@@ -39,7 +39,7 @@
             this.temperature = Math.round(this.data.temperature);
             this.feelTemperature = Math.round(this.data.perceivedTemperature);
             this.airPressure = this.data.pressure;
-            this.humidity = this.data.humidity * 100;
+            this.humidity = (this.data.humidity * 100).toFixed();
             this.windSpeed = this.data.windSpeed;
         }
 
