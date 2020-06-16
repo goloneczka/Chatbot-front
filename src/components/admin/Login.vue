@@ -16,9 +16,6 @@
                     <div class="form-group">
                         <input type="submit" class="btnSubmit" :value="$t('login.button')"/>
                     </div>
-                    <div class="form-group">
-                        <a href="#" class="ForgetPwd">{{$t('login.forgetPassword')}}</a>
-                    </div>
                 </form>
             </div>
         </div>
