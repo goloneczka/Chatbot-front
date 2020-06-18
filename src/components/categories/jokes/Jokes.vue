@@ -8,15 +8,15 @@
                 <JokesCategoryChooser v-on:chooseCategory="showJoke($event)"></JokesCategoryChooser>
             </div>
         </transition>
-        <transition name="button-picker-slide">
+        <transition name="button-picker-slide" @after-enter="disabled=false">
             <div v-if="showNextSteps">
-                <b-button v-if="showRatingJokesBtn" v-on:click="showRatingComponent()"
+                <b-button :disabled="disabled" v-if="showRatingJokesBtn" v-on:click="disableButtons(showRatingComponent)"
                           v-bind:class="themeService.getActiveTheme().themeName">{{$t('jokes.user.rateJokeBtn')}}
                 </b-button>
-                <b-button v-if="showCategoriesBtn" v-on:click="showAnotherJoke()"
+                <b-button :disabled="disabled" v-if="showCategoriesBtn" v-on:click="disableButtons(showAnotherJoke)"
                           v-bind:class="themeService.getActiveTheme().themeName">{{$t('jokes.user.choiceJokes')}}
                 </b-button>
-                <b-button v-if="showNewJokeBtn" v-on:click="showNewJoke()"
+                <b-button :disabled="disabled" v-if="showNewJokeBtn" v-on:click="disableButtons(showNewJoke)"
                           v-bind:class="themeService.getActiveTheme().themeName">{{$t('jokes.user.tellJokeBtn')}}
                 </b-button>
             </div>
@@ -52,7 +52,8 @@
                 shownJoke: null,
                 maxRate: 5,
                 error: '',
-                themeService
+                themeService,
+                disabled: false
             }
         },
         created() {
@@ -139,7 +140,7 @@
                                     this.showNextSteps = true;
                                 })
                             })
-                        })
+                        });
                     else
                         this.sendMessageFromBot(this.$t('jokes.bot.highRate')).then(() => {
                            sendMessage( this, "bot", this.shownJoke.id, "jokesMessage").then(() => {
@@ -183,6 +184,12 @@
                     this.sendMessageFromBot(this.$t('jokes.bot.anotherJokeResponse')).then(() => {
                         this.showCategories = true;
                     })
+                })
+            },
+            disableButtons(afterDisableFunction) {
+                this.disabled = true;
+                this.$nextTick(() => {
+                    afterDisableFunction();
                 })
             }
         }

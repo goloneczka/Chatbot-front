@@ -1,11 +1,11 @@
 <template>
     <div>
-        <transition name="button-picker-slide">
+        <transition name="button-picker-slide" @after-enter="disabled=false">
             <div class="user-buttons" v-if=exchangeCurrencyButtons>
-                <b-button class="m-2" v-on:click="showExchange"
+                <b-button :disabled="disabled" class="m-2" v-on:click="disableButtons(showExchange)"
                           v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.exchange')}}
                 </b-button>
-                <b-button class="m-2" v-on:click="showCurrency"
+                <b-button :disabled="disabled" class="m-2" v-on:click="disableButtons(showCurrency)"
                           v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.currency')}}
                 </b-button>
             </div>
@@ -22,12 +22,12 @@
         <transition name="button-dropdown-slide">
             <ChooseTime v-if="showTimeButtons"/>
         </transition>
-        <transition name="button-picker-slide">
+        <transition name="button-picker-slide" @after-enter="disabled=false">
             <div class="choice-date" v-if="choosePeriod">
-                <b-button class="m-2" v-on:click="showDayChoiceComponent"
+                <b-button :disabled="disabled" class="m-2" v-on:click="disableButtons(showDayChoiceComponent)"
                           v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.day')}}
                 </b-button>
-                <b-button class="m-2" v-on:click="showPeriodChoiceComponent"
+                <b-button :disabled="disabled" class="m-2" v-on:click="disableButtons(showPeriodChoiceComponent)"
                           v-bind:class="themeService.getActiveTheme().themeName">{{$t('fortune.buttons.period')}}
                 </b-button>
             </div>
@@ -83,7 +83,8 @@
                 showFutureDataComponent: false,
                 showHistoryDataComponent: false,
                 data: null,
-                themeService
+                themeService,
+                disabled: false
 
             }
         },
@@ -92,7 +93,7 @@
                 sendMessage(this, "bot", this.$t('fortune.bot.entrance')).then(() => {
                     this.exchangeCurrencyButtons = true;
                 })
-            })
+            });
             this.$root.$on('showCurrency', (currency) => this.showAnotherCurrency(currency));
             this.$root.$on('chooseExchange', (exchange) => this.showExchangeAndButtons(exchange));
             this.$root.$on('showActualData', () => this.showActualData());
@@ -219,6 +220,12 @@
                             })
                     })
                 });
+            },
+            disableButtons(afterDisableFunction) {
+                this.disabled = true;
+                this.$nextTick(() => {
+                    afterDisableFunction();
+                })
             }
         },
     }
