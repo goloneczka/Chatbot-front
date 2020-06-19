@@ -17,10 +17,10 @@
                 <ChatBoxAnimation  v-bind:data-with="message.author"
                                   v-if="index === lastMessageIndex && messageAnimate" />
                 <p v-if="index === lastBotMessageIndex">
-                    <b-img class="bot-image" height="70" :src="require('../../assets/fromGraphics2/botMessageIcon.svg')"></b-img>
+                    <b-img class="bot-image" height="70" :src="require('../../assets/botMessageIcon.svg')"></b-img>
                 </p>
                 <p v-else-if="index === lastUserMessageIndex">
-                    <b-img class="bot-image" height="70" :src="require('../../assets/fromGraphics2/userIcon.svg')"></b-img>
+                    <b-img class="bot-image" height="70" :src="require('../../assets/userIcon.svg')"></b-img>
                 </p>
             </li>
         </ul>

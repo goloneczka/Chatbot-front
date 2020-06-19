@@ -1,7 +1,7 @@
 <template>
     <div class="hello-message">
         <div>
-            <b-img class="image" height="100" :src="require('../../assets/fromGraphics2/robotIcon.svg')"></b-img>
+            <b-img class="image" height="100" :src="require('../../assets/robotIcon.svg')"></b-img>
             <bot-message v-bind:text="$t('bot.introductionMessage')"></bot-message>
         </div>
     </div>

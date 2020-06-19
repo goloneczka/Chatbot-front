@@ -3,15 +3,15 @@ export default class ThemeService {
         this.themes= [
          {
                 themeName: "light",
-                imageSource: require('../../assets/fromGraphics2/skin_light.svg'),
+                imageSource: require('../../assets/skin_light.svg'),
                 isActiveTheme: false
             }, {
                 themeName: "blue",
-                imageSource: require('../../assets/fromGraphics2/skin_gradient.svg'),
+                imageSource: require('../../assets/skin_gradient.svg'),
                 isActiveTheme: true
             }, {
                 themeName: "dark",
-                imageSource: require('../../assets/fromGraphics2/skin_dark.svg'),
+                imageSource: require('../../assets/skin_dark.svg'),
                 isActiveTheme: false
             }
         ]
