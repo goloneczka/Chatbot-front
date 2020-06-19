@@ -1,16 +1,18 @@
 <template>
     <div id="time-component">
         <div id="calendar">
-            <b-calendar class="calendar" @context="onContext" value-as-date locale="pl-PL"
-                        v-bind="labels" :min="min" :max="max">
-                <div class="d-flex" dir="ltr">
-                    <b-button v-bind:class="themeService.getActiveTheme().themeName"
-                              class="m-2"
-                              @click="setDay">
-                        {{$t('weather.user.choiceDay')}}
-                    </b-button>
-                </div>
-            </b-calendar>
+            <div id="header-wrapper">
+                <b-calendar class="calendar" @context="onContext" value-as-date locale="pl-PL"
+                            v-bind="labels" :min="min" :max="max" >
+                    <div class="d-flex" dir="ltr">
+                        <b-button v-bind:class="themeService.getActiveTheme().themeName"
+                                  class="m-2"
+                                  @click="setDay">
+                            {{$t('weather.user.choiceDay')}}
+                        </b-button>
+                    </div>
+                </b-calendar>
+            </div>
         </div>
     </div>
 </template>
@@ -62,6 +64,13 @@
 <style scoped>
     #calendar {
         text-align: right;
+    }
+
+    #header-wrapper {
+        background: white;
+        display: inline-block;
+        height: 29px;
+        border-radius: 0.25rem;
     }
 
     button {
