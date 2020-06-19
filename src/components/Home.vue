@@ -2,15 +2,14 @@
     <div class="home" v-bind:class="themeService.getActiveTheme().themeName">
 
         <b-navbar v-bind:class="themeService.getActiveTheme().themeName">
-            <b-navbar-brand>
-                <b-img thumbnail center width="65" class="logo-image"
-                       :src="require('../assets/app_logo.png')"></b-img>
+            <b-navbar-brand class="app-logo">
+               <h1>{{$t('name')}}</h1>
             </b-navbar-brand>
             <b-navbar-nav class="ml-auto">
                 <b-nav-item v-for="(theme, index) in themeService.getAllThemes()" :key="index"
                             v-bind:activeTheme="theme.isActiveTheme"
                             v-on:click="changeTheme(index)" v-bind:class="themeService.getActiveTheme().themeName">
-                    <b-img height="40" v-bind:src="theme.imageSource"></b-img>
+                    <b-img class="theme-image" :src="theme.imageSource"></b-img>
                 </b-nav-item>
             </b-navbar-nav>
         </b-navbar>
@@ -70,13 +69,27 @@
         margin: 0 !important;
     }
 
+
     .logo-image {
         padding: 0;
         border: none;
     }
 
+    .theme-image {
+        height: 70px;
+    }
+
+    .app-logo {
+        padding-left: 3%;
+        color:white;
+    }
+
+
     nav {
         margin-bottom: 30px;
+        padding-top: 0;
+        padding-bottom: 0;
+
     }
 
     nav.light {
@@ -95,19 +108,21 @@
         outline: none;
     }
 
-    .nav-item {
-        border-radius: 50%;
-        margin: 5px;
-        border: var(--home-nav-item-border) transparent;
-
-    }
 
     .nav-item[activeTheme=true] {
-        border: var(--home-nav-item-border) var(--home-nav-item-active-border-color);
+        background: var(--home-nav-item-hover-bg-active-color);
     }
 
-    .nav-item:hover {
-        background: var(--home-nav-item-hover-bg-color);
+    .nav-item:hover.light {
+        background: var(--home-nav-item-hover-bg-color-light);
+    }
+
+    .nav-item:hover.dark {
+        background: var(--home-nav-item-hover-bg-color-dark);
+    }
+
+    .nav-item:hover.blue {
+        background: var(--home-nav-item-hover-bg-color-gradient);
     }
 
     .home {

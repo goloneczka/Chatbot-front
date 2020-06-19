@@ -1,7 +1,8 @@
 {
+  "name": "Mirek",
   "bot": {
     "helloMessage": "Cześć!",
-    "introductionMessage": "Hej, to ja! Twój przyjazny chatbot. Tak właśnie czekałem tutaj na Ciebie i zastanawiałem się w czym mogę Ci dzisiaj pomóc?",
+    "introductionMessage": "Hej, to ja Mirek! Twój przyjazny chatbot. Tak właśnie czekałem tutaj na Ciebie i zastanawiałem się w czym mogę Ci dzisiaj pomóc?",
     "chooseCategoryMessage": "Wystarczy tylko, że wybierzesz kategorię, która Cię interesuje.",
     "categoryWeather": "Pogoda",
     "categoryJokes": "Żarty",

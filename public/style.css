@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@600');
 
 :root {
     --main-bg-color: #9933ff;
@@ -23,7 +23,10 @@
     --home-nav-border: 1px solid black;
     --home-nav-item-border: 2px solid;
     --home-nav-item-active-border-color: #d3d9e0;
-    --home-nav-item-hover-bg-color: #ebf6ff;
+    --home-nav-item-hover-bg-color-gradient: #2cc3ed;
+    --home-nav-item-hover-bg-color-dark: gray;
+    --home-nav-item-hover-bg-color-light: #6c6e70;
+    --home-nav-item-hover-bg-active-color: #ebf6ff;
     --home-chat-box-border: 1px solid;
     --home-chat-box-light-theme-border-color: gray;
     --home-chat-box-dark-theme-border-color: gray;
@@ -153,7 +156,7 @@ html, body {
 }
 
 * {
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Jura', sans-serif;
 }
 
  button.light, .light button {
