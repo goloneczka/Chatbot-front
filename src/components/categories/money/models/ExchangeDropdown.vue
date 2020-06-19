@@ -13,12 +13,14 @@
 
 
     import {fortuneService} from "../../../../App";
+    import {themeService} from "../../../../App";
 
     export default {
         name: "ExchangeDropdown",
         data: function () {
             return {
-                exchanges: []
+                exchanges: [],
+                themeService
             }
         },
         mounted() {

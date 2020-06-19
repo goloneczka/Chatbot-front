@@ -4,18 +4,18 @@
             <CategoryDropdown class="right-align" v-if="showCategoryDropdown" :city-id="city.id"
                               @categoryDropdownOnClick="categoryDropdownOnClick"/>
         </transition>
-        <transition name="button-picker-slide">
+        <transition name="button-picker-slide" @after-enter="disabled=false">
             <div class="right-align" v-if="moreDetails">
-                <b-button class="m-2" v-on:click="showNewCategoryMessage"
-                          v-bind:class="themeService.getActiveTheme().themeName">
+                <b-button class="m-2" v-on:click="disableButtons(showNewCategoryMessage)"
+                          v-bind:class="themeService.getActiveTheme().themeName" :disabled="disabled">
                     {{$t('food.user.choiceNewCategory')}}
                 </b-button>
-                <b-button class="m-2" v-on:click="showAnotherRestaurantMessage"
-                          v-bind:class="themeService.getActiveTheme().themeName">
+                <b-button class="m-2" v-on:click="disableButtons(showAnotherRestaurantMessage)"
+                          v-bind:class="themeService.getActiveTheme().themeName" :disabled="disabled">
                     {{$t('food.user.choiceAnotherRestaurant')}}
                 </b-button>
-                <b-button class="m-2" v-on:click="showRatingMessage"
-                          v-bind:class="themeService.getActiveTheme().themeName">
+                <b-button class="m-2" v-on:click="disableButtons(showRatingMessage)"
+                          v-bind:class="themeService.getActiveTheme().themeName" :disabled="disabled">
                     {{$t('food.user.rateRestaurationChoice')}}
                 </b-button>
             </div>
@@ -48,7 +48,8 @@
                 menuData: '',
                 moreDetails: false,
                 rate: false,
-                themeService
+                themeService,
+                disabled: false
             }
         },
         mounted() {
@@ -88,13 +89,16 @@
                 });
             },
             showAnotherRestaurantMessage() {
+                this.moreDetails = false;
                 restaurantService.getRestaurantOfCityAndCategory(this.city.id, this.category).then((restaurantData) => {
                     if (restaurantData.errors)
                         this.$root.$emit("showDanger", this.$t('food.errors.errorGetRestaurantData') + restaurantData.errors[0]);
                     else {
                         this.restaurantData = restaurantData;
                         this.sendNestedMessage("user", this.$t('food.user.chooseOtherRestaurant')).then(() => {
-                            this.sendNestedMessage('bot', this.restaurantData, 'restaurantMessage');
+                            this.sendNestedMessage('bot', this.restaurantData, 'restaurantMessage').then(() => {
+                                this.moreDetails = true;
+                            });
                         });
                     }
                 });
@@ -117,6 +121,12 @@
                     });
                 })
             },
+            disableButtons(afterDisableFunction) {
+                this.disabled = true;
+                this.$nextTick(() => {
+                    afterDisableFunction();
+                })
+            }
         },
 
     }
