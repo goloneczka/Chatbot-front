@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Jura:wght@600');
+@import url("https://fonts.googleapis.com/css2?family=Sarpanch:wght@900");
 
 :root {
     --main-bg-color: #9933ff;
@@ -145,6 +146,7 @@
     --bot-hello-message-light-theme-text-color: #000000;
     --bot-hello-message-dark-theme-text-color: #ffffff;
     --bot-hello-message-blue-theme-text-color: #ffffff;
+
 }
 
 html, body {

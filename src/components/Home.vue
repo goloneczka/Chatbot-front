@@ -2,9 +2,9 @@
     <div class="home" v-bind:class="themeService.getActiveTheme().themeName">
 
         <b-navbar v-bind:class="themeService.getActiveTheme().themeName">
-            <b-navbar-brand class="app-logo">
-               <h1>{{$t('name')}}</h1>
-            </b-navbar-brand>
+            <div class="app-logo">
+               <div style="font-family: 'Sarpanch', sans-serif">{{$t('name')}}</div>
+            </div>
             <b-navbar-nav class="ml-auto">
                 <b-nav-item v-for="(theme, index) in themeService.getAllThemes()" :key="index"
                             v-bind:activeTheme="theme.isActiveTheme"
@@ -80,8 +80,9 @@
     }
 
     .app-logo {
-        padding-left: 3%;
+        padding-left: 2%;
         color:white;
+        font-size: 55px;
     }
 
 
