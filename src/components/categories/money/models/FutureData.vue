@@ -10,29 +10,16 @@
     import {sendMessage} from "../../../common/messages"
 
     const service = new FortuneService()
+
     export default {
-        name: "FutureData",
+        name: "HistoryData",
         props: ['stocks'],
         components: {
             Chart
         },
         data() {
             return {
-                chartdata: {},
-
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        xAxes: [{
-                            type: 'time',
-                            ticks: {
-                                autoSkip: true,
-                                maxTicksLimit: 20
-                            }
-                        }]
-                    }
-                }
+                chartdata: {}
             }
         },
         created: function() {
@@ -72,7 +59,7 @@
 </script>
 
 <style scoped>
-    .future-data-component {
+    .history-data-component {
         width: 70%;
         overflow-x: scroll;
     }
