@@ -1,5 +1,3 @@
-import { themeService } from "../../App.vue";
-
 export default class FortuneService {
     constructor(httpRequest) {
         this.httpRequest = httpRequest;
@@ -39,16 +37,14 @@ export default class FortuneService {
             axisY.push(value)
         }
 
-        let fontColor = (themeService.getActiveTheme().themeName === 'dark') ? 'white' : 'black'
-
         return {
             labels: axisX,
             datasets: [{
                 lineTension: 0,
                 label: stocks[0].symbol,
                 borderColor: '#2cc3ed',
+                pointBackgroundColor: '#2cc3ed',
                 fill: false,
-                legend: {labels: {fontColor: fontColor}},
                 data: axisY
             }]
         }

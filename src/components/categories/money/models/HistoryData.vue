@@ -10,6 +10,7 @@
     import {sendMessage} from "../../../common/messages"
 
     const service = new FortuneService()
+
     export default {
         name: "HistoryData",
         props: ['stocks'],
@@ -18,21 +19,7 @@
         },
         data() {
             return {
-                chartdata: {},
-
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        xAxes: [{
-                            type: 'time',
-                            ticks: {
-                                autoSkip: true,
-                                maxTicksLimit: 20
-                            }
-                        }]
-                    }
-                }
+                chartdata: {}
             }
         },
         created: function() {
