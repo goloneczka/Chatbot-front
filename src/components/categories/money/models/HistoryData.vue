@@ -1,6 +1,6 @@
 <template>
     <div class="history-data-component">
-        <chart class="chart" :chartdata=this.chartdata :options=this.options></chart>
+        <chart class="chart" :chartdata=this.chartdata></chart>
     </div>
 </template>
 
@@ -23,37 +23,32 @@
             }
         },
         created: function() {
-            const test = []
-            let year = 2000
-            let month = 1
-            let day = 24
+            // const test = []
+            // let year = 2000
+            // let month = 1
+            // let day = 24
 
-            for (let i = 1; i < 1000; i++) {
-                day++
+            // for (let i = 1; i < 1000; i++) {
+            //     day++
 
-                if (day > 30) {
-                    day = 1
-                    month++
+            //     if (day > 30) {
+            //         day = 1
+            //         month++
 
-                    if (month > 12) {
-                        month = 1
-                        year++
-                    }
-                }
+            //         if (month > 12) {
+            //             month = 1
+            //             year++
+            //         }
+            //     }
 
-                test.push({
-                    symbol: 'UGABUGA',
-                    value: Math.random(),
-                    date: '' + year + '-' + month + '-' + day
-                })
-            }
+            //     test.push({
+            //         symbol: 'UGABUGA',
+            //         value: Math.random(),
+            //         date: '' + year + '-' + month + '-' + day
+            //     })
+            // }
 
-            this.chartdata = service.extractChartData(/*this.stocks*/test)
-        },
-        mounted() {
-            sendMessage(this, 'bot', this)
-        },
-        methods: {
+            this.chartdata = service.extractChartData(this.stocks)
         }
     }
 </script>
