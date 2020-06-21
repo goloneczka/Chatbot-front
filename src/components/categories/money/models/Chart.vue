@@ -56,7 +56,6 @@
 
         watch: {
             fontColor () {
-                console.log("WIDZĘ CIĘ")
                 this.options.scales.xAxes[0].ticks.fontColor = this.fontColor
                 this.options.scales.yAxes[0].ticks.fontColor = this.fontColor
                 this.options.legend.labels.fontColor = this.fontColor
