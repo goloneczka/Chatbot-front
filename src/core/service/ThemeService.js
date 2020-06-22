@@ -1,17 +1,17 @@
 export default class ThemeService {
     constructor(){
         this.themes= [
-            {
-                themeName: "blue",
-                imageSource: require('../../assets/blue_bot.png'),
-                isActiveTheme: true
-            }, {
+         {
                 themeName: "light",
-                imageSource: require('../../assets/light_bot.png'),
+                imageSource: require('../../assets/skin_light.svg'),
                 isActiveTheme: false
             }, {
+                themeName: "blue",
+                imageSource: require('../../assets/skin_gradient.svg'),
+                isActiveTheme: true
+            }, {
                 themeName: "dark",
-                imageSource: require('../../assets/dark_bot.png'),
+                imageSource: require('../../assets/skin_dark.svg'),
                 isActiveTheme: false
             }
         ]
