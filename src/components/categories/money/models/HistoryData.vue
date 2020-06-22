@@ -7,7 +7,11 @@
 <script>
     import Chart from './Chart'
     import FortuneService from '../../../../core/service/FortuneService'
+<<<<<<< HEAD
     //import {sendMessage} from "../../../common/messages"
+=======
+    import {sendMessage} from "../../../common/messages"
+>>>>>>> 3a41e74f9e12ee9c6cd260772f3e0330efbd8cc9
 
     const service = new FortuneService()
 
