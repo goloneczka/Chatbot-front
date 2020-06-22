@@ -7,11 +7,7 @@
 <script>
     import Chart from './Chart'
     import FortuneService from '../../../../core/service/FortuneService'
-<<<<<<< HEAD
     //import {sendMessage} from "../../../common/messages"
-=======
-    import {sendMessage} from "../../../common/messages"
->>>>>>> 3a41e74f9e12ee9c6cd260772f3e0330efbd8cc9
 
     const service = new FortuneService()
 
@@ -27,31 +23,6 @@
             }
         },
         created: function() {
-            // const test = []
-            // let year = 2000
-            // let month = 1
-            // let day = 24
-
-            // for (let i = 1; i < 1000; i++) {
-            //     day++
-
-            //     if (day > 30) {
-            //         day = 1
-            //         month++
-
-            //         if (month > 12) {
-            //             month = 1
-            //             year++
-            //         }
-            //     }
-
-            //     test.push({
-            //         symbol: 'UGABUGA',
-            //         value: Math.random(),
-            //         date: '' + year + '-' + month + '-' + day
-            //     })
-            // }
-
             this.chartdata = service.extractChartData(this.stocks)
         }
     }
