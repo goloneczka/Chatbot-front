@@ -32,15 +32,18 @@ export default class FortuneService {
         let axisY = []
 
         for (let stock of stocks) {
-            let value = Math.round(stock.value * 100) / 100
-            axisX.push(stock.date)
-            axisY.push(value)
+            if (stock.value) {
+                let value = Math.round(stock.value * 100) / 100
+                axisX.push(stock.date[0] + '-' + stock.date[1] + '-' + stock.date[2])
+                axisY.push(value)
+            }
         }
 
         return {
             labels: axisX,
             datasets: [{
                 lineTension: 0,
+                pointRadius: 1,
                 label: stocks[0].symbol,
                 borderColor: '#2cc3ed',
                 pointBackgroundColor: '#2cc3ed',
