@@ -7,7 +7,7 @@
 <script>
     import Chart from './Chart'
     import FortuneService from '../../../../core/service/FortuneService'
-    //import {sendMessage} from "../../../common/messages"
+    import {sendMessage} from "../../../common/messages"
 
     const service = new FortuneService()
 
@@ -29,7 +29,7 @@
 </script>
 
 <style scoped>
-    .future-data-component {
+    .history-data-component {
         width: 70%;
         overflow-x: scroll;
     }
